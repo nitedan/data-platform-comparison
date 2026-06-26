@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Platform Comparison — Interactive 2026</title>
+<style>
+/* ══════════════════════════════════════════════
+   CSS VARIABLES & RESET
+══════════════════════════════════════════════ */
+:root {
+  --bg:       #f0f4f8;
+  --surface:  #ffffff;
+  --surface2: #f8fafc;
+  --border:   #e2e8f0;
+  --text:     #1a202c;
+  --text2:    #64748b;
+  --text3:    #94a3b8;
+  --shadow:   0 1px 4px rgba(0,0,0,0.08);
+  --shadow-lg:0 4px 20px rgba(0,0,0,0.12);
+  --radius:   10px;
+  --sidebar:  250px;
+
+  --db:  #f4511e; --db-t: rgba(244,81,30,0.12);
+  --sf:  #0ea5e9; --sf-t: rgba(14,165,233,0.12);
+  --mf:  #a855f7; --mf-t: rgba(168,85,247,0.12);
+  --ic:  #10b981; --ic-t: rgba(16,185,129,0.12);
+
+  --cap:  #22c55e;
+  --ops:  #3b82f6;
+  --eco:  #f59e0b;
+  --arc:  #8b5cf6;
+
+  --anim: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-dark="1"] {
+  --bg:      #0f172a;
+  --surface: #1e293b;
+  --surface2:#263347;
+  --border:  #334155;
+  --text:    #f1f5f9;
+  --text2:   #94a3b8;
+  --text3:   #475569;
+  --shadow:  0 1px 4px rgba(0,0,0,0.3);
+  --shadow-lg:0 4px 20px rgba(0,0,0,0.4);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:13px;overflow:hidden;height:100vh;display:flex;flex-direction:column;transition:background var(--anim),color var(--anim);}
+button{cursor:pointer;font-family:inherit;}
+input{font-family:inherit;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* ══════════════════════════════════════════════
+   TOP HEADER
+══════════════════════════════════════════════ */
+.top-bar {
+  background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);
+  color:#fff;
+  padding:12px 18px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  flex-shrink:0;
+  box-shadow:0 4px 24px rgba(0,0,0,0.4);
+  z-index:200;
+}
+.top-bar h1{font-size:16px;font-weight:800;white-space:nowrap;letter-spacing:-0.3px;}
+.top-bar h1 em{color:#10b981;font-style:normal;}
+.presets{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
+.preset-btn{
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.85);
+  padding:4px 11px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:600;
+  transition:all 0.2s;
+  white-space:nowrap;
+}
+.preset-btn:hover{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.4);}
+.preset-btn.active{background:rgba(16,185,129,0.3);border-color:#10b981;color:#10b981;}
+.top-controls{display:flex;gap:6px;}
+.ctrl-btn{
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  color:#fff;
+  width:32px;height:32px;
+  border-radius:8px;
+  font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.ctrl-btn:hover{background:rgba(255,255,255,0.2);}
+
+/* ══════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════ */
+.app-body{display:flex;flex:1;overflow:hidden;}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════════ */
+.sidebar{
+  width:var(--sidebar);
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  overflow-y:auto;
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  transition:width 0.3s,background var(--anim);
+}
+.sidebar.collapsed{width:0;overflow:hidden;}
+.sidebar-inner{padding:14px 12px;min-width:var(--sidebar);}
+
+.sb-section{margin-bottom:18px;}
+.sb-title{
+  font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--text3);
+  padding-bottom:6px;border-bottom:1px solid var(--border);
+  margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;
+}
+.sb-title .mini-btn{
+  background:var(--bg);border:1px solid var(--border);
+  color:var(--text2);padding:1px 6px;border-radius:4px;
+  font-size:9px;font-weight:700;cursor:pointer;text-transform:none;letter-spacing:0;
+}
+.sb-title .mini-btn:hover{background:var(--border);}
+
+/* Sliders */
+.slider-item{margin-bottom:9px;}
+.slider-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.slider-lbl{font-size:11px;font-weight:600;color:var(--text);display:flex;gap:4px;align-items:center;}
+.slider-lbl .ico{font-size:12px;}
+.slider-val{
+  background:var(--ic-t);color:var(--ic);
+  font-size:10px;font-weight:800;
+  padding:1px 7px;border-radius:10px;min-width:20px;text-align:center;
+  transition:background 0.2s;
+}
+.slider-val.zero{background:var(--border);color:var(--text3);}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:3px;border-radius:2px;
+  background:var(--border);outline:none;cursor:pointer;
+  transition:background 0.2s;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:13px;height:13px;
+  border-radius:50%;background:var(--ic);
+  box-shadow:0 0 0 3px rgba(16,185,129,0.2);
+  transition:box-shadow 0.2s,transform 0.1s;
+}
+input[type=range]::-webkit-slider-thumb:hover{
+  box-shadow:0 0 0 6px rgba(16,185,129,0.25);transform:scale(1.1);
+}
+input[type=range]:focus::-webkit-slider-thumb{box-shadow:0 0 0 5px rgba(16,185,129,0.3);}
+
+.group-lbl{
+  font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  margin:10px 0 5px;display:flex;align-items:center;gap:5px;
+}
+.group-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+/* Checkboxes */
+.check-row{display:flex;align-items:center;gap:6px;padding:3px 0;cursor:pointer;user-select:none;}
+.check-row input[type=checkbox]{accent-color:var(--ic);cursor:pointer;width:12px;height:12px;}
+.check-row label{font-size:11px;cursor:pointer;color:var(--text);}
+
+.reset-btn{
+  width:100%;padding:7px;border-radius:7px;
+  background:var(--ic-t);color:var(--ic);
+  border:1px solid rgba(16,185,129,0.3);
+  font-size:11px;font-weight:700;
+  transition:all 0.2s;letter-spacing:0.3px;
+  margin-top:4px;
+}
+.reset-btn:hover{background:var(--ic);color:#fff;}
+
+/* Legend */
+.legend{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:7px;padding:8px 10px;
+  display:flex;flex-direction:column;gap:3px;
+}
+.legend-row{display:flex;justify-content:space-between;align-items:center;}
+.legend-row .lk{font-size:10px;color:var(--text2);}
+.legend-row .lv{font-size:10px;font-weight:700;color:var(--text);}
+
+/* ══════════════════════════════════════════════
+   MAIN CONTENT
+══════════════════════════════════════════════ */
+.main-area{flex:1;overflow:auto;padding:14px 16px 30px;}
+
+/* Sticky column headers */
+.col-header-row{
+  display:flex;gap:8px;margin-bottom:8px;
+  position:sticky;top:0;z-index:50;
+  background:var(--bg);padding:4px 0 8px;
+}
+.col-spacer{width:170px;flex-shrink:0;}
+
+.plat-card{
+  flex:1;min-width:160px;
+  background:var(--surface);
+  border-radius:var(--radius);
+  padding:12px 10px 10px;
+  text-align:center;
+  border:2px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:border-color var(--anim),box-shadow 0.2s,background var(--anim);
+  cursor:default;
+  position:relative;
+  overflow:hidden;
+}
+.plat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--p-color);
+}
+.plat-card:hover{box-shadow:var(--shadow-lg);}
+.plat-card.rank-1{border-color:gold;box-shadow:0 0 0 1px gold,0 4px 16px rgba(250,200,0,0.2);}
+.plat-card.rank-2{border-color:#b0bec5;box-shadow:0 0 0 1px #b0bec5,0 4px 12px rgba(176,190,197,0.15);}
+.plat-card.rank-3{border-color:#cd7f32;box-shadow:0 0 0 1px #cd7f32,0 4px 12px rgba(205,127,50,0.15);}
+
+.rank-medal{position:absolute;top:8px;left:10px;font-size:16px;line-height:1;}
+.plat-name{font-size:14px;font-weight:800;margin-bottom:1px;}
+.plat-sub{font-size:9.5px;color:var(--text2);line-height:1.3;}
+.score-wrap{margin:8px 0 4px;}
+.score-bar-bg{background:var(--border);border-radius:3px;height:5px;overflow:hidden;}
+.score-bar-fill{height:5px;border-radius:3px;transition:width 0.6s cubic-bezier(0.4,0,0.2,1);}
+.score-num{font-size:20px;font-weight:900;margin-top:4px;letter-spacing:-1px;}
+.score-lbl{font-size:9px;color:var(--text3);font-weight:500;}
+.score-rank-tag{
+  display:inline-block;
+  margin-top:5px;padding:2px 8px;
+  border-radius:20px;font-size:10px;font-weight:700;
+  background:var(--p-tint);color:var(--p-color);
+}
+
+/* Criteria rows */
+.group-divider{
+  display:flex;align-items:center;gap:8px;
+  margin:14px 0 5px;
+}
+.group-divider .gline{flex:1;height:1px;background:var(--border);}
+.group-divider .gtag{
+  font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;
+  color:#fff;padding:2px 10px;border-radius:10px;white-space:nowrap;
+}
+
+.crit-row{
+  display:flex;gap:8px;margin-bottom:4px;align-items:stretch;
+  opacity:1;transition:opacity 0.2s;
+}
+.crit-row.hidden{display:none;}
+.crit-row.fading{opacity:0.3;}
+
+.crit-label{
+  width:170px;flex-shrink:0;
+  background:var(--surface);
+  border-radius:8px;
+  display:flex;align-items:center;
+  padding:9px 11px;gap:6px;
+  font-weight:600;font-size:11.5px;
+  box-shadow:var(--shadow);
+  border-left:3px solid var(--g-color,#ccc);
+  color:var(--text);
+  transition:background var(--anim);
+}
+.crit-label .ico{font-size:14px;}
+.crit-label .wt-badge{
+  margin-left:auto;
+  background:var(--border);color:var(--text3);
+  font-size:9px;font-weight:700;
+  padding:1px 5px;border-radius:8px;flex-shrink:0;
+}
+.crit-label .wt-badge.active{background:var(--ic-t);color:var(--ic);}
+
+.crit-cell{
+  flex:1;min-width:160px;
+  background:var(--surface);
+  border-radius:8px;
+  padding:9px 10px 8px;
+  display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;
+  border:1.5px solid transparent;
+  box-shadow:var(--shadow);
+  transition:border-color 0.3s,background 0.3s;
+  position:relative;
+  min-height:54px;
+}
+.crit-cell.is-best{
+  border-color:var(--p-color);
+  background:var(--p-tint);
+}
+.crit-cell.is-best .best-tag{display:block;}
+.best-tag{
+  display:none;
+  position:absolute;top:3px;right:4px;
+  font-size:8px;font-weight:800;
+  background:var(--p-color);color:#fff;
+  padding:1px 5px;border-radius:6px;
+  letter-spacing:0.3px;
+}
+
+.stars{font-size:13px;letter-spacing:0.5px;}
+.s-full{color:#f4b400;}
+.s-empty{color:var(--border);}
+.score-micro{
+  font-size:9px;font-weight:700;
+  color:var(--p-color);
+  background:var(--p-tint);
+  padding:1px 5px;border-radius:6px;
+  margin-top:2px;
+}
+.cell-note{font-size:9.5px;color:var(--text2);margin-top:3px;line-height:1.4;}
+
+/* Summary row */
+.summary-row{display:flex;gap:8px;margin-top:8px;}
+.summary-spacer{width:170px;flex-shrink:0;}
+.summary-card{
+  flex:1;min-width:160px;
+  border-radius:var(--radius);
+  padding:14px;color:#fff;
+  font-size:11.5px;line-height:1.5;
+}
+.summary-card .sh{font-size:13px;font-weight:800;margin-bottom:5px;}
+
+/* Tooltip */
+.tooltip-wrap{position:relative;}
+.tooltip-wrap:hover .tooltip-box{display:block;}
+.tooltip-box{
+  display:none;
+  position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#1e293b;color:#f1f5f9;
+  border-radius:7px;padding:8px 10px;
+  font-size:11px;line-height:1.5;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  z-index:999;pointer-events:none;
+  border:1px solid rgba(255,255,255,0.1);
+}
+.tooltip-box::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#1e293b;
+}
+
+/* ══════════════════════════════════════════════
+   STATUS BAR
+══════════════════════════════════════════════ */
+.status-bar{
+  flex-shrink:0;
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  padding:5px 16px;
+  display:flex;align-items:center;gap:14px;
+  font-size:10.5px;color:var(--text2);
+}
+.status-bar .sb-item{display:flex;align-items:center;gap:4px;}
+.status-bar .sb-dot{width:7px;height:7px;border-radius:50%;}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ TOP BAR ══════════════ -->
+<header class="top-bar">
+  <h1>📊 Platform Comparison <em>2026</em></h1>
+
+  <div class="presets">
+    <button class="preset-btn" data-preset="equal">⚖️ Equal</button>
+    <button class="preset-btn" data-preset="dataEngineer">⚙️ Data Engineer</button>
+    <button class="preset-btn" data-preset="biAnalyst">📊 BI / SQL Analyst</button>
+    <button class="preset-btn" data-preset="mlEngineer">🤖 ML Engineer</button>
+    <button class="preset-btn" data-preset="platformEngineer">🏗️ Platform Engineer</button>
+    <button class="preset-btn" data-preset="costOptimizer">💰 Cost Optimizer</button>
+    <button class="preset-btn" data-preset="openSource">🌐 Open Source First</button>
+    <button class="preset-btn" data-preset="microsoftShop">🔷 Microsoft Shop</button>
+  </div>
+
+  <div class="top-controls">
+    <button class="ctrl-btn" id="sidebarToggle" title="Toggle sidebar">☰</button>
+    <button class="ctrl-btn" id="darkBtn" title="Toggle dark mode">🌙</button>
+    <button class="ctrl-btn" id="expandBtn" title="Expand all rows">＋</button>
+  </div>
+</header>
+
+<!-- ══════════════ APP BODY ══════════════ -->
+<div class="app-body">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+
+      <!-- Importance Weights -->
+      <div class="sb-section">
+        <div class="sb-title">
+          ⚖️ Importance Weights
+          <button class="mini-btn" id="resetBtn">↺ Reset</button>
+        </div>
+        <div id="sliders-wrap"></div>
+      </div>
+
+      <!-- Row Visibility -->
+      <div class="sb-section">
+        <div class="sb-title">
+          👁 Show / Hide Rows
+          <span style="display:flex;gap:3px;">
+            <button class="mini-btn" id="allOn">All On</button>
+            <button class="mini-btn" id="allOff">All Off</button>
+          </span>
+        </div>
+        <div id="toggles-wrap"></div>
+      </div>
+
+      <!-- Legend -->
+      <div class="sb-section">
+        <div class="sb-title">📖 Weight Guide</div>
+        <div class="legend">
+          <div class="legend-row"><span class="lk">0 — Ignore</span><span class="lv">Not relevant</span></div>
+          <div class="legend-row"><span class="lk">1 — Minimal</span><span class="lv">Nice to have</span></div>
+          <div class="legend-row"><span class="lk">2 — Low</span><span class="lv">Minor factor</span></div>
+          <div class="legend-row"><span class="lk">3 — Medium</span><span class="lv">Matters</span></div>
+          <div class="legend-row"><span class="lk">4 — High</span><span class="lv">Important</span></div>
+          <div class="legend-row"><span class="lk">5 — Critical</span><span class="lv">Must-have</span></div>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ══ MAIN AREA ══ -->
+  <main class="main-area" id="mainArea">
+    <!-- Rendered by JS -->
+  </main>
+</div>
+
+<!-- ══════════════ STATUS BAR ══════════════ -->
+<footer class="status-bar" id="statusBar">
+  <span id="statusText">Loading…</span>
+  <span style="margin-left:auto;font-size:9.5px;color:var(--text3);">Scores = Σ(weight × criterion) / Σ(max weighted) × 100</span>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════
+     DATA & LOGIC
+══════════════════════════════════════════════════════════ -->
+<script>
+// ─── PLATFORMS ─────────────────────────────────────────────
+const PLATFORMS = [
+  {
+    id:'databricks', name:'Databricks', emoji:'⚡',
+    sub:'Data Lakehouse + AI/ML',
+    color:'#f4511e', tint:'rgba(244,81,30,0.10)',
+    summary:'Best for AI-driven teams wanting an open, unified lakehouse. Industry-leading for ML and large-scale data engineering.',
+    scores:{
+      dataEngineering:5, dataWarehousing:3, machineLearning:5, genAI:5,
+      realTimeAnalytics:4, streaming:4.5, sqlPerformance:4, scalability:5,
+      easeOfUse:3, powerBI:2.5, dataSharing:3.5,
+      costEfficiency:3.5, openStandards:4, noLockIn:2.5,
+    }
+  },
+  {
+    id:'snowflake', name:'Snowflake', emoji:'❄️',
+    sub:'Cloud Data Warehouse + Data Cloud',
+    color:'#0ea5e9', tint:'rgba(14,165,233,0.10)',
+    summary:'Best for SQL-first analytics teams. Simplest path to scalable warehousing. Best-in-class concurrency and data sharing.',
+    scores:{
+      dataEngineering:3, dataWarehousing:5, machineLearning:2.5, genAI:2.5,
+      realTimeAnalytics:2.5, streaming:2, sqlPerformance:5, scalability:5,
+      easeOfUse:4.5, powerBI:2.5, dataSharing:5,
+      costEfficiency:2, openStandards:1.5, noLockIn:1,
+    }
+  },
+  {
+    id:'fabric', name:'Microsoft Fabric', emoji:'🔷',
+    sub:'Unified Analytics SaaS',
+    color:'#a855f7', tint:'rgba(168,85,247,0.10)',
+    summary:'Best for Power BI-heavy orgs and Microsoft ecosystems. Unified SaaS that eliminates fragmentation across your stack.',
+    scores:{
+      dataEngineering:3.5, dataWarehousing:4, machineLearning:3, genAI:3,
+      realTimeAnalytics:3.5, streaming:3, sqlPerformance:4, scalability:3.5,
+      easeOfUse:5, powerBI:5, dataSharing:3,
+      costEfficiency:3, openStandards:2.5, noLockIn:1.5,
+    }
+  },
+  {
+    id:'redshift', name:'Amazon Redshift', emoji:'🔴',
+    sub:'Cloud Data Warehouse on AWS',
+    color:'#FF9900', tint:'rgba(255,153,0,0.10)',
+    summary:'Best for AWS-native organizations needing proven enterprise-grade cloud warehousing. Deeply integrated with the AWS ecosystem, S3 data lake and SageMaker AI.',
+    scores:{
+      dataEngineering:3.5, dataWarehousing:4, machineLearning:3.5, genAI:3,
+      realTimeAnalytics:3, streaming:3, sqlPerformance:4, scalability:4.5,
+      easeOfUse:3.5, powerBI:3, dataSharing:4,
+      costEfficiency:3.5, openStandards:3, noLockIn:2,
+    }
+  }
+];
+
+// ─── CRITERIA ──────────────────────────────────────────────
+const CRITERIA = [
+  { id:'dataEngineering',   label:'Data Engineering',     icon:'⚙️',  group:'Capabilities',
+    notes:{ databricks:'Spark + Delta Live Tables',         snowflake:'SQL-first; limited Spark',              fabric:'Data Factory + Spark Notebooks',      redshift:'AWS Glue + dbt; Spark via EMR' } },
+  { id:'dataWarehousing',   label:'Data Warehousing',     icon:'🏛️',  group:'Capabilities',
+    notes:{ databricks:'Serverless SQL Warehouse (Photon)', snowflake:'Best-in-class Virtual Warehouses',      fabric:'Synapse Analytics + OneLake',          redshift:'RA3 nodes — managed storage + compute' } },
+  { id:'machineLearning',   label:'Machine Learning / AI',icon:'🤖',  group:'Capabilities',
+    notes:{ databricks:'MLflow, AutoML, Mosaic AI',         snowflake:'Snowpark ML (growing)',                 fabric:'Azure ML integration',                 redshift:'Redshift ML + SageMaker integration' } },
+  { id:'genAI',             label:'GenAI & LLM Apps',    icon:'🧠',  group:'Capabilities',
+    notes:{ databricks:'DBRX, Foundation Models, Mosaic',   snowflake:'Cortex AI (catching up)',               fabric:'Copilot + Azure OpenAI',               redshift:'AWS Bedrock + Amazon Titan' } },
+  { id:'realTimeAnalytics', label:'Real-Time Analytics',  icon:'⚡',  group:'Capabilities',
+    notes:{ databricks:'Structured Streaming + DLT',        snowflake:'Dynamic Tables (limited)',              fabric:'Real-Time Intelligence (KQL)',          redshift:'Kinesis Data Firehose → Redshift' } },
+  { id:'streaming',         label:'Streaming / CDC',      icon:'🌊',  group:'Capabilities',
+    notes:{ databricks:'Native Kafka + Spark Streaming',    snowflake:'Snowpipe Streaming',                    fabric:'Eventstream (Fabric)',                  redshift:'Kinesis Data Streams; limited native CDC' } },
+  { id:'sqlPerformance',    label:'SQL Performance',      icon:'🚀',  group:'Capabilities',
+    notes:{ databricks:'Photon engine — very fast',         snowflake:'Best-in-class SQL engine',              fabric:'Synapse SQL engine',                   redshift:'AQUA hardware acceleration — very fast' } },
+  { id:'scalability',       label:'Scalability',          icon:'📈',  group:'Capabilities',
+    notes:{ databricks:'Petabyte-scale Spark clusters',     snowflake:'Instant elastic multi-cluster',         fabric:'Fabric capacity (F SKU)',               redshift:'Serverless auto-scaling + RA3 nodes' } },
+  { id:'easeOfUse',         label:'Ease of Use',          icon:'🎯',  group:'Operational',
+    notes:{ databricks:'Medium — Spark expertise needed',   snowflake:'Easy — SQL-first SaaS',                 fabric:'Easiest — GUI-driven',                 redshift:'Familiar SQL; AWS console + query editor' } },
+  { id:'powerBI',           label:'Power BI Integration', icon:'📊',  group:'Operational',
+    notes:{ databricks:'Partner Connect + DirectQuery',     snowflake:'Native BI connector',                   fabric:'Native / Best-in-class',               redshift:'ODBC/JDBC + QuickSight native' } },
+  { id:'dataSharing',       label:'Data Sharing',         icon:'🤝',  group:'Operational',
+    notes:{ databricks:'Delta Sharing (open protocol)',     snowflake:'Secure Data Sharing (best-in-class)',   fabric:'OneLake shortcuts + Fabric items',      redshift:'Redshift Data Sharing + AWS Data Exchange' } },
+  { id:'costEfficiency',    label:'Cost Efficiency',      icon:'💰',  group:'Economics',
+    notes:{ databricks:'Medium — cluster + DBU pricing',   snowflake:'Expensive at scale (per-credit)',        fabric:'Good for existing M365 customers',      redshift:'Good TCO — reserved instances save 60%+' } },
+  { id:'openStandards',     label:'Open Standards',       icon:'🌐',  group:'Architecture',
+    notes:{ databricks:'Delta Lake (open format)',          snowflake:'Proprietary storage format',            fabric:'Partially open (Parquet in OneLake)',   redshift:'Spectrum queries Iceberg/Parquet on S3' } },
+  { id:'noLockIn',          label:'No Vendor Lock-in',    icon:'🔓',  group:'Architecture',
+    notes:{ databricks:'Medium — open format, closed platform', snowflake:'High — proprietary all the way',   fabric:'Very high — deep Microsoft dependency', redshift:'Medium — Spectrum/S3 provide escape hatch' } },
+];
+
+const GROUP_COLORS = {
+  Capabilities:'#22c55e', Operational:'#3b82f6',
+  Economics:'#f59e0b',   Architecture:'#8b5cf6'
+};
+
+// ─── PRESETS ───────────────────────────────────────────────
+const PRESETS = {
+  equal:{
+    dataEngineering:3,dataWarehousing:3,machineLearning:3,genAI:3,realTimeAnalytics:3,
+    streaming:3,sqlPerformance:3,scalability:3,easeOfUse:3,powerBI:3,dataSharing:3,
+    costEfficiency:3,openStandards:3,noLockIn:3
+  },
+  dataEngineer:{
+    dataEngineering:5,streaming:5,realTimeAnalytics:4,scalability:4,openStandards:3,
+    noLockIn:3,costEfficiency:2,machineLearning:3,genAI:2,dataWarehousing:2,
+    sqlPerformance:2,easeOfUse:2,powerBI:1,dataSharing:1
+  },
+  biAnalyst:{
+    dataWarehousing:5,sqlPerformance:5,easeOfUse:4,powerBI:4,dataSharing:3,
+    scalability:3,costEfficiency:2,dataEngineering:1,realTimeAnalytics:2,
+    machineLearning:1,genAI:1,streaming:1,openStandards:1,noLockIn:1
+  },
+  mlEngineer:{
+    machineLearning:5,genAI:5,dataEngineering:4,scalability:4,openStandards:3,
+    streaming:3,realTimeAnalytics:3,costEfficiency:2,dataWarehousing:2,
+    easeOfUse:2,noLockIn:2,sqlPerformance:1,powerBI:1,dataSharing:1
+  },
+  platformEngineer:{
+    openStandards:5,noLockIn:5,costEfficiency:5,dataEngineering:4,scalability:4,
+    streaming:3,realTimeAnalytics:2,machineLearning:2,dataWarehousing:2,
+    sqlPerformance:2,easeOfUse:1,genAI:1,powerBI:0,dataSharing:1
+  },
+  costOptimizer:{
+    costEfficiency:5,noLockIn:4,openStandards:4,scalability:3,dataEngineering:3,
+    dataWarehousing:3,machineLearning:2,sqlPerformance:2,realTimeAnalytics:2,
+    streaming:2,easeOfUse:2,genAI:1,powerBI:1,dataSharing:1
+  },
+  openSource:{
+    openStandards:5,noLockIn:5,costEfficiency:4,dataEngineering:4,streaming:4,
+    scalability:3,machineLearning:3,realTimeAnalytics:3,genAI:2,dataWarehousing:2,
+    sqlPerformance:2,easeOfUse:1,powerBI:0,dataSharing:1
+  },
+  microsoftShop:{
+    powerBI:5,easeOfUse:4,dataWarehousing:4,sqlPerformance:3,scalability:3,
+    costEfficiency:3,genAI:3,dataEngineering:3,realTimeAnalytics:3,dataSharing:2,
+    machineLearning:2,streaming:2,openStandards:1,noLockIn:0
+  }
+};
+
+// ─── STATE ─────────────────────────────────────────────────
+let weights  = { ...PRESETS.equal };
+let visible  = {};
+let dark     = false;
+let sideOpen = true;
+let activePreset = null;
+let renderPending = null;
+
+CRITERIA.forEach(c => { visible[c.id] = true; });
+
+// ─── SCORING ───────────────────────────────────────────────
+function calcScore(platformId) {
+  const p = PLATFORMS.find(x => x.id === platformId);
+  let tot = 0, wsum = 0;
+  CRITERIA.forEach(c => {
+    const w = weights[c.id] ?? 3;
+    tot  += w * (p.scores[c.id] ?? 0);
+    wsum += w * 5;
+  });
+  return wsum === 0 ? 0 : Math.round((tot / wsum) * 100);
+}
+
+function sorted() {
+  return [...PLATFORMS].sort((a,b) => calcScore(b.id) - calcScore(a.id));
+}
+
+// ─── STARS ─────────────────────────────────────────────────
+function stars(score) {
+  const full = Math.round(score);
+  let h = '';
+  for (let i = 1; i <= 5; i++)
+    h += `<span class="${i<=full?'s-full':'s-empty'}">★</span>`;
+  return `<div class="stars">${h}</div>`;
+}
+
+// ─── RENDER ────────────────────────────────────────────────
+function render() {
+  const ord = sorted();
+  const medals = ['🥇','🥈','🥉','4️⃣'];
+  const rankLabels = ['#1 Best Match','#2','#3','#4 Lowest Match'];
+  let html = '';
+
+  // ── Sticky column headers ──
+  html += `<div class="col-header-row"><div class="col-spacer"></div>`;
+  ord.forEach((p, i) => {
+    const sc = calcScore(p.id);
+    html += `
+    <div class="plat-card rank-${i+1} tooltip-wrap"
+         style="--p-color:${p.color};--p-tint:${p.tint};">
+      <div class="rank-medal">${medals[i]}</div>
+      <div class="plat-name" style="color:${p.color}">${p.emoji} ${p.name}</div>
+      <div class="plat-sub">${p.sub}</div>
+      <div class="score-wrap">
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width:${sc}%;background:${p.color}"></div>
+        </div>
+      </div>
+      <div class="score-num" style="color:${p.color}">${sc}<span style="font-size:12px;font-weight:600">%</span></div>
+      <div class="score-lbl">match score</div>
+      <div class="score-rank-tag">${rankLabels[i]}</div>
+      <div class="tooltip-box">Score = weighted average across all active criteria</div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // ── Criteria groups ──
+  const groups = [...new Set(CRITERIA.map(c => c.group))];
+  groups.forEach(g => {
+    const gc = GROUP_COLORS[g] || '#888';
+    html += `
+    <div class="group-divider">
+      <div class="gline"></div>
+      <div class="gtag" style="background:${gc}">${g}</div>
+      <div class="gline"></div>
+    </div>`;
+
+    CRITERIA.filter(c => c.group === g).forEach(c => {
+      const w = weights[c.id] ?? 3;
+      const scores = ord.map(p => p.scores[c.id] ?? 0);
+      const best   = Math.max(...scores);
+      const isVis  = visible[c.id];
+
+      html += `<div class="crit-row ${isVis ? '' : 'hidden'}" data-row="${c.id}">`;
+      html += `
+      <div class="crit-label" style="--g-color:${gc}">
+        <span class="ico">${c.icon}</span>
+        <span>${c.label}</span>
+        <span class="wt-badge ${w>0?'active':''}">${w}</span>
+      </div>`;
+
+      ord.forEach(p => {
+        const sc   = p.scores[c.id] ?? 0;
+        const isBest = sc === best && sc > 0;
+        const note = c.notes[p.id] || '';
+        html += `
+        <div class="crit-cell ${isBest?'is-best':''} tooltip-wrap"
+             style="--p-color:${p.color};--p-tint:${p.tint};">
+          ${isBest ? '<div class="best-tag">BEST</div>' : ''}
+          ${stars(sc)}
+          <div class="score-micro">${sc}/5</div>
+          ${note ? `<div class="cell-note">${note}</div>` : ''}
+          <div class="tooltip-box">
+            ${p.emoji} ${p.name}: ${sc}/5 stars<br>
+            ${note}
+          </div>
+        </div>`;
+      });
+      html += `</div>`;
+    });
+  });
+
+  // ── Summary cards ──
+  html += `
+  <div class="group-divider">
+    <div class="gline"></div>
+    <div class="gtag" style="background:#334155">Summary</div>
+    <div class="gline"></div>
+  </div>
+  <div class="summary-row">
+    <div class="summary-spacer"></div>`;
+  ord.forEach(p => {
+    html += `
+    <div class="summary-card" style="background:${p.color};">
+      <div class="sh">${p.emoji} ${p.name}</div>
+      ${p.summary}
+    </div>`;
+  });
+  html += `</div>`;
+
+  document.getElementById('mainArea').innerHTML = html;
+  updateStatus(ord);
+}
+
+function updateStatus(ord) {
+  const wActive = CRITERIA.filter(c => (weights[c.id] ?? 0) > 0).length;
+  const rowsOn  = CRITERIA.filter(c => visible[c.id]).length;
+  document.getElementById('statusText').innerHTML =
+    `<span>🏆 Leader: <strong>${ord[0].emoji} ${ord[0].name}</strong> (${calcScore(ord[0].id)}%)</span>
+     &nbsp;|&nbsp; Active weights: <strong>${wActive}/${CRITERIA.length}</strong>
+     &nbsp;|&nbsp; Visible rows: <strong>${rowsOn}/${CRITERIA.length}</strong>`;
+}
+
+// ─── SIDEBAR ───────────────────────────────────────────────
+function buildSidebar() {
+  const sw = document.getElementById('sliders-wrap');
+  const tw = document.getElementById('toggles-wrap');
+
+  const groups = [...new Set(CRITERIA.map(c => c.group))];
+  let sh = '';
+  groups.forEach(g => {
+    const gc = GROUP_COLORS[g] || '#888';
+    sh += `<div class="group-lbl" style="color:${gc}">
+             <div class="group-dot" style="background:${gc}"></div>${g}
+           </div>`;
+    CRITERIA.filter(c => c.group === g).forEach(c => {
+      const w = weights[c.id] ?? 3;
+      sh += `
+      <div class="slider-item">
+        <div class="slider-head">
+          <div class="slider-lbl"><span class="ico">${c.icon}</span>${c.label}</div>
+          <div class="slider-val ${w===0?'zero':''}" id="sv-${c.id}">${w}</div>
+        </div>
+        <input type="range" min="0" max="5" step="1" value="${w}"
+               data-id="${c.id}" class="w-slider">
+      </div>`;
+    });
+  });
+  sw.innerHTML = sh;
+
+  let th = '';
+  CRITERIA.forEach(c => {
+    th += `
+    <div class="check-row">
+      <input type="checkbox" id="chk-${c.id}" data-id="${c.id}" ${visible[c.id]?'checked':''}>
+      <label for="chk-${c.id}">${c.icon} ${c.label}</label>
+    </div>`;
+  });
+  tw.innerHTML = th;
+
+  // Slider events
+  document.querySelectorAll('.w-slider').forEach(s => {
+    s.addEventListener('input', e => {
+      const id = e.target.dataset.id;
+      const v  = parseInt(e.target.value);
+      weights[id] = v;
+      const el = document.getElementById(`sv-${id}`);
+      el.textContent = v;
+      el.className   = `slider-val ${v===0?'zero':''}`;
+      activePreset = null;
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      scheduleRender();
+    });
+  });
+
+  // Checkbox events
+  document.querySelectorAll('#toggles-wrap input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const id = e.target.dataset.id;
+      visible[id] = e.target.checked;
+      // Toggle without full re-render
+      const row = document.querySelector(`.crit-row[data-row="${id}"]`);
+      if (row) row.classList.toggle('hidden', !e.target.checked);
+      updateStatus(sorted());
+    });
+  });
+}
+
+function updateSliders() {
+  CRITERIA.forEach(c => {
+    const s  = document.querySelector(`.w-slider[data-id="${c.id}"]`);
+    const el = document.getElementById(`sv-${c.id}`);
+    if (!s || !el) return;
+    const v = weights[c.id] ?? 3;
+    s.value = v;
+    el.textContent = v;
+    el.className = `slider-val ${v===0?'zero':''}`;
+  });
+}
+
+// ─── DEBOUNCED RENDER ──────────────────────────────────────
+function scheduleRender() {
+  clearTimeout(renderPending);
+  renderPending = setTimeout(render, 80);
+}
+
+// ─── PRESETS ───────────────────────────────────────────────
+function applyPreset(id) {
+  if (!PRESETS[id]) return;
+  weights = { ...PRESETS[id] };
+  activePreset = id;
+  updateSliders();
+  document.querySelectorAll('.preset-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.preset === id)
+  );
+  render();
+}
+
+document.querySelectorAll('.preset-btn').forEach(b =>
+  b.addEventListener('click', () => applyPreset(b.dataset.preset))
+);
+
+// ─── CONTROLS ──────────────────────────────────────────────
+document.getElementById('resetBtn').addEventListener('click', () => {
+  applyPreset('equal');
+});
+
+document.getElementById('allOn').addEventListener('click', () => {
+  CRITERIA.forEach(c => { visible[c.id] = true; });
+  document.querySelectorAll('#toggles-wrap input[type=checkbox]').forEach(cb => cb.checked = true);
+  document.querySelectorAll('.crit-row').forEach(r => r.classList.remove('hidden'));
+  updateStatus(sorted());
+});
+
+document.getElementById('allOff').addEventListener('click', () => {
+  CRITERIA.forEach(c => { visible[c.id] = false; });
+  document.querySelectorAll('#toggles-wrap input[type=checkbox]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('.crit-row').forEach(r => r.classList.add('hidden'));
+  updateStatus(sorted());
+});
+
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  sideOpen = !sideOpen;
+  document.getElementById('sidebar').classList.toggle('collapsed', !sideOpen);
+});
+
+document.getElementById('darkBtn').addEventListener('click', () => {
+  dark = !dark;
+  document.body.setAttribute('data-dark', dark ? '1' : '0');
+  document.getElementById('darkBtn').textContent = dark ? '☀️' : '🌙';
+});
+
+document.getElementById('expandBtn').addEventListener('click', () => {
+  const allOn = CRITERIA.every(c => visible[c.id]);
+  CRITERIA.forEach(c => { visible[c.id] = !allOn; });
+  document.querySelectorAll('#toggles-wrap input[type=checkbox]').forEach(cb => cb.checked = !allOn);
+  document.querySelectorAll('.crit-row').forEach(r => r.classList.toggle('hidden', allOn));
+  document.getElementById('expandBtn').textContent = allOn ? '＋' : '－';
+  updateStatus(sorted());
+});
+
+// ─── INIT ──────────────────────────────────────────────────
+buildSidebar();
+render();
+</script>
+</body>
+</html>

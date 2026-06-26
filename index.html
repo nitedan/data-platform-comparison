@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Platform Comparison — 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .hero {
+    text-align: center;
+    margin-bottom: 56px;
+    max-width: 680px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,153,0,0.15);
+    color: #FF9900;
+    border: 1px solid rgba(255,153,0,0.3);
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #e6edf3 30%, #8b9fc0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #8b9fc0;
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .platforms {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .plat-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    color: #c9d1d9;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 960px;
+  }
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 16px 16px 0 0;
+  }
+  .card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .card-icon {
+    font-size: 32px;
+    line-height: 1;
+  }
+  .card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #e6edf3;
+  }
+  .card p {
+    font-size: 13.5px;
+    color: #8b9fc0;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .card-badge {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.07);
+    color: var(--accent);
+    border: 1px solid rgba(255,255,255,0.08);
+    width: fit-content;
+  }
+  .arrow {
+    font-size: 18px;
+    color: var(--accent);
+    margin-top: 4px;
+    transition: transform 0.2s;
+  }
+  .card:hover .arrow { transform: translateX(4px); }
+  footer {
+    margin-top: 56px;
+    font-size: 12px;
+    color: #484f58;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">2026 Edition</div>
+  <h1>Data Platform Intelligence Hub</h1>
+  <p class="subtitle">Compare the world's top 5 cloud data platforms — Databricks, Snowflake, Microsoft Fabric, Google BigQuery &amp; Amazon Redshift — across dozens of criteria to find the right fit for your organization.</p>
+  <div class="platforms">
+    <span class="plat-pill">⚡ Databricks</span>
+    <span class="plat-pill">❄️ Snowflake</span>
+    <span class="plat-pill">🔷 Microsoft Fabric</span>
+    <span class="plat-pill">🟡 Google BigQuery</span>
+    <span class="plat-pill">🔴 Amazon Redshift</span>
+  </div>
+</div>
+
+<div class="cards">
+
+  <a href="platform-advisor.html" class="card" style="--accent:#00d4aa;">
+    <div class="card-icon">🧭</div>
+    <h2>Platform Advisor</h2>
+    <p>Answer questions about your company type, team profile, business domain, budget, and implementation timeline — get a personalized recommendation with weighted scoring.</p>
+    <div class="card-badge">5 Platforms · 18 Criteria · Smart Filters</div>
+    <div class="arrow">→</div>
+  </a>
+
+  <a href="comparison-dynamic.html" class="card" style="--accent:#7c6af7;">
+    <div class="card-icon">⚖️</div>
+    <h2>Dynamic Comparison</h2>
+    <p>Explore all platforms side-by-side across 14 weighted criteria. Sort by importance, filter by use case, and drill into detailed notes for each platform.</p>
+    <div class="card-badge">4 Platforms · 14 Criteria · Presets</div>
+    <div class="arrow">→</div>
+  </a>
+
+  <a href="comparison.html" class="card" style="--accent:#FF9900;">
+    <div class="card-icon">📊</div>
+    <h2>Static Reference Sheet</h2>
+    <p>A printable, comprehensive reference comparing Databricks, Snowflake, Microsoft Fabric, and Amazon Redshift across architecture, pricing, strengths, and ideal users.</p>
+    <div class="card-badge">4 Platforms · Full Detail · Print-Friendly</div>
+    <div class="arrow">→</div>
+  </a>
+
+</div>
+
+<footer>
+  <p>Data is indicative as of 2026. Scores and pricing subject to change. For decision support only.</p>
+</footer>
+
+</body>
+</html>

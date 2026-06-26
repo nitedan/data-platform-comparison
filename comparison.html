@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Databricks vs Snowflake vs Microsoft Fabric vs Amazon Redshift</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; font-size: 13px; }
+
+  /* ── HEADER ── */
+  .page-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+    color: #fff;
+    text-align: center;
+    padding: 28px 20px 20px;
+  }
+  .page-header h1 { font-size: 26px; font-weight: 800; letter-spacing: 1px; }
+  .page-header h1 span { color: #e94560; }
+  .page-header .subtitle { font-size: 13px; color: #aac4de; margin-top: 6px; }
+  .page-header .tagline { font-size: 12px; color: #7faacc; margin-top: 4px; font-style: italic; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 12px 40px; }
+
+  /* ── COLUMN HEADERS ── */
+  .col-headers {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin: 18px 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .col-headers .blank { background: transparent; }
+  .platform-header {
+    border-radius: 10px 10px 0 0;
+    padding: 14px 10px 10px;
+    text-align: center;
+    color: #fff;
+  }
+  .platform-header .logo-row { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+  .platform-header .tagbadge {
+    display: inline-block;
+    margin-top: 5px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .db-head  { background: linear-gradient(135deg, #e64a19, #ff7043); }
+  .sf-head  { background: linear-gradient(135deg, #0277bd, #29b6f6); }
+  .mf-head  { background: linear-gradient(135deg, #5e35b1, #ab47bc); }
+  .ic-head  { background: linear-gradient(135deg, #b34700, #FF9900); }
+
+  /* ── SECTION BLOCK ── */
+  .section-block {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .section-label {
+    background: #1a1a2e;
+    color: #aac4de;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 6px;
+  }
+  .section-content {
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+
+  /* ── OVERVIEW TABLE ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .row-label {
+    background: #fff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    font-weight: 600;
+    color: #1a1a2e;
+    font-size: 11.5px;
+    border-left: 3px solid #1a1a2e;
+  }
+  .cell {
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 46px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .cell.db  { border-top: 3px solid #ff7043; }
+  .cell.sf  { border-top: 3px solid #29b6f6; }
+  .cell.mf  { border-top: 3px solid #ab47bc; }
+  .cell.ic  { border-top: 3px solid #FF9900; }
+  .stars { color: #f4b400; font-size: 14px; letter-spacing: 1px; }
+  .stars .empty { color: #ddd; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .badge-green  { background: #e8f5e9; color: #2e7d32; }
+  .badge-orange { background: #fff3e0; color: #e65100; }
+  .badge-red    { background: #ffebee; color: #b71c1c; }
+  .badge-blue   { background: #e3f2fd; color: #0277bd; }
+  .badge-purple { background: #f3e5f5; color: #6a1b9a; }
+  .badge-teal   { background: #e0f2f1; color: #00695c; }
+
+  /* ── ARCHITECTURE CARD ── */
+  .arch-block {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .arch-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px;
+    min-height: 180px;
+  }
+  .arch-card h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .arch-card.db h4 { color: #e64a19; }
+  .arch-card.sf h4 { color: #0277bd; }
+  .arch-card.mf h4 { color: #5e35b1; }
+  .arch-card.ic h4 { color: #b34700; }
+  .arch-layer {
+    background: #f5f5f5;
+    border-radius: 4px;
+    padding: 5px 8px;
+    margin-bottom: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .arch-arrow { text-align: center; color: #999; font-size: 12px; margin: 2px 0; }
+  .arch-layer.highlight-db { background: #fff3e0; color: #e64a19; border: 1px solid #ffcc80; }
+  .arch-layer.highlight-sf { background: #e3f2fd; color: #0277bd; border: 1px solid #81d4fa; }
+  .arch-layer.highlight-mf { background: #f3e5f5; color: #5e35b1; border: 1px solid #ce93d8; }
+  .arch-layer.highlight-ic { background: #e0f2f1; color: #00695c; border: 1px solid #80cbc4; }
+  .arch-icons { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+  .cloud-pill {
+    background: #e8eaf6;
+    color: #3949ab;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  /* ── STRENGTHS / USERS BLOCK ── */
+  .detail-block {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .detail-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .detail-card h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .detail-card.db h4 { color: #e64a19; }
+  .detail-card.sf h4 { color: #0277bd; }
+  .detail-card.mf h4 { color: #5e35b1; }
+  .detail-card.ic h4 { color: #b34700; }
+  .detail-card ul { padding-left: 14px; }
+  .detail-card ul li { font-size: 11.5px; margin-bottom: 4px; line-height: 1.4; }
+
+  /* ── PRICING BLOCK ── */
+  .pricing-block {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .pricing-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .pricing-card .model-tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .pricing-card.db .model-tag { background: #fff3e0; color: #e64a19; }
+  .pricing-card.sf .model-tag { background: #e3f2fd; color: #0277bd; }
+  .pricing-card.mf .model-tag { background: #f3e5f5; color: #5e35b1; }
+  .pricing-card.ic .model-tag { background: #fff3e0; color: #e65100; }
+  .pricing-card p { font-size: 11.5px; line-height: 1.5; color: #333; margin-bottom: 4px; }
+  .price-item { display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding: 3px 0; font-size: 11px; }
+  .price-item .label { color: #666; }
+  .price-item .val { font-weight: 700; color: #333; }
+
+  /* ── CHOOSE BLOCK ── */
+  .choose-block {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .choose-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .choose-card h4 { font-size: 12px; font-weight: 800; margin-bottom: 8px; }
+  .choose-card.db h4 { color: #e64a19; }
+  .choose-card.sf h4 { color: #0277bd; }
+  .choose-card.mf h4 { color: #5e35b1; }
+  .choose-card.ic h4 { color: #b34700; }
+  .choose-card ul { padding-left: 14px; }
+  .choose-card ul li { font-size: 11.5px; margin-bottom: 5px; line-height: 1.4; }
+
+  /* ── ROLES BLOCK ── */
+  .roles-block {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .roles-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .role-tag {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    margin: 2px 2px;
+  }
+  .role-tag.db { background: #fff3e0; color: #e64a19; }
+  .role-tag.sf { background: #e3f2fd; color: #0277bd; }
+  .role-tag.mf { background: #f3e5f5; color: #5e35b1; }
+  .role-tag.ic { background: #fff3e0; color: #e65100; }
+
+  /* ── SUMMARY BLOCK ── */
+  .summary-block {
+    display: grid;
+    grid-template-columns: 180px repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .summary-card {
+    border-radius: 8px;
+    padding: 14px;
+    color: #fff;
+  }
+  .summary-card.db { background: linear-gradient(135deg, #e64a19, #ff7043); }
+  .summary-card.sf { background: linear-gradient(135deg, #0277bd, #29b6f6); }
+  .summary-card.mf { background: linear-gradient(135deg, #5e35b1, #ab47bc); }
+  .summary-card.ic { background: linear-gradient(135deg, #b34700, #FF9900); }
+  .summary-card .headline { font-size: 13px; font-weight: 800; margin-bottom: 6px; }
+  .summary-card p { font-size: 11.5px; opacity: 0.9; line-height: 1.5; }
+
+  /* ── SECTION HEADER LABEL ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 4px;
+    gap: 8px;
+  }
+  .section-header .sh-line { flex: 1; height: 2px; background: #dce3ec; }
+  .section-header .sh-title {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    color: #888;
+    font-size: 11px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+  }
+  footer strong { color: #00695c; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ PAGE HEADER ══════════════════════ -->
+<div class="page-header">
+  <h1>DATABRICKS <span>vs</span> SNOWFLAKE <span>vs</span> MICROSOFT FABRIC <span>vs</span> APACHE ICEBERG+S3</h1>
+  <div class="subtitle">A COMPLETE COMPARISON (2026)</div>
+  <div class="tagline">Four leading modern data platforms — including the open-source stack. Choose the right one for your organization.</div>
+</div>
+
+<div class="container">
+
+  <!-- ══ COLUMN HEADERS ══ -->
+  <div class="col-headers">
+    <div class="blank"></div>
+    <div class="platform-header db-head">
+      <div class="logo-row">⚡ databricks</div>
+      <div class="tagbadge">Data Lakehouse + AI/ML</div>
+    </div>
+    <div class="platform-header sf-head">
+      <div class="logo-row">❄️ snowflake</div>
+      <div class="tagbadge">Cloud Data Warehouse + Data Cloud</div>
+    </div>
+    <div class="platform-header mf-head">
+      <div class="logo-row">🔷 Microsoft Fabric</div>
+      <div class="tagbadge">Unified Analytics SaaS</div>
+    </div>
+    <div class="platform-header ic-head">
+      <div class="logo-row">🔴 Amazon Redshift</div>
+      <div class="tagbadge">Cloud Data Warehouse on AWS</div>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION: OVERVIEW ══════ -->
+  <div class="section-header"><div class="sh-line"></div><div class="sh-title">Overview</div><div class="sh-line"></div></div>
+
+  <!-- Core Strength -->
+  <div class="overview-grid">
+    <div class="row-label">Core Strength</div>
+    <div class="cell db">Data Lakehouse + AI/ML<br><span class="badge badge-orange">Unified</span></div>
+    <div class="cell sf">Cloud Data Warehouse + Data Cloud<br><span class="badge badge-blue">SaaS</span></div>
+    <div class="cell mf">Unified Analytics SaaS<br><span class="badge badge-purple">Microsoft-native</span></div>
+    <div class="cell ic">Cloud Data Warehouse + AWS Ecosystem<br><span class="badge badge-orange">AWS-native</span></div>
+  </div>
+
+  <!-- Best For -->
+  <div class="overview-grid">
+    <div class="row-label">Best For</div>
+    <div class="cell db">Data Engineers, Data Scientists, AI Teams</div>
+    <div class="cell sf">BI & SQL Analytics Teams</div>
+    <div class="cell mf">Microsoft-centric Organizations</div>
+    <div class="cell ic">AWS-native Organizations, SQL Analytics Teams</div>
+  </div>
+
+  <!-- Storage -->
+  <div class="overview-grid">
+    <div class="row-label">Storage</div>
+    <div class="cell db">Open Lakehouse (Delta Lake – Open Format)</div>
+    <div class="cell sf">Proprietary Storage Layer</div>
+    <div class="cell mf">OneLake (Unified)</div>
+    <div class="cell ic"><strong>Redshift Managed Storage (RA3)</strong><br><span class="badge badge-orange">Separated compute/storage</span></div>
+  </div>
+
+  <!-- Data Engineering -->
+  <div class="overview-grid">
+    <div class="row-label">Data Engineering</div>
+    <div class="cell db"><span class="stars">★★★★★</span></div>
+    <div class="cell sf"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell mf"><span class="stars">★★★★<span class="empty">★</span></span></div>
+    <div class="cell ic"><span class="stars">★★★<span class="empty">★★</span></span><br><small>AWS Glue + dbt; Spark via EMR</small></div>
+  </div>
+
+  <!-- Data Warehousing -->
+  <div class="overview-grid">
+    <div class="row-label">Data Warehousing</div>
+    <div class="cell db"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell sf"><span class="stars">★★★★★</span></div>
+    <div class="cell mf"><span class="stars">★★★★<span class="empty">★</span></span></div>
+    <div class="cell ic"><span class="stars">★★★★<span class="empty">★</span></span><br><small>RA3 nodes + AQUA acceleration</small></div>
+  </div>
+
+  <!-- Machine Learning / AI -->
+  <div class="overview-grid">
+    <div class="row-label">Machine Learning / AI</div>
+    <div class="cell db"><span class="stars">★★★★★</span></div>
+    <div class="cell sf"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell mf"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell ic"><span class="stars">★★★<span class="empty">★★</span></span><br><small>Redshift ML + SageMaker integration</small></div>
+  </div>
+
+  <!-- GenAI & LLM Apps -->
+  <div class="overview-grid">
+    <div class="row-label">GenAI &amp; LLM Apps</div>
+    <div class="cell db"><span class="stars">★★★★★</span></div>
+    <div class="cell sf"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell mf"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell ic"><span class="stars">★★★<span class="empty">★★</span></span><br><small>AWS Bedrock + Amazon Titan</small></div>
+  </div>
+
+  <!-- Real-Time Analytics -->
+  <div class="overview-grid">
+    <div class="row-label">Real-Time Analytics</div>
+    <div class="cell db"><span class="stars">★★★★<span class="empty">★</span></span></div>
+    <div class="cell sf"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell mf"><span class="stars">★★★★<span class="empty">★</span></span></div>
+    <div class="cell ic"><span class="stars">★★★<span class="empty">★★</span></span><br><small>Kinesis Data Firehose → Redshift</small></div>
+  </div>
+
+  <!-- Ease of Use -->
+  <div class="overview-grid">
+    <div class="row-label">Ease of Use</div>
+    <div class="cell db"><span class="badge badge-orange">Medium</span></div>
+    <div class="cell sf"><span class="badge badge-blue">Easy</span></div>
+    <div class="cell mf"><span class="badge badge-purple">Very Easy</span></div>
+    <div class="cell ic"><span class="badge badge-orange">Medium</span><br><small>Familiar SQL; AWS console + query editor</small></div>
+  </div>
+
+  <!-- Power BI Integration -->
+  <div class="overview-grid">
+    <div class="row-label">Power BI Integration</div>
+    <div class="cell db"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell sf"><span class="stars">★★★<span class="empty">★★</span></span></div>
+    <div class="cell mf"><span class="stars">★★★★★</span><br><small>Native / Best-in-class</small></div>
+    <div class="cell ic"><span class="stars">★★★<span class="empty">★★</span></span><br><small>ODBC/JDBC + QuickSight native</small></div>
+  </div>
+
+  <!-- Cost Efficiency -->
+  <div class="overview-grid">
+    <div class="row-label">Cost Efficiency</div>
+    <div class="cell db"><span class="badge badge-green">Good</span><br><small>Depends on workload</small></div>
+    <div class="cell sf"><span class="badge badge-orange">Variable</span><br><small>Can become expensive</small></div>
+    <div class="cell mf"><span class="badge badge-purple">Good for Microsoft shops</span><br><small>Often cheaper for existing customers</small></div>
+    <div class="cell ic"><span class="badge badge-green">Good</span><br><small>Reserved instances save 60%+ vs on-demand</small></div>
+  </div>
+
+  <!-- Open Standards -->
+  <div class="overview-grid">
+    <div class="row-label">Open Standards</div>
+    <div class="cell db"><span class="badge badge-green">Excellent</span><br><small>Delta Lake (open)</small></div>
+    <div class="cell sf"><span class="badge badge-red">Limited</span><br><small>Proprietary formats</small></div>
+    <div class="cell mf"><span class="badge badge-orange">Moderate</span><br><small>OneLake partially open</small></div>
+    <div class="cell ic"><span class="badge badge-orange">Moderate</span><br><small>Spectrum queries Iceberg/Parquet/ORC on S3</small></div>
+  </div>
+
+  <!-- Vendor Lock-in -->
+  <div class="overview-grid">
+    <div class="row-label">Vendor Lock-in</div>
+    <div class="cell db"><span class="badge badge-orange">Medium</span><br><small>Delta open; platform less so</small></div>
+    <div class="cell sf"><span class="badge badge-red">High</span><br><small>Proprietary storage & compute</small></div>
+    <div class="cell mf"><span class="badge badge-red">High</span><br><small>Deep Microsoft ecosystem tie-in</small></div>
+    <div class="cell ic"><span class="badge badge-orange">Medium</span><br><small>Spectrum/S3 provide partial escape hatch</small></div>
+  </div>
+
+  <!-- ══════ SECTION: ARCHITECTURE ══════ -->
+  <div class="section-header"><div class="sh-line"></div><div class="sh-title">Architecture at a Glance</div><div class="sh-line"></div></div>
+
+  <div class="arch-block">
+    <div class="section-label">Architecture</div>
+
+    <!-- Databricks -->
+    <div class="arch-card db">
+      <h4>Databricks Lakehouse</h4>
+      <div class="arch-layer highlight-db">Unity Catalog (Governance & Metadata)</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer">Delta Live Tables / Spark / DLT Pipelines</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer highlight-db">Delta Lake (Open Storage Format)</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer">MLflow · Mosaic AI · SQL Warehouse</div>
+      <div class="arch-icons">
+        <span class="cloud-pill">AWS</span><span class="cloud-pill">Azure</span><span class="cloud-pill">GCP</span>
+      </div>
+      <p style="font-size:10px;color:#888;margin-top:6px;text-align:center;">Open · Unified · AI-Powered</p>
+    </div>
+
+    <!-- Snowflake -->
+    <div class="arch-card sf">
+      <h4>Snowflake Data Cloud</h4>
+      <div class="arch-layer highlight-sf">Cortex AI / Machine Learning</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer">Data Apps · Marketplace · Data Sharing</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer highlight-sf">Snowflake Storage Layer</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer">Virtual Warehouses (Compute)</div>
+      <div class="arch-icons">
+        <span class="cloud-pill">AWS</span><span class="cloud-pill">Azure</span><span class="cloud-pill">GCP</span>
+      </div>
+      <p style="font-size:10px;color:#888;margin-top:6px;text-align:center;">Multi-Cloud · Elastic · Secure</p>
+    </div>
+
+    <!-- Microsoft Fabric -->
+    <div class="arch-card mf">
+      <h4>Microsoft Fabric (OneLake)</h4>
+      <div class="arch-layer highlight-mf">Power BI · Fabric Analytics · Copilot</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer">Data Factory · Synapse · Real-Time Intelligence</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer highlight-mf">OneLake (Unified Data Foundation)</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer">Microsoft 365 · Azure Ecosystem</div>
+      <div class="arch-icons">
+        <span class="cloud-pill" style="background:#e8eaf6;color:#3949ab">Azure</span>
+      </div>
+      <p style="font-size:10px;color:#888;margin-top:6px;text-align:center;">Unified · Integrated · Microsoft-first</p>
+    </div>
+
+    <!-- Amazon Redshift -->
+    <div class="arch-card ic">
+      <h4>Amazon Redshift</h4>
+      <div class="arch-layer highlight-ic">Redshift Serverless / Provisioned Cluster</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer">AQUA Hardware Acceleration · Concurrency Scaling</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer highlight-ic">RA3 Managed Storage (decoupled)</div>
+      <div class="arch-arrow">▼</div>
+      <div class="arch-layer">Redshift Spectrum → S3 Data Lake · SageMaker · Bedrock</div>
+      <div class="arch-icons">
+        <span class="cloud-pill" style="background:#fff3e0;color:#e65100">AWS</span>
+      </div>
+      <p style="font-size:10px;color:#888;margin-top:6px;text-align:center;">AWS-native · Proven · Enterprise-grade</p>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION: KEY STRENGTHS ══════ -->
+  <div class="section-header"><div class="sh-line"></div><div class="sh-title">Key Strengths</div><div class="sh-line"></div></div>
+
+  <div class="detail-block">
+    <div class="section-label">Key Strengths</div>
+
+    <div class="detail-card db">
+      <h4>Databricks</h4>
+      <ul>
+        <li>Industry-leading AI/ML platform (Mosaic AI, MLflow)</li>
+        <li>Excellent data engineering with Spark at scale</li>
+        <li>Highly scalable and open ecosystem</li>
+        <li>Strong data governance & partner network</li>
+        <li>Unity Catalog for multi-cloud governance</li>
+      </ul>
+    </div>
+
+    <div class="detail-card sf">
+      <h4>Snowflake</h4>
+      <ul>
+        <li>Simplest and fastest to scale SQL workloads</li>
+        <li>Excellent SQL concurrency & performance</li>
+        <li>Near-zero infrastructure management</li>
+        <li>Rich Data Marketplace & data sharing</li>
+        <li>Cortex AI for built-in ML capabilities</li>
+      </ul>
+    </div>
+
+    <div class="detail-card mf">
+      <h4>Microsoft Fabric</h4>
+      <ul>
+        <li>Unified platform for all analytics workloads</li>
+        <li>Native Power BI & Microsoft 365 integration</li>
+        <li>Lower operational complexity for M365 orgs</li>
+        <li>Copilot AI embedded throughout</li>
+        <li>Single capacity-based pricing model</li>
+      </ul>
+    </div>
+
+    <div class="detail-card ic">
+      <h4>Amazon Redshift</h4>
+      <ul>
+        <li>AQUA hardware acceleration for ultra-fast SQL queries</li>
+        <li>Deep AWS ecosystem integration (S3, Glue, SageMaker, Bedrock)</li>
+        <li>RA3 nodes — managed storage with independent compute scaling</li>
+        <li>Redshift Serverless for zero-administration workloads</li>
+        <li>Redshift Data Sharing for secure cross-account collaboration</li>
+        <li>Spectrum queries open formats (Parquet, Iceberg, ORC) on S3</li>
+        <li>FedRAMP GovCloud — strongest compliance portfolio on AWS</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION: IDEAL USERS ══════ -->
+  <div class="section-header"><div class="sh-line"></div><div class="sh-title">Ideal Users</div><div class="sh-line"></div></div>
+
+  <div class="detail-block">
+    <div class="section-label">Ideal Users</div>
+
+    <div class="detail-card db">
+      <h4>Databricks Ideal For</h4>
+      <ul>
+        <li>Data Engineers building complex pipelines</li>
+        <li>Data Scientists & ML practitioners</li>
+        <li>Organizations building AI products</li>
+        <li>Companies wanting open data standards</li>
+      </ul>
+    </div>
+
+    <div class="detail-card sf">
+      <h4>Snowflake Ideal For</h4>
+      <ul>
+        <li>Business Intelligence & SQL Analytics teams</li>
+        <li>Finance, Sales & Marketing analytics</li>
+        <li>Organizations with high SQL concurrency</li>
+        <li>Companies needing secure data sharing</li>
+      </ul>
+    </div>
+
+    <div class="detail-card mf">
+      <h4>Microsoft Fabric Ideal For</h4>
+      <ul>
+        <li>Power BI-heavy organizations</li>
+        <li>Mid-size enterprises already on Azure/M365</li>
+        <li>Developers in the Microsoft ecosystem</li>
+        <li>Teams wanting a unified SaaS experience</li>
+      </ul>
+    </div>
+
+    <div class="detail-card ic">
+      <h4>Amazon Redshift Ideal For</h4>
+      <ul>
+        <li>AWS-native organizations expanding their data stack</li>
+        <li>Enterprise SQL analytics teams at scale</li>
+        <li>Finance, retail & healthcare requiring compliance (HIPAA/SOC2)</li>
+        <li>Companies already using S3, Glue, SageMaker</li>
+        <li>Teams needing secure cross-account data sharing</li>
+        <li>Cost-conscious orgs leveraging reserved instance discounts</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION: PRICING ══════ -->
+  <div class="section-header"><div class="sh-line"></div><div class="sh-title">Pricing Overview (Indicative)</div><div class="sh-line"></div></div>
+
+  <div class="pricing-block">
+    <div class="section-label">Pricing</div>
+
+    <div class="pricing-card db">
+      <div class="model-tag">Usage-Based (Pay-as-you-go)</div>
+      <div class="price-item"><span class="label">Compute (DBU)</span><span class="val">$0.07–$0.55/hr</span></div>
+      <div class="price-item"><span class="label">Storage (Delta on S3)</span><span class="val">~$23/TB/month</span></div>
+      <div class="price-item"><span class="label">Cloud pass-through</span><span class="val">Standard cloud rates</span></div>
+      <p style="margin-top:8px;font-size:10.5px;color:#888;">Cost depends on cluster size, workload patterns & optimization.</p>
+    </div>
+
+    <div class="pricing-card sf">
+      <div class="model-tag">Consumption-Based</div>
+      <div class="price-item"><span class="label">Compute (Warehouse)</span><span class="val">$2–$4 / credit</span></div>
+      <div class="price-item"><span class="label">Storage</span><span class="val">$23–$46/TB/month</span></div>
+      <div class="price-item"><span class="label">Data Transfer</span><span class="val">Additional charges</span></div>
+      <p style="margin-top:8px;font-size:10.5px;color:#888;">Can become expensive at scale; negotiate enterprise agreements.</p>
+    </div>
+
+    <div class="pricing-card mf">
+      <div class="model-tag">Capacity / Pay-per-use</div>
+      <div class="price-item"><span class="label">Fabric Capacity (F SKU)</span><span class="val">$730–$38k+/month</span></div>
+      <div class="price-item"><span class="label">Pay-as-you-go</span><span class="val">Up to $18,000+/month</span></div>
+      <div class="price-item"><span class="label">Small workload charges</span><span class="val">Per operation billed</span></div>
+      <p style="margin-top:8px;font-size:10.5px;color:#888;">Often cheaper for existing Microsoft/Azure customers.</p>
+    </div>
+
+    <div class="pricing-card ic">
+      <div class="model-tag">On-Demand / Reserved Instances</div>
+      <div class="price-item"><span class="label">Serverless (RPU)</span><span class="val">$0.36/RPU-hr</span></div>
+      <div class="price-item"><span class="label">RA3 Provisioned</span><span class="val">$0.26–$6.19/node-hr</span></div>
+      <div class="price-item"><span class="label">Managed Storage</span><span class="val">$0.024/GB-month</span></div>
+      <div class="price-item"><span class="label">Reserved (1 yr)</span><span class="val">Save up to 40%</span></div>
+      <p style="margin-top:8px;font-size:10.5px;color:#888;"><strong>Good TCO for AWS shops.</strong> 3-year reserved instances save 60%+. Serverless option for variable workloads.</p>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION: WHEN TO CHOOSE ══════ -->
+  <div class="section-header"><div class="sh-line"></div><div class="sh-title">Which One Should You Choose?</div><div class="sh-line"></div></div>
+
+  <div class="choose-block">
+    <div class="section-label">Choose If…</div>
+
+    <div class="choose-card db">
+      <h4>✅ Choose DATABRICKS if:</h4>
+      <ul>
+        <li>AI/ML is central to your data strategy</li>
+        <li>You need advanced data engineering at scale</li>
+        <li>You want an open lakehouse (Delta)</li>
+        <li>You need a data-driven AI platform</li>
+        <li>Your team has strong Spark expertise</li>
+      </ul>
+    </div>
+
+    <div class="choose-card sf">
+      <h4>✅ Choose SNOWFLAKE if:</h4>
+      <ul>
+        <li>SQL analytics is your primary workload</li>
+        <li>You want simplicity and scalability</li>
+        <li>You need high concurrency SQL execution</li>
+        <li>You do data sharing across organizations</li>
+        <li>You want minimal infrastructure management</li>
+      </ul>
+    </div>
+
+    <div class="choose-card mf">
+      <h4>✅ Choose MICROSOFT FABRIC if:</h4>
+      <ul>
+        <li>Power BI is widely used in your org</li>
+        <li>You are a Microsoft / Azure first organization</li>
+        <li>You want lower total complexity for all users</li>
+        <li>You prefer a single unified SaaS platform</li>
+        <li>Budget aligns with Microsoft licensing</li>
+      </ul>
+    </div>
+
+    <div class="choose-card ic">
+      <h4>✅ Choose AMAZON REDSHIFT if:</h4>
+      <ul>
+        <li>Your organization is AWS-native or heavily AWS-invested</li>
+        <li>SQL analytics at enterprise scale is your primary workload</li>
+        <li>You need strong compliance (HIPAA, SOC2, FedRAMP GovCloud)</li>
+        <li>You want deep SageMaker or Bedrock AI integration</li>
+        <li>Cross-account data sharing is a key requirement</li>
+        <li>You need proven warehouse performance at petabyte scale</li>
+        <li>Budget optimization through reserved instances matters</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION: RECOMMENDED BY ROLE ══════ -->
+  <div class="section-header"><div class="sh-line"></div><div class="sh-title">Recommended by Role</div><div class="sh-line"></div></div>
+
+  <div class="roles-block">
+    <div class="section-label">By Role</div>
+
+    <div class="roles-card" style="border-top:3px solid #ff7043;">
+      <div style="font-weight:700;font-size:11px;color:#e64a19;margin-bottom:6px;">DATABRICKS</div>
+      <span class="role-tag db">Data Analyst</span>
+      <span class="role-tag db">BI Developer</span>
+      <span class="role-tag db">Data Engineer</span>
+      <span class="role-tag db">AI Engineer</span>
+      <span class="role-tag db">Data Scientist</span>
+    </div>
+
+    <div class="roles-card" style="border-top:3px solid #29b6f6;">
+      <div style="font-weight:700;font-size:11px;color:#0277bd;margin-bottom:6px;">SNOWFLAKE</div>
+      <span class="role-tag sf">SQL Analyst</span>
+      <span class="role-tag sf">BI Developer</span>
+      <span class="role-tag sf">Data Engineer</span>
+      <span class="role-tag sf">Business Analyst</span>
+    </div>
+
+    <div class="roles-card" style="border-top:3px solid #ab47bc;">
+      <div style="font-weight:700;font-size:11px;color:#5e35b1;margin-bottom:6px;">MICROSOFT FABRIC</div>
+      <span class="role-tag mf">Power BI Developer</span>
+      <span class="role-tag mf">SQL Developer</span>
+      <span class="role-tag mf">Data Analyst</span>
+      <span class="role-tag mf">Architect</span>
+    </div>
+
+    <div class="roles-card" style="border-top:3px solid #FF9900;">
+      <div style="font-weight:700;font-size:11px;color:#e65100;margin-bottom:6px;">AMAZON REDSHIFT</div>
+      <span class="role-tag ic">SQL Analyst</span>
+      <span class="role-tag ic">Data Engineer</span>
+      <span class="role-tag ic">BI Developer</span>
+      <span class="role-tag ic">Data Architect</span>
+      <span class="role-tag ic">AWS Data Engineer</span>
+    </div>
+  </div>
+
+  <!-- ══════ SECTION: SHORT SUMMARY ══════ -->
+  <div class="section-header"><div class="sh-line"></div><div class="sh-title">Short Summary</div><div class="sh-line"></div></div>
+
+  <div class="summary-block">
+    <div class="section-label" style="background:#1a1a2e;">Summary</div>
+
+    <div class="summary-card db">
+      <div class="headline">⚡ Databricks</div>
+      <p>Best for AI-driven data teams that want an open, unified lakehouse. Industry-leading for ML and large-scale data engineering. Higher complexity, higher reward.</p>
+    </div>
+
+    <div class="summary-card sf">
+      <div class="headline">❄️ Snowflake</div>
+      <p>Best for SQL-first analytics teams. Simplest path to scalable data warehousing. Can get expensive, but delivers unmatched SQL concurrency and ease of use.</p>
+    </div>
+
+    <div class="summary-card mf">
+      <div class="headline">🔷 Microsoft Fabric</div>
+      <p>Best-in-class for Power BI users and Microsoft-native organizations. Unified SaaS that reduces fragmentation across your data stack for Microsoft customers.</p>
+    </div>
+
+    <div class="summary-card ic">
+      <div class="headline">🔴 Amazon Redshift</div>
+      <p>Best for AWS-native organizations needing proven enterprise-grade cloud warehousing. Deeply integrated with S3, SageMaker, and Bedrock — the go-to warehouse on the world's largest cloud.</p>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <p>All pricing is indicative as of 2026 and subject to change. Costs vary significantly based on workload, region, and negotiated contracts.</p>
+  <p style="margin-top:4px;">🔴 <strong>Amazon Redshift</strong> included as the 4th platform — top 4 commercial cloud data platforms compared as of 2026.</p>
+</footer>
+
+</body>
+</html>
