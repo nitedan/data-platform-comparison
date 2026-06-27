@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Platform Advisor — Enterprise Comparison 2026</title>
+<title>Data Platform Advisor — Top 4 + Open Source 2026</title>
 <style>
 /* ══════════════════════════════════════════════════════
    DESIGN TOKENS
@@ -406,7 +406,7 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--ic-t);t
     <div class="brand-logo">📊</div>
     <div class="brand-text">
       <h1>Data Platform Advisor</h1>
-      <span>Enterprise Selection Tool — 2026</span>
+      <span>Top 4 Commercial + Open Source — 2026</span>
     </div>
   </div>
   <div class="header-divider"></div>
@@ -545,10 +545,10 @@ const P = [
     scores:{ dataEng:3.5,dataWH:4.5,ml:4,genAI:4,realTime:4,streaming:3.5,sql:4.5,scale:5,ease:4,pbi:3,sharing:4,cost:2.5,open:3,noLock:2 }
   },
   {
-    id:'rs', name:'Amazon Redshift', emoji:'🔴', sub:'Cloud Data Warehouse on AWS',
-    c:'#FF9900', t:'rgba(255,153,0,0.10)',
-    summary:'Best for AWS-native organizations needing proven enterprise-grade cloud warehousing. Deeply integrated with the AWS ecosystem, S3 data lake and SageMaker AI.',
-    scores:{ dataEng:3.5,dataWH:4,ml:3.5,genAI:3,realTime:3,streaming:3,sql:4,scale:4.5,ease:3.5,pbi:3,sharing:4,cost:3.5,open:3,noLock:2 }
+    id:'ic', name:'Apache Iceberg + S3', emoji:'🧊', sub:'Open Lakehouse — Lowest Cost',
+    c:'#26A69A', t:'rgba(38,166,154,0.10)',
+    summary:'Best for engineering-led teams needing maximum flexibility, lowest cost, and zero vendor lock-in. The fully open lakehouse stack — you assemble the engines, you own the data. Cheapest option at any scale.',
+    scores:{ dataEng:5,dataWH:3,ml:3,genAI:2.5,realTime:2.5,streaming:3,sql:3,scale:4.5,ease:2,pbi:2,sharing:3,cost:5,open:5,noLock:5 }
   }
 ];
 
@@ -556,52 +556,56 @@ const P = [
 // CRITERIA
 // ─────────────────────────────────────────────────────────────
 const CRIT = [
-  { id:'dataEng',  label:'Data Engineering',        ico:'⚙️', group:'Capabilities',
-    notes:{ db:'Spark + Delta Live Tables (DLT)',         sf:'SQL-first; limited native Spark',       mf:'Data Factory + Spark Notebooks',           bq:'Dataflow + dbt; powerful but complex',      rs:'AWS Glue + dbt; Spark via EMR' } },
-  { id:'dataWH',   label:'Data Warehousing',         ico:'🏛️', group:'Capabilities',
-    notes:{ db:'Serverless SQL Warehouse (Photon)',        sf:'Best-in-class Virtual Warehouses',      mf:'Synapse Analytics + OneLake',              bq:'Dremel engine — serverless, ultra-fast',    rs:'RA3 nodes — managed storage + compute' } },
-  { id:'ml',       label:'Machine Learning / AI',    ico:'🤖', group:'Capabilities',
-    notes:{ db:'MLflow, AutoML, Mosaic AI',               sf:'Snowpark ML (growing)',                  mf:'Azure ML integration',                     bq:'BigQuery ML + Vertex AI',                   rs:'Redshift ML + SageMaker integration' } },
-  { id:'genAI',    label:'GenAI & LLM Apps',         ico:'🧠', group:'Capabilities',
-    notes:{ db:'DBRX, Foundation Models, LLM serving',    sf:'Cortex AI (catching up)',                mf:'Copilot + Azure OpenAI integration',        bq:'Gemini + Vertex AI (excellent)',            rs:'AWS Bedrock + Amazon Titan integration' } },
-  { id:'realTime', label:'Real-Time Analytics',      ico:'⚡', group:'Capabilities',
-    notes:{ db:'Structured Streaming + DLT',              sf:'Dynamic Tables (limited)',               mf:'Real-Time Intelligence / KQL',             bq:'Streaming inserts + BI Engine',             rs:'Kinesis Data Firehose → Redshift' } },
-  { id:'streaming',label:'Streaming / CDC',          ico:'🌊', group:'Capabilities',
-    notes:{ db:'Native Kafka + Spark Structured Streaming',sf:'Snowpipe Streaming',                   mf:'Eventstream (Fabric)',                      bq:'Pub/Sub + Dataflow',                        rs:'Kinesis Data Streams; limited native CDC' } },
-  { id:'sql',      label:'SQL Performance',          ico:'🚀', group:'Capabilities',
-    notes:{ db:'Photon engine — near-native speed',        sf:'Best-in-class Snowflake engine',        mf:'Synapse Dedicated/Serverless SQL',         bq:'Dremel — sub-second on petabytes',          rs:'AQUA hardware acceleration — very fast' } },
-  { id:'scale',    label:'Scalability',              ico:'📈', group:'Capabilities',
-    notes:{ db:'Petabyte-scale Spark clusters',            sf:'Instant elastic multi-cluster',         mf:'Fabric capacity units (F SKU)',            bq:'Fully serverless — infinite slots',         rs:'Serverless auto-scaling + RA3 managed storage' } },
-  { id:'ease',     label:'Ease of Use',              ico:'🎯', group:'Operational',
-    notes:{ db:'Medium — Spark & cluster expertise needed', sf:'Easy — pure SQL-first SaaS',          mf:'Easiest — low-code / GUI-driven',          bq:'Easy — no infrastructure management',       rs:'Familiar SQL; AWS console + query editor' } },
-  { id:'pbi',      label:'Power BI Integration',     ico:'📊', group:'Operational',
-    notes:{ db:'Partner Connect + DirectQuery',            sf:'Native BI connector',                   mf:'Native / Best-in-class (same vendor)',     bq:'Connector available (not native)',          rs:'ODBC/JDBC connector + QuickSight native' } },
-  { id:'sharing',  label:'Data Sharing',             ico:'🤝', group:'Operational',
-    notes:{ db:'Delta Sharing (open protocol)',            sf:'Secure Data Sharing — best-in-class',   mf:'OneLake shortcuts + Fabric items',         bq:'Analytics Hub (GCP ecosystem)',             rs:'Redshift Data Sharing + AWS Data Exchange' } },
-  { id:'multiErp', label:'Multi-ERP Support',        ico:'🏭', group:'Operational',
-    notes:{ db:'Excellent — unified schema across ERP sources', sf:'Good — connectors available',     mf:'Good — Azure Data Factory connectors',     bq:'Good — Dataflow + partner connectors',     rs:'AWS Glue + SAP/Oracle/Salesforce connectors' } },
-  { id:'cost',     label:'Cost Efficiency',          ico:'💰', group:'Economics',
-    notes:{ db:'Medium — cluster + DBU pricing',           sf:'Expensive at scale (per-credit)',       mf:'Good for existing Microsoft customers',    bq:'Variable — on-demand expensive; slots better', rs:'Good TCO — reserved instances save 60%+' } },
-  { id:'implSpeed',label:'Implementation Speed',     ico:'⏱️', group:'Economics',
-    notes:{ db:'Medium — 2–4 months for full stack',       sf:'Fast — weeks to first query',           mf:'Fast for M365 orgs — guided setup',       bq:'Fast — serverless, no infrastructure',      rs:'Fast for AWS-native orgs — hours to first query' } },
-  { id:'open',     label:'Open Standards',           ico:'🌐', group:'Architecture',
-    notes:{ db:'Delta Lake (open format, open source)',     sf:'Proprietary storage format',            mf:'Partially open (Parquet in OneLake)',      bq:'BigLake supports Iceberg/Parquet',         rs:'Spectrum queries Iceberg/Parquet/ORC on S3' } },
-  { id:'noLock',   label:'No Vendor Lock-in',        ico:'🔓', group:'Architecture',
-    notes:{ db:'Medium — open format, closed platform',    sf:'High — proprietary all the way',        mf:'Very high — deep Microsoft dependency',   bq:'High — GCP infrastructure dependent',      rs:'Medium — Spectrum/S3 provide partial escape' } },
-  { id:'security', label:'Security & Compliance',    ico:'🔐', group:'Architecture',
-    notes:{ db:'Unity Catalog, RBAC, SOC2/HIPAA',          sf:'Industry-leading (SOC2/HIPAA/FedRAMP)', mf:'Azure security model (HIPAA/ISO)',         bq:'VPC SC, CMEK, FedRAMP',                    rs:'VPC, KMS, IAM roles, SOC2/HIPAA/FedRAMP GovCloud' } },
-  { id:'multiSite',label:'Multi-Site / Multi-Plant', ico:'🌍', group:'Architecture',
-    notes:{ db:'Excellent — multi-cloud Unity Catalog',    sf:'Good — multi-region deployments',       mf:'Good — OneLake is global',                bq:'Excellent — multi-region, multi-project',  rs:'Excellent — AWS global regions + cross-region sharing' } },
+  { id:'dataEng',       label:'Data Engineering',           ico:'⚙️', group:'Capabilities',
+    notes:{ db:'Spark + Delta Live Tables (DLT)', sf:'SQL-first; limited native Spark', mf:'Data Factory + Spark Notebooks', bq:'Dataflow + dbt; powerful but complex', ic:'ACID, schema evolution, partition pruning on S3' } },
+  { id:'dataWH',        label:'Data Warehousing',            ico:'🏛️', group:'Capabilities',
+    notes:{ db:'Serverless SQL Warehouse (Photon)', sf:'Best-in-class Virtual Warehouses', mf:'Synapse Analytics + OneLake', bq:'Dremel engine — serverless, ultra-fast', ic:'via Athena / Trino / Spark SQL' } },
+  { id:'ml',            label:'Machine Learning / AI',       ico:'🤖', group:'Capabilities',
+    notes:{ db:'MLflow, AutoML, Mosaic AI', sf:'Snowpark ML (growing)', mf:'Azure ML integration', bq:'BigQuery ML + Vertex AI', ic:'via SageMaker + Spark MLlib on S3 data' } },
+  { id:'genAI',         label:'GenAI & LLM Apps',            ico:'🧠', group:'Capabilities',
+    notes:{ db:'DBRX, Foundation Models, LLM serving', sf:'Cortex AI (catching up)', mf:'Copilot + Azure OpenAI integration', bq:'Gemini + Vertex AI (excellent)', ic:'via external LLM integrations only' } },
+  { id:'realTime',      label:'Real-Time Analytics',         ico:'⚡', group:'Capabilities',
+    notes:{ db:'Structured Streaming + DLT', sf:'Dynamic Tables (limited)', mf:'Real-Time Intelligence / KQL', bq:'Streaming inserts + BI Engine', ic:'needs Kafka + Flink streaming layer' } },
+  { id:'streaming',     label:'Streaming / CDC',             ico:'🌊', group:'Capabilities',
+    notes:{ db:'Native Kafka + Spark Structured Streaming', sf:'Snowpipe Streaming', mf:'Eventstream (Fabric)', bq:'Pub/Sub + Dataflow', ic:'Kafka + Flink; no built-in CDC' } },
+  { id:'sql',           label:'SQL Performance',             ico:'🚀', group:'Capabilities',
+    notes:{ db:'Photon engine — near-native speed', sf:'Best-in-class Snowflake engine', mf:'Synapse Dedicated/Serverless SQL', bq:'Dremel — sub-second on petabytes', ic:'via Athena / Trino / DuckDB' } },
+  { id:'scale',         label:'Scalability',                 ico:'📈', group:'Capabilities',
+    notes:{ db:'Petabyte-scale Spark clusters', sf:'Instant elastic multi-cluster', mf:'Fabric capacity units (F SKU)', bq:'Fully serverless — infinite slots', ic:'Petabyte-scale S3 — pay S3 rates only' } },
+  { id:'ease',          label:'Ease of Use',                 ico:'🎯', group:'Operational',
+    notes:{ db:'Medium — Spark & cluster expertise needed', sf:'Easy — pure SQL-first SaaS', mf:'Easiest — low-code / GUI-driven', bq:'Easy — no infrastructure management', ic:'Very complex — custom orchestration required' } },
+  { id:'pbi',           label:'Power BI Integration',        ico:'📊', group:'Operational',
+    notes:{ db:'Partner Connect + DirectQuery', sf:'Native BI connector', mf:'Native / Best-in-class (same vendor)', bq:'Connector available (not native)', ic:'via JDBC / Athena connector only' } },
+  { id:'sharing',       label:'Data Sharing',                ico:'🤝', group:'Operational',
+    notes:{ db:'Delta Sharing (open protocol)', sf:'Secure Data Sharing — best-in-class', mf:'OneLake shortcuts + Fabric items', bq:'Analytics Hub (GCP ecosystem)', ic:'Open format — any engine reads directly' } },
+  { id:'multiErp',      label:'Multi-ERP Support',           ico:'🏭', group:'Operational',
+    notes:{ db:'Excellent — unified schema across ERP sources', sf:'Good — connectors available', mf:'Good — Azure Data Factory connectors', bq:'Good — Dataflow + partner connectors', ic:'Custom Glue/NiFi connectors required' } },
+  { id:'cost',          label:'Cost Efficiency',             ico:'💰', group:'Economics',
+    notes:{ db:'Medium — cluster + DBU pricing', sf:'Expensive at scale (per-credit)', mf:'Good for existing Microsoft customers', bq:'Variable — on-demand expensive; slots better', ic:'Lowest — pay S3 rates + compute only' } },
+  { id:'implSpeed',     label:'Implementation Speed',        ico:'⏱️', group:'Economics',
+    notes:{ db:'Medium — 2–4 months for full stack', sf:'Fast — weeks to first query', mf:'Fast for M365 orgs — guided setup', bq:'Fast — serverless, no infrastructure', ic:'Slow — needs full custom stack build' } },
+  { id:'implComplexity',label:'Implementation Complexity',   ico:'🛠️', group:'Economics',
+    notes:{ db:'Requires Spark + cluster expertise; 2–4 months', sf:'SQL-first SaaS; teams productive in days', mf:'Guided setup; low-code tools reduce complexity', bq:'Serverless — no infrastructure to manage', ic:'Very complex — needs custom orchestration stack' } },
+  { id:'open',          label:'Open Standards',              ico:'🌐', group:'Architecture',
+    notes:{ db:'Delta Lake (open format, open source)', sf:'Proprietary storage format', mf:'Partially open (Parquet in OneLake)', bq:'BigLake supports Iceberg/Parquet', ic:'Best-in-class — Iceberg spec + any engine' } },
+  { id:'noLock',        label:'No Vendor Lock-in',           ico:'🔓', group:'Architecture',
+    notes:{ db:'Medium — open format, closed platform', sf:'High — proprietary all the way', mf:'Very high — deep Microsoft dependency', bq:'High — GCP infrastructure dependent', ic:'Zero lock-in — open spec, open data' } },
+  { id:'security',      label:'Security & Compliance',       ico:'🔐', group:'Architecture',
+    notes:{ db:'Unity Catalog, RBAC, SOC2/HIPAA', sf:'Industry-leading (SOC2/HIPAA/FedRAMP)', mf:'Azure security model (HIPAA/ISO)', bq:'VPC SC, CMEK, FedRAMP', ic:'AWS IAM + S3 policies; GDPR via data ownership' } },
+  { id:'euAI',          label:'AI EU Policy / GDPR',         ico:'🇪🇺', group:'Architecture',
+    notes:{ db:'EU regions; Unity Catalog data residency controls', sf:'EU Business Critical; GDPR BAA; data residency', mf:'EU Data Boundary; Purview; EU AI Act aligned', bq:'EU regions; GDPR compliance; Google data scrutiny', ic:'Full sovereignty — you own data, no vendor transfer' } },
+  { id:'multiSite',     label:'Multi-Site / Multi-Plant',    ico:'🌍', group:'Architecture',
+    notes:{ db:'Excellent — multi-cloud Unity Catalog', sf:'Good — multi-region deployments', mf:'Good — OneLake is global', bq:'Excellent — multi-region, multi-project', ic:'S3 global regions; multi-engine portability' } },
 ];
 
 // Add multi-ERP/multi-site scores
 P.forEach(p=>{
   const extras = {
-    db:  {multiErp:4.5, multiSite:4.5, implSpeed:3,   security:4.5},
-    sf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:5  },
-    mf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:4.5},
-    bq:  {multiErp:3.5, multiSite:4.5, implSpeed:4.5, security:4.5},
-    rs:  {multiErp:3.5, multiSite:4,   implSpeed:4,   security:4.5},
+    db:  {multiErp:4.5, multiSite:4.5, implSpeed:3,   security:4.5, implComplexity:2.5, euAI:3.5},
+    sf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:5,   implComplexity:4.5, euAI:4  },
+    mf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:4.5, implComplexity:4,   euAI:5  },
+    bq:  {multiErp:3.5, multiSite:4.5, implSpeed:4.5, security:4.5, implComplexity:4.5, euAI:3.5},
+    ic:  {multiErp:3,   multiSite:4,   implSpeed:2,   security:3.5, implComplexity:1.5, euAI:4.5},
   }[p.id]||{};
   Object.assign(p.scores, extras);
 });
@@ -616,55 +620,55 @@ const FILTER_DEFS = [
     id:'speed', label:'⏱ Implementation Speed',
     hint:'How fast must the platform be operational?',
     opts:[
-      { v:'express',  label:'Express',   desc:'< 1 month',    mods:{ db:-8,  sf:+10, mf:+7,  bq:+8,  rs:+8  } },
-      { v:'standard', label:'Standard',  desc:'1–3 months',   mods:{ db:+3,  sf:+5,  mf:+4,  bq:+5,  rs:+5  } },
-      { v:'extended', label:'Extended',  desc:'3–6 months',   mods:{ db:+6,  sf:-2,  mf:+0,  bq:+2,  rs:+2  } },
-      { v:'complex',  label:'Complex',   desc:'6–18 months',  mods:{ db:+9,  sf:-7,  mf:-5,  bq:+3,  rs:-3  } },
+      { v:'express',  label:'Express',   desc:'< 1 month',    mods:{ db:-8,  sf:+10, mf:+7,  bq:+8,  ic:-15 } },
+      { v:'standard', label:'Standard',  desc:'1–3 months',   mods:{ db:+3,  sf:+5,  mf:+4,  bq:+5,  ic:-8  } },
+      { v:'extended', label:'Extended',  desc:'3–6 months',   mods:{ db:+6,  sf:-2,  mf:+0,  bq:+2,  ic:+2  } },
+      { v:'complex',  label:'Complex',   desc:'6–18 months',  mods:{ db:+9,  sf:-7,  mf:-5,  bq:+3,  ic:+10 } },
     ]
   },
   {
     id:'companyType', label:'🏢 Company Structure',
     hint:'What best describes your organization?',
     opts:[
-      { v:'smb',       label:'SMB / Single-Site',    desc:'<500 employees',              mods:{ db:-8,  sf:+12, mf:+7,  bq:+8,  rs:+5  } },
-      { v:'multiSite', label:'Multi-Site',            desc:'Several offices / locations', mods:{ db:+4,  sf:+4,  mf:+5,  bq:+5,  rs:+5  } },
-      { v:'multiPlant',label:'Multi-Plant Mfg',       desc:'Multiple production sites',   mods:{ db:+9,  sf:-4,  mf:+2,  bq:+4,  rs:+3  } },
-      { v:'multiERP',  label:'Multi-ERP Enterprise',  desc:'SAP + Oracle + custom ERPs',  mods:{ db:+10, sf:-1,  mf:+3,  bq:+6,  rs:+3  } },
-      { v:'globalCorp',label:'Global Corporation',    desc:'10k+ employees, multi-region',mods:{ db:+9,  sf:+5,  mf:+5,  bq:+10, rs:+8  } },
+      { v:'smb',       label:'SMB / Single-Site',    desc:'<500 employees',               mods:{ db:-8,  sf:+12, mf:+7,  bq:+8,  ic:-15 } },
+      { v:'multiSite', label:'Multi-Site',            desc:'Several offices / locations',  mods:{ db:+4,  sf:+4,  mf:+5,  bq:+5,  ic:+3  } },
+      { v:'multiPlant',label:'Multi-Plant Mfg',       desc:'Multiple production sites',    mods:{ db:+9,  sf:-4,  mf:+2,  bq:+4,  ic:+5  } },
+      { v:'multiERP',  label:'Multi-ERP Enterprise',  desc:'SAP + Oracle + custom ERPs',   mods:{ db:+10, sf:-1,  mf:+3,  bq:+6,  ic:+4  } },
+      { v:'globalCorp',label:'Global Corporation',    desc:'10k+ employees, multi-region', mods:{ db:+9,  sf:+5,  mf:+5,  bq:+10, ic:+6  } },
     ]
   },
   {
     id:'business', label:'💼 Business Type / Industry',
     hint:'Which industry best fits your organization?',
     opts:[
-      { v:'manufacturing', label:'Manufacturing',     desc:'Industry, production, OEE',    mods:{ db:+8,  sf:-5,  mf:+2,  bq:+3,  rs:+3  } },
-      { v:'retail',        label:'Retail & E-comm',   desc:'Omnichannel, supply chain',    mods:{ db:+4,  sf:+8,  mf:+5,  bq:+8,  rs:+8  } },
-      { v:'finance',       label:'Finance & Banking',  desc:'Risk, compliance, trading',    mods:{ db:+4,  sf:+10, mf:+5,  bq:+6,  rs:+6  } },
-      { v:'healthcare',    label:'Healthcare',          desc:'HIPAA, life sciences, pharma', mods:{ db:+5,  sf:+5,  mf:+10, bq:+5,  rs:+4  } },
-      { v:'technology',    label:'Technology / SaaS',  desc:'Product analytics, ML-heavy',  mods:{ db:+10, sf:+2,  mf:-4,  bq:+8,  rs:+8  } },
-      { v:'energy',        label:'Energy & Utilities', desc:'IoT, time-series, SCADA',      mods:{ db:+6,  sf:-4,  mf:+0,  bq:+3,  rs:+4  } },
-      { v:'public',        label:'Public Sector',       desc:'Government, education',        mods:{ db:+0,  sf:+2,  mf:+12, bq:+4,  rs:+5  } },
+      { v:'manufacturing', label:'Manufacturing',     desc:'Industry, production, OEE',    mods:{ db:+8,  sf:-5,  mf:+2,  bq:+3,  ic:+5  } },
+      { v:'retail',        label:'Retail & E-comm',   desc:'Omnichannel, supply chain',    mods:{ db:+4,  sf:+8,  mf:+5,  bq:+8,  ic:-5  } },
+      { v:'finance',       label:'Finance & Banking',  desc:'Risk, compliance, trading',    mods:{ db:+4,  sf:+10, mf:+5,  bq:+6,  ic:+3  } },
+      { v:'healthcare',    label:'Healthcare',          desc:'HIPAA, life sciences, pharma', mods:{ db:+5,  sf:+5,  mf:+10, bq:+5,  ic:+4  } },
+      { v:'technology',    label:'Technology / SaaS',  desc:'Product analytics, ML-heavy',  mods:{ db:+10, sf:+2,  mf:-4,  bq:+8,  ic:+10 } },
+      { v:'energy',        label:'Energy & Utilities', desc:'IoT, time-series, SCADA',      mods:{ db:+6,  sf:-4,  mf:+0,  bq:+3,  ic:+6  } },
+      { v:'public',        label:'Public Sector',       desc:'Government, education',        mods:{ db:+0,  sf:+2,  mf:+12, bq:+4,  ic:+2  } },
     ]
   },
   {
     id:'team', label:'🧑‍💻 Primary Team Profile',
     hint:'Who will be the main platform users?',
     opts:[
-      { v:'dataEng', label:'Data Engineering',   desc:'Pipelines, Spark, ETL',         mods:{ db:+10, sf:-6,  mf:-4,  bq:+3,  rs:+5  } },
-      { v:'biSQL',   label:'BI / SQL Analytics',  desc:'Dashboards, SQL, reporting',    mods:{ db:-6,  sf:+10, mf:+8,  bq:+8,  rs:+5  } },
-      { v:'mlAI',    label:'ML / AI / Data Sci',  desc:'Models, features, experiments', mods:{ db:+12, sf:-4,  mf:+3,  bq:+8,  rs:+4  } },
-      { v:'platform',label:'Platform / Infra',    desc:'DevOps, SRE, AWS-native pref',  mods:{ db:+4,  sf:-8,  mf:-8,  bq:+3,  rs:+2  } },
-      { v:'mixed',   label:'Mixed / General',     desc:'Cross-functional teams',         mods:{ db:+2,  sf:+2,  mf:+2,  bq:+2,  rs:+4  } },
+      { v:'dataEng', label:'Data Engineering',   desc:'Pipelines, Spark, ETL',         mods:{ db:+10, sf:-6,  mf:-4,  bq:+3,  ic:+15 } },
+      { v:'biSQL',   label:'BI / SQL Analytics',  desc:'Dashboards, SQL, reporting',    mods:{ db:-6,  sf:+10, mf:+8,  bq:+8,  ic:-12 } },
+      { v:'mlAI',    label:'ML / AI / Data Sci',  desc:'Models, features, experiments', mods:{ db:+12, sf:-4,  mf:+3,  bq:+8,  ic:+8  } },
+      { v:'platform',label:'Platform / Infra',    desc:'DevOps, SRE, cloud-native',     mods:{ db:+4,  sf:-8,  mf:-8,  bq:+3,  ic:+12 } },
+      { v:'mixed',   label:'Mixed / General',     desc:'Cross-functional teams',         mods:{ db:+2,  sf:+2,  mf:+2,  bq:+2,  ic:-5  } },
     ]
   },
   {
     id:'budget', label:'💰 Monthly Budget',
     hint:'Approximate monthly data platform spend',
     opts:[
-      { v:'starter',    label:'Starter',    desc:'< $10k / month',       mods:{ db:-7,  sf:-2,  mf:-5,  bq:+3,  rs:+4  } },
-      { v:'growth',     label:'Growth',     desc:'$10k–$50k / month',    mods:{ db:+2,  sf:+5,  mf:+3,  bq:+5,  rs:+5  } },
-      { v:'scale',      label:'Scale',      desc:'$50k–$200k / month',   mods:{ db:+6,  sf:+3,  mf:+4,  bq:+5,  rs:+6  } },
-      { v:'enterprise', label:'Enterprise', desc:'$200k+ / month',       mods:{ db:+9,  sf:+7,  mf:+10, bq:+6,  rs:+5  } },
+      { v:'starter',    label:'Starter',    desc:'< $10k / month',       mods:{ db:-7,  sf:-2,  mf:-5,  bq:+3,  ic:+10 } },
+      { v:'growth',     label:'Growth',     desc:'$10k–$50k / month',    mods:{ db:+2,  sf:+5,  mf:+3,  bq:+5,  ic:+8  } },
+      { v:'scale',      label:'Scale',      desc:'$50k–$200k / month',   mods:{ db:+6,  sf:+3,  mf:+4,  bq:+5,  ic:+6  } },
+      { v:'enterprise', label:'Enterprise', desc:'$200k+ / month',       mods:{ db:+9,  sf:+7,  mf:+10, bq:+6,  ic:+2  } },
     ]
   },
 ];
@@ -741,15 +745,17 @@ const INSIGHTS = {
   'companyType:multiPlant+team:dataEng':    "Multi-plant + Data Eng → Databricks Unity Catalog or Redshift RA3 unify cross-plant schemas",
   'companyType:multiERP+speed:complex':     "Multi-ERP + Complex impl → Databricks Unity Catalog centralizes SAP/Oracle/Salesforce data",
   'companyType:globalCorp+budget:enterprise':"Global Corp + Enterprise → BigQuery multi-region or Redshift cross-region sharing",
-  'business:manufacturing+team:platform':   "Manufacturing + Platform Eng → Redshift Spectrum on S3 scales IoT/OEE data cost-efficiently",
+  'business:manufacturing+team:platform':   "Manufacturing + Platform Eng → Iceberg+S3 or Redshift Spectrum scales IoT/OEE data cost-efficiently",
   'business:technology+team:mlAI':          "Tech company + ML team → Databricks Mosaic AI is the clear global category leader",
-  'business:finance+companyType:multiERP':  "Finance + Multi-ERP → Snowflake's secure data sharing meets regulatory requirements",
+  "business:finance+companyType:multiERP":  "Finance + Multi-ERP → Snowflake's secure data sharing meets regulatory requirements",
   'business:public+budget:starter':         "Public sector + tight budget → Microsoft Fabric leverages existing M365 licensing",
   'team:biSQL+speed:express':               "BI team + Express impl → Snowflake or BigQuery deliver SQL analytics in days",
-  'team:platform+budget:starter':           "Platform team + low budget → Redshift Serverless free tier or BigQuery sandbox",
+  'team:platform+budget:starter':           "Platform team + low budget → Iceberg+S3 cheapest option or BigQuery sandbox",
   'business:healthcare+team:biSQL':         "Healthcare + BI team → Microsoft Fabric (HIPAA + Power BI) or Snowflake (FedRAMP)",
-  'business:energy+companyType:multiPlant': "Energy + Multi-plant → Redshift Spectrum on S3 for petabyte-scale IoT/SCADA analytics",
+  'business:energy+companyType:multiPlant': "Energy + Multi-plant → Iceberg+S3 on S3 for lowest-cost petabyte IoT/SCADA analytics",
   'budget:starter+speed:express':           "Low budget + fast setup → BigQuery serverless sandbox or Snowflake Trial",
+  'team:dataEng+budget:starter':            "Data Eng + low budget → Iceberg+S3 is the cheapest open stack; only pay for S3 + compute",
+  'team:platform+companyType:globalCorp':   "Platform Eng + Global Corp → Iceberg+S3 multi-cloud portability with no vendor dependency",
 };
 
 function getInsights() {
@@ -808,8 +814,8 @@ function activeFilterCount() {
 // ─────────────────────────────────────────────────────────────
 function render() {
   const ord = sorted();
-  const medals = ['🥇','🥈','🥉','4️⃣','5️⃣'];
-  const rankTags = ['#1 Best Match','#2 Strong Match','#3 Good Match','#4 Limited Fit','#5 Poor Fit'];
+  const medals = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣'];
+  const rankTags = ['#1 Best Match','#2 Strong Match','#3 Good Match','#4 Fair Fit','#5 Limited Fit','#6 Open Source Alt'];
   let html = '';
 
   // ── Column headers ──

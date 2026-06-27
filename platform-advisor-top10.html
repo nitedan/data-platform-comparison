@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Platform Advisor — Top 10 Enterprise Platforms 2026</title>
+<style>
+:root {
+  --bg:#F1F5F9;--surface:#FFFFFF;--surface-alt:#F8FAFC;
+  --border:#E2E8F0;--border-2:#CBD5E1;
+  --text:#0F172A;--muted:#64748B;--subtle:#94A3B8;
+  --primary:#2563EB;--primary-t:rgba(37,99,235,0.10);
+  --success:#059669;--warning:#D97706;--danger:#DC2626;
+
+  --db:#E8572A;--db-t:rgba(232,87,42,0.10);
+  --sf:#29B5E8;--sf-t:rgba(41,181,232,0.10);
+  --mf:#7C3AED;--mf-t:rgba(124,58,237,0.10);
+  --bq:#4285F4;--bq-t:rgba(66,133,244,0.10);
+  --rs:#FF9900;--rs-t:rgba(255,153,0,0.10);
+  --as:#0078D4;--as-t:rgba(0,120,212,0.10);
+  --td:#C05400;--td-t:rgba(192,84,0,0.10);
+  --ibm:#0F62FE;--ibm-t:rgba(15,98,254,0.10);
+  --cdp:#EF6820;--cdp-t:rgba(239,104,32,0.10);
+  --ora:#C74634;--ora-t:rgba(199,70,52,0.10);
+
+  --cap:#16A34A;--ops:#2563EB;--eco:#D97706;--arc:#7C3AED;
+  --r:8px;--r-sm:5px;--r-lg:12px;
+  --sh:0 1px 3px rgba(0,0,0,0.07),0 1px 2px rgba(0,0,0,0.05);
+  --sh-md:0 4px 12px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.05);
+  --sh-lg:0 10px 30px rgba(0,0,0,0.10),0 4px 8px rgba(0,0,0,0.05);
+  --sidebar:230px;--tr:0.22s ease;
+  --acc:#059669;--acc-t:rgba(5,150,105,0.10);
+}
+[data-dark]{
+  --bg:#0B1120;--surface:#1A2438;--surface-alt:#1E2D45;
+  --border:#253550;--border-2:#2E4168;
+  --text:#F0F4FF;--muted:#7F9FC3;--subtle:#4A6891;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:13px;display:flex;flex-direction:column;transition:background var(--tr),color var(--tr);}
+button{cursor:pointer;font-family:inherit;font-size:inherit;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+.top-bar{
+  background:linear-gradient(100deg,#0B1E3F 0%,#0F2D60 60%,#1A3A6B 100%);
+  padding:11px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  flex-shrink:0;box-shadow:0 2px 20px rgba(0,0,0,0.4);z-index:300;
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#2563EB,#C05400);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.brand-text{line-height:1.2;}
+.brand-text h1{font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.2px;}
+.brand-text span{font-size:10px;color:rgba(255,255,255,0.5);font-weight:500;}
+.header-divider{width:1px;height:28px;background:rgba(255,255,255,0.15);flex-shrink:0;}
+.preset-bar{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
+.preset-pill{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.75);padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;transition:all var(--tr);white-space:nowrap;}
+.preset-pill:hover{background:rgba(255,255,255,0.16);color:#fff;}
+.preset-pill.active{background:rgba(37,99,235,0.4);border-color:#2563EB;color:#93C5FD;}
+.hdr-actions{display:flex;gap:6px;align-items:center;margin-left:auto;}
+.icon-btn{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.8);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all var(--tr);}
+.icon-btn:hover{background:rgba(255,255,255,0.18);color:#fff;}
+.badge-pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(37,99,235,0.3);color:#93C5FD;border:1px solid rgba(37,99,235,0.4);}
+
+.filter-panel{background:var(--surface);border-bottom:2px solid var(--border);padding:0 18px;flex-shrink:0;overflow:hidden;transition:max-height 0.35s ease,padding 0.3s ease;max-height:300px;}
+.filter-panel.collapsed{max-height:0;padding-top:0;padding-bottom:0;}
+.filter-inner{padding:12px 0 14px;}
+.filter-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.filter-title-row h2{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;}
+.filter-actions{display:flex;gap:6px;align-items:center;}
+.clear-btn{font-size:10.5px;font-weight:600;color:var(--danger);background:rgba(220,38,38,0.07);border:1px solid rgba(220,38,38,0.2);padding:2px 9px;border-radius:20px;transition:all var(--tr);}
+.clear-btn:hover{background:var(--danger);color:#fff;}
+.filter-count{font-size:10px;font-weight:700;background:var(--primary-t);color:var(--primary);padding:2px 7px;border-radius:20px;}
+.filters-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px 16px;}
+@media(max-width:900px){.filters-grid{grid-template-columns:repeat(3,1fr);}}
+.fg-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;display:flex;align-items:center;gap:4px;}
+.fg-pills{display:flex;flex-wrap:wrap;gap:4px;}
+.fpill{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;background:var(--surface-alt);border:1.5px solid var(--border);color:var(--muted);transition:all var(--tr);white-space:nowrap;}
+.fpill:hover{border-color:var(--border-2);color:var(--text);}
+.fpill.sel{background:var(--primary-t);border-color:var(--primary);color:var(--primary);}
+
+.chips-bar{padding:6px 18px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface-alt);min-height:0;transition:min-height 0.2s;flex-shrink:0;}
+.chips-bar.empty{display:none;}
+.chips-bar-lbl{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;}
+.chip{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600;background:var(--primary-t);color:var(--primary);border:1px solid var(--primary);}
+.chip-x{width:14px;height:14px;border-radius:50%;background:var(--primary);color:#fff;font-size:9px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--tr);flex-shrink:0;border:none;}
+.chip-x:hover{background:var(--danger);}
+
+.reco-bar{padding:8px 18px;display:flex;align-items:flex-start;gap:10px;background:linear-gradient(90deg,rgba(5,150,105,0.06),transparent);border-bottom:1px solid rgba(5,150,105,0.2);flex-shrink:0;}
+.reco-bar.hidden{display:none;}
+.reco-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.reco-text{font-size:12px;color:var(--text);line-height:1.5;flex:1;}
+.insight-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;}
+.ins-chip{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;background:rgba(5,150,105,0.08);color:var(--success);border:1px solid rgba(5,150,105,0.2);}
+
+.app-body{display:flex;flex:1;overflow:hidden;min-height:0;}
+
+.sidebar{width:var(--sidebar);flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;transition:width 0.3s ease,background var(--tr);}
+.sidebar.collapsed{width:0;overflow:hidden;}
+.sb-inner{padding:14px 12px;min-width:var(--sidebar);}
+.sb-sec{margin-bottom:20px;}
+.sb-head{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--subtle);padding-bottom:7px;border-bottom:1px solid var(--border);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+.sb-mini-btn{background:var(--surface-alt);border:1px solid var(--border);color:var(--muted);padding:1px 7px;border-radius:4px;font-size:9px;font-weight:700;text-transform:none;letter-spacing:0;cursor:pointer;transition:all var(--tr);}
+.sb-mini-btn:hover{background:var(--border);}
+.grp-head{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:10px 0 5px;display:flex;align-items:center;gap:5px;}
+.grp-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.slider-item{margin-bottom:8px;}
+.slider-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.slider-lbl{font-size:11px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:4px;}
+.slider-ico{font-size:12px;}
+.slider-val{font-size:10px;font-weight:800;min-width:18px;text-align:center;background:var(--acc-t);color:var(--acc);padding:1px 6px;border-radius:8px;transition:background var(--tr);}
+.slider-val.z{background:var(--border);color:var(--subtle);}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;background:var(--border);outline:none;cursor:pointer;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 3px var(--acc-t);transition:box-shadow var(--tr),transform 0.1s;}
+input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);transform:scale(1.1);}
+.chk-row{display:flex;align-items:center;gap:6px;padding:3px 0;cursor:pointer;user-select:none;}
+.chk-row input{accent-color:var(--acc);cursor:pointer;}
+.chk-row label{font-size:11px;cursor:pointer;color:var(--text);}
+.full-btn{width:100%;padding:7px;border-radius:7px;font-size:11px;font-weight:700;border:1px solid;transition:all var(--tr);margin-top:4px;letter-spacing:0.3px;}
+.reset-btn{background:var(--acc-t);color:var(--acc);border-color:rgba(5,150,105,0.3);}
+.reset-btn:hover{background:var(--acc);color:#fff;}
+
+.main-area{flex:1;overflow:auto;padding:14px 16px 32px;min-width:0;}
+
+.plat-row{display:flex;gap:6px;margin-bottom:8px;position:sticky;top:0;z-index:50;background:var(--bg);padding:3px 0 6px;}
+.row-spacer{width:160px;flex-shrink:0;}
+
+.p-card{flex:1;min-width:100px;background:var(--surface);border-radius:var(--r-lg);padding:10px 7px 8px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh);transition:border-color var(--tr),box-shadow var(--tr),background var(--tr);position:relative;overflow:hidden;cursor:default;}
+.p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pc);}
+.p-card.rank-1{border-color:#F59E0B;box-shadow:0 0 0 1px #F59E0B,var(--sh-md);}
+.p-card.rank-2{border-color:#94A3B8;box-shadow:0 0 0 1px #94A3B8,var(--sh);}
+.p-card.rank-3{border-color:#CD7F32;box-shadow:0 0 0 1px #CD7F32,var(--sh);}
+.p-card:hover{box-shadow:var(--sh-lg);}
+.p-medal{position:absolute;top:5px;left:5px;font-size:12px;}
+.p-name{font-size:12px;font-weight:800;color:var(--pc);line-height:1.2;}
+.p-sub{font-size:8.5px;color:var(--muted);margin-top:2px;line-height:1.2;}
+.p-score-wrap{margin:6px 0 2px;}
+.p-bar-bg{background:var(--border);border-radius:3px;height:4px;overflow:hidden;}
+.p-bar-fill{height:4px;border-radius:3px;background:var(--pc);transition:width 0.55s cubic-bezier(.4,0,.2,1);}
+.p-pct{font-size:18px;font-weight:900;color:var(--pc);letter-spacing:-1px;margin-top:3px;}
+.p-pct-lbl{font-size:8px;color:var(--subtle);}
+.p-tag{display:inline-block;margin-top:4px;padding:2px 6px;border-radius:20px;font-size:9px;font-weight:700;background:var(--pt);color:var(--pc);}
+.mod-badge{display:inline-flex;align-items:center;gap:2px;font-size:9px;font-weight:700;margin-left:3px;padding:1px 4px;border-radius:5px;}
+.mod-pos{background:rgba(5,150,105,0.12);color:var(--success);}
+.mod-neg{background:rgba(220,38,38,0.10);color:var(--danger);}
+
+.g-sep{display:flex;align-items:center;gap:8px;margin:12px 0 4px;}
+.g-sep-line{flex:1;height:1px;background:var(--border);}
+.g-sep-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#fff;padding:2px 10px;border-radius:10px;white-space:nowrap;}
+
+.crit-row{display:flex;gap:6px;margin-bottom:4px;align-items:stretch;transition:opacity var(--tr);}
+.crit-row.hidden{display:none;}
+.crit-lbl{width:160px;flex-shrink:0;background:var(--surface);border-radius:var(--r);display:flex;align-items:center;padding:7px 10px;gap:6px;font-weight:600;font-size:11px;box-shadow:var(--sh);border-left:3px solid var(--gc,#ccc);color:var(--text);transition:background var(--tr);}
+.crit-lbl .ico{font-size:13px;}
+.w-tag{margin-left:auto;font-size:9px;font-weight:800;padding:1px 5px;border-radius:6px;flex-shrink:0;background:var(--border);color:var(--subtle);}
+.w-tag.on{background:var(--acc-t);color:var(--acc);}
+
+.c-cell{flex:1;min-width:100px;background:var(--surface);border-radius:var(--r);padding:6px 6px 5px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;border:1.5px solid transparent;box-shadow:var(--sh);transition:border-color var(--tr),background var(--tr);min-height:46px;position:relative;}
+.c-cell.best{border-color:var(--pc);background:var(--pt);}
+.best-flag{display:none;position:absolute;top:2px;right:2px;background:var(--pc);color:#fff;font-size:7px;font-weight:800;padding:1px 4px;border-radius:4px;}
+.c-cell.best .best-flag{display:block;}
+.stars{font-size:10px;letter-spacing:0.5px;}
+.sf{color:#F59E0B;}.se{color:var(--border);}
+.s-num{font-size:8px;font-weight:700;color:var(--pc);background:var(--pt);padding:1px 4px;border-radius:4px;margin-top:1px;}
+.c-note{font-size:8.5px;color:var(--muted);margin-top:2px;line-height:1.3;}
+
+.sum-row{display:flex;gap:6px;margin-top:10px;}
+.sum-spacer{width:160px;flex-shrink:0;}
+.sum-card{flex:1;min-width:100px;border-radius:var(--r-lg);padding:10px;color:#fff;font-size:10.5px;line-height:1.4;}
+.sum-card .sh{font-size:11px;font-weight:800;margin-bottom:4px;}
+
+.status-bar{flex-shrink:0;background:var(--surface);border-top:1px solid var(--border);padding:5px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);}
+.sb-item{display:flex;align-items:center;gap:5px;}
+.sb-dot{width:7px;height:7px;border-radius:50%;}
+.sb-formula{margin-left:auto;font-size:9.5px;color:var(--subtle);}
+
+.tt{position:relative;}
+.tt:hover .tt-box{display:block;}
+.tt-box{display:none;position:absolute;bottom:calc(100%+6px);left:50%;transform:translateX(-50%);background:#1A2438;color:#E2E8F0;border-radius:7px;padding:8px 11px;font-size:11px;line-height:1.5;white-space:nowrap;box-shadow:var(--sh-lg);z-index:999;pointer-events:none;border:1px solid rgba(255,255,255,0.08);}
+.tt-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1A2438;}
+</style>
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="brand">
+    <div class="brand-logo">🏆</div>
+    <div class="brand-text">
+      <h1>Data Platform Advisor — Top 10</h1>
+      <span>Global Enterprise Platforms — 2026</span>
+    </div>
+  </div>
+  <div class="header-divider"></div>
+  <div class="preset-bar">
+    <span style="font-size:10px;color:rgba(255,255,255,0.4);font-weight:600;white-space:nowrap;padding-top:5px;">Quick Profiles:</span>
+    <button class="preset-pill" data-p="dataEngineer">⚙️ Data Engineer</button>
+    <button class="preset-pill" data-p="biAnalyst">📊 BI / SQL</button>
+    <button class="preset-pill" data-p="mlEngineer">🤖 ML / AI</button>
+    <button class="preset-pill" data-p="platformEngineer">🏗️ Platform Eng</button>
+    <button class="preset-pill" data-p="costOptimizer">💰 Cost-First</button>
+    <button class="preset-pill" data-p="openSource">🌐 Open Source</button>
+    <button class="preset-pill" data-p="msShop">🔷 Microsoft</button>
+    <button class="preset-pill" data-p="enterprise">🏢 Enterprise</button>
+  </div>
+  <div class="hdr-actions">
+    <span class="badge-pill" id="hdrFilterCount" style="display:none">0 filters</span>
+    <button class="icon-btn" id="btnFilter"  title="Toggle filter panel">🔍</button>
+    <button class="icon-btn" id="btnSidebar" title="Toggle weights panel">⚙️</button>
+    <button class="icon-btn" id="btnDark"    title="Dark mode">🌙</button>
+    <button class="icon-btn" id="btnPrint"   title="Print / Export">🖨️</button>
+  </div>
+</header>
+
+<section class="filter-panel" id="filterPanel">
+  <div class="filter-inner">
+    <div class="filter-title-row">
+      <h2>🔍 Context Filters — adjust to match your situation</h2>
+      <div class="filter-actions">
+        <span class="filter-count" id="filterCountBadge" style="display:none">0 active</span>
+        <button class="clear-btn" id="clearFilters">✕ Clear All</button>
+      </div>
+    </div>
+    <div class="filters-grid" id="filtersGrid"></div>
+  </div>
+</section>
+
+<div class="chips-bar empty" id="chipsBar">
+  <span class="chips-bar-lbl">Active:</span>
+  <div id="chipsInner"></div>
+</div>
+
+<div class="reco-bar hidden" id="recoBar">
+  <div class="reco-icon">💡</div>
+  <div class="reco-text" id="recoText"></div>
+</div>
+
+<div class="app-body">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-inner">
+      <div class="sb-sec">
+        <div class="sb-head">⚖️ Criteria Weights <button class="sb-mini-btn" id="resetWeights">↺ Reset</button></div>
+        <div id="slidersWrap"></div>
+      </div>
+      <div class="sb-sec">
+        <div class="sb-head">👁 Show Rows
+          <span style="display:flex;gap:3px;">
+            <button class="sb-mini-btn" id="allOn">All</button>
+            <button class="sb-mini-btn" id="allOff">None</button>
+          </span>
+        </div>
+        <div id="togglesWrap"></div>
+      </div>
+      <div class="sb-sec">
+        <div class="sb-head">📖 Score Guide</div>
+        <div style="background:var(--surface-alt);border:1px solid var(--border);border-radius:7px;padding:9px 10px;display:flex;flex-direction:column;gap:3px;">
+          <div style="display:flex;justify-content:space-between;font-size:11px;"><span style="color:var(--muted)">Base score</span><span style="font-weight:700">Weighted avg 0–100%</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;"><span style="color:var(--muted)">Context bonus</span><span style="font-weight:700">Filters ±10 pts each</span></div>
+          <div style="border-top:1px dashed var(--border);margin:3px 0;"></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;"><span style="color:var(--muted)">Green badge</span><span style="font-weight:700;color:var(--success)">Best in row</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;"><span style="color:var(--muted)">🥇 Medal</span><span style="font-weight:700">Overall rank</span></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <main class="main-area" id="mainArea"></main>
+</div>
+
+<footer class="status-bar">
+  <div class="sb-item" id="statusLeader"></div>
+  <div class="sb-item" id="statusFilters"></div>
+  <div class="sb-item" id="statusRows"></div>
+  <span class="sb-formula">Score = Σ(weight × criterion / 5) / Σ(weights) × 100 + Σ(context modifiers)</span>
+</footer>
+
+<script>
+// ── PLATFORMS ──
+const P = [
+  {
+    id:'db', name:'Databricks', emoji:'⚡', sub:'Data Lakehouse + AI/ML',
+    c:'#E8572A', t:'rgba(232,87,42,0.10)',
+    summary:'Best for AI-driven teams wanting a unified, open lakehouse. Industry-leading for ML workflows and large-scale Spark-based data engineering.',
+    scores:{ dataEng:5,dataWH:3,ml:5,genAI:5,realTime:4,streaming:4.5,sql:4,scale:5,ease:3,pbi:2.5,sharing:3.5,cost:3.5,open:4,noLock:2.5 }
+  },
+  {
+    id:'sf', name:'Snowflake', emoji:'❄️', sub:'Cloud Data Warehouse + Data Cloud',
+    c:'#29B5E8', t:'rgba(41,181,232,0.10)',
+    summary:'Best for SQL-first analytics teams. Simplest path to elastic warehousing. Best-in-class concurrency, data sharing and marketplace ecosystem.',
+    scores:{ dataEng:3,dataWH:5,ml:2.5,genAI:2.5,realTime:2.5,streaming:2,sql:5,scale:5,ease:4.5,pbi:2.5,sharing:5,cost:2,open:1.5,noLock:1 }
+  },
+  {
+    id:'mf', name:'Microsoft Fabric', emoji:'🔷', sub:'Unified Analytics SaaS',
+    c:'#7C3AED', t:'rgba(124,58,237,0.10)',
+    summary:'Best for Power BI-heavy and Azure-native organizations. A single SaaS platform that eliminates fragmentation across your Microsoft data stack.',
+    scores:{ dataEng:3.5,dataWH:4,ml:3,genAI:3,realTime:3.5,streaming:3,sql:4,scale:3.5,ease:5,pbi:5,sharing:3,cost:3,open:2.5,noLock:1.5 }
+  },
+  {
+    id:'bq', name:'Google BigQuery', emoji:'🔵', sub:'Serverless Cloud Data Warehouse',
+    c:'#4285F4', t:'rgba(66,133,244,0.10)',
+    summary:'Best for GCP-native organizations needing serverless scalability. Excellent for large-scale SQL, streaming analytics and integrated Vertex AI/Gemini.',
+    scores:{ dataEng:3.5,dataWH:4.5,ml:4,genAI:4,realTime:4,streaming:3.5,sql:4.5,scale:5,ease:4,pbi:3,sharing:4,cost:2.5,open:3,noLock:2 }
+  },
+  {
+    id:'rs', name:'Amazon Redshift', emoji:'🔴', sub:'Cloud Data Warehouse on AWS',
+    c:'#FF9900', t:'rgba(255,153,0,0.10)',
+    summary:'Best for AWS-native organizations needing proven enterprise-grade cloud warehousing. Deeply integrated with the AWS ecosystem, S3 data lake and SageMaker AI.',
+    scores:{ dataEng:3.5,dataWH:4,ml:3.5,genAI:3,realTime:3,streaming:3,sql:4,scale:4.5,ease:3.5,pbi:3,sharing:4,cost:3.5,open:3,noLock:2 }
+  },
+  {
+    id:'as', name:'Azure Synapse', emoji:'☁️', sub:'Enterprise Analytics on Azure',
+    c:'#0078D4', t:'rgba(0,120,212,0.10)',
+    summary:'Enterprise-scale analytics on Azure combining SQL data warehousing and Spark big data in one platform. Best for Azure-invested organizations needing both warehouse and Spark without migrating to Fabric.',
+    scores:{ dataEng:4,dataWH:4,ml:3.5,genAI:3,realTime:3.5,streaming:3.5,sql:4,scale:4,ease:3,pbi:4.5,sharing:3,cost:3.5,open:3.5,noLock:2.5 }
+  },
+  {
+    id:'td', name:'Teradata Vantage', emoji:'🟠', sub:'Enterprise Data Warehouse',
+    c:'#C05400', t:'rgba(192,84,0,0.10)',
+    summary:'The gold standard for mission-critical enterprise data warehousing with decades of proven performance. Unmatched for complex SQL workloads and mixed workload management in regulated industries. Now cloud-native on VantageCloud.',
+    scores:{ dataEng:3,dataWH:5,ml:3,genAI:2.5,realTime:3,streaming:2.5,sql:5,scale:4,ease:3,pbi:3,sharing:3,cost:2,open:2.5,noLock:1.5 }
+  },
+  {
+    id:'ibm', name:'IBM watsonx.data', emoji:'🔹', sub:'Hybrid AI Data Lakehouse',
+    c:'#0F62FE', t:'rgba(15,98,254,0.10)',
+    summary:'IBM enterprise hybrid data lakehouse combining open formats with watsonx AI. Best for IBM-invested organizations (Db2, mainframe) needing on-prem + cloud data governance with integrated AI across hybrid environments.',
+    scores:{ dataEng:3.5,dataWH:3.5,ml:3.5,genAI:4,realTime:3,streaming:3,sql:3.5,scale:3.5,ease:2.5,pbi:2.5,sharing:3,cost:3,open:4,noLock:3 }
+  },
+  {
+    id:'cdp', name:'Cloudera CDP', emoji:'🌤️', sub:'Hybrid Cloud & On-Prem Analytics',
+    c:'#EF6820', t:'rgba(239,104,32,0.10)',
+    summary:'Enterprise hybrid cloud platform bridging on-premises Hadoop investments to public cloud. Best for organizations with deep Hadoop/Spark roots needing consistent data management and governance across private and public cloud.',
+    scores:{ dataEng:4,dataWH:3,ml:3.5,genAI:2.5,realTime:3.5,streaming:4,sql:3,scale:3.5,ease:2.5,pbi:2.5,sharing:2.5,cost:2.5,open:4.5,noLock:3.5 }
+  },
+  {
+    id:'ora', name:'Oracle Auto DW', emoji:'🔶', sub:'Autonomous Data Warehouse on OCI',
+    c:'#C74634', t:'rgba(199,70,52,0.10)',
+    summary:'Self-managing, self-securing, self-repairing data warehouse on Oracle Cloud. Best for Oracle-centric enterprises (EBS, JD Edwards, Fusion) needing zero-administration SQL analytics with native Oracle application integration.',
+    scores:{ dataEng:3,dataWH:4.5,ml:3,genAI:3,realTime:3,streaming:2.5,sql:4.5,scale:4,ease:4,pbi:3,sharing:3,cost:3,open:2,noLock:1.5 }
+  },
+  {
+    id:'ic', name:'Apache Iceberg + S3', emoji:'🧊', sub:'Open Lakehouse — Lowest Cost',
+    c:'#26A69A', t:'rgba(38,166,154,0.10)',
+    summary:'Best for engineering-led teams needing maximum flexibility, lowest cost, and zero vendor lock-in. The fully open lakehouse stack — you assemble the engines, you own the data. Cheapest option at any scale.',
+    scores:{ dataEng:5,dataWH:3,ml:3,genAI:2.5,realTime:2.5,streaming:3,sql:3,scale:4.5,ease:2,pbi:2,sharing:3,cost:5,open:5,noLock:5 }
+  }
+];
+
+// ── CRITERIA ──
+const CRIT = [
+  { id:'dataEng',       label:'Data Engineering',          ico:'⚙️', group:'Capabilities',
+    notes:{ db:'Spark + Delta Live Tables (DLT)', sf:'SQL-first; limited native Spark', mf:'Data Factory + Spark Notebooks', bq:'Dataflow + dbt; powerful but complex', rs:'AWS Glue + dbt; Spark via EMR', as:'Synapse Spark Pools + Synapse Pipelines', td:'QueryGrid + NOS for external data sources', ibm:'IBM DataStage + Spark + Presto engine', cdp:'Apache Spark + Hive + NiFi orchestration', ora:'Oracle Data Integrator + GoldenGate CDC', ic:'ACID, schema evolution, partition pruning on S3' } },
+  { id:'dataWH',        label:'Data Warehousing',           ico:'🏛️', group:'Capabilities',
+    notes:{ db:'Serverless SQL Warehouse (Photon)', sf:'Best-in-class Virtual Warehouses', mf:'Synapse Analytics + OneLake', bq:'Dremel engine — serverless, ultra-fast', rs:'RA3 nodes — managed storage + compute', as:'Dedicated SQL Pools (MPP) + Serverless SQL', td:'Best-in-class MPP — decades proven at petabyte scale', ibm:'Db2 Warehouse + watsonx.data Presto queries', cdp:'Impala SQL warehouse — good for Hadoop shops', ora:'Exadata technology — world-class OLAP performance', ic:'via Athena / Trino / Spark SQL' } },
+  { id:'ml',            label:'Machine Learning / AI',      ico:'🤖', group:'Capabilities',
+    notes:{ db:'MLflow, AutoML, Mosaic AI', sf:'Snowpark ML (growing)', mf:'Azure ML integration', bq:'BigQuery ML + Vertex AI', rs:'Redshift ML + SageMaker integration', as:'Azure Machine Learning + Synapse AutoML', td:'Vantage Analytics Library (VAL)', ibm:'Watson ML + AutoAI + MLOps', cdp:'Cloudera Machine Learning (CML)', ora:'Oracle Machine Learning + AutoML', ic:'via SageMaker + Spark MLlib on S3 data' } },
+  { id:'genAI',         label:'GenAI & LLM Apps',           ico:'🧠', group:'Capabilities',
+    notes:{ db:'DBRX, Foundation Models, LLM serving', sf:'Cortex AI (catching up)', mf:'Copilot + Azure OpenAI integration', bq:'Gemini + Vertex AI (excellent)', rs:'AWS Bedrock + Amazon Titan integration', as:'Azure OpenAI integration via Synapse', td:'ClearScape Analytics + LLM function calls', ibm:'watsonx.ai — IBM Granite + open LLMs', cdp:'Limited — NVIDIA + partner integrations', ora:'OCI Generative AI + Oracle Select AI', ic:'via external LLM integrations only' } },
+  { id:'realTime',      label:'Real-Time Analytics',        ico:'⚡', group:'Capabilities',
+    notes:{ db:'Structured Streaming + DLT', sf:'Dynamic Tables (limited)', mf:'Real-Time Intelligence / KQL', bq:'Streaming inserts + BI Engine', rs:'Kinesis Data Firehose → Redshift', as:'Azure Stream Analytics + Event Hubs', td:'EventStream API + Kafka streaming', ibm:'IBM Event Streams (Kafka) + InfoSphere', cdp:'Apache Kafka + Flink + NiFi — strong', ora:'GoldenGate + Oracle Streaming Analytics', ic:'needs Kafka + Flink streaming layer' } },
+  { id:'streaming',     label:'Streaming / CDC',            ico:'🌊', group:'Capabilities',
+    notes:{ db:'Native Kafka + Spark Structured Streaming', sf:'Snowpipe Streaming', mf:'Eventstream (Fabric)', bq:'Pub/Sub + Dataflow', rs:'Kinesis Data Streams; limited native CDC', as:'Event Hubs + Stream Analytics + Fabric', td:'Kafka connector; limited native CDC', ibm:'IBM Event Streams (Kafka) — enterprise-grade', cdp:'Kafka + Flink — native streaming strength', ora:'GoldenGate CDC; limited native streaming', ic:'Kafka + Flink; no built-in CDC' } },
+  { id:'sql',           label:'SQL Performance',            ico:'🚀', group:'Capabilities',
+    notes:{ db:'Photon engine — near-native speed', sf:'Best-in-class Snowflake engine', mf:'Synapse Dedicated/Serverless SQL', bq:'Dremel — sub-second on petabytes', rs:'AQUA hardware acceleration — very fast', as:'Dedicated SQL Pools — MPP engine', td:'Best-in-class complex SQL + workload management', ibm:'Presto + Db2 SQL — flexible', cdp:'Impala SQL + HiveQL', ora:'Exadata acceleration — fastest for Oracle SQL', ic:'via Athena / Trino / DuckDB' } },
+  { id:'scale',         label:'Scalability',                ico:'📈', group:'Capabilities',
+    notes:{ db:'Petabyte-scale Spark clusters', sf:'Instant elastic multi-cluster', mf:'Fabric capacity units (F SKU)', bq:'Fully serverless — infinite slots', rs:'Serverless auto-scaling + RA3 managed storage', as:'Auto-scale Spark pools + Serverless SQL', td:'VantageCloud elastic compute on all 3 clouds', ibm:'Hybrid cloud elasticity + Presto scaling', cdp:'Hybrid autoscale — cloud + on-prem', ora:'Autonomous scaling + Exadata elasticity', ic:'Petabyte-scale S3 — pay S3 rates only' } },
+  { id:'ease',          label:'Ease of Use',                ico:'🎯', group:'Operational',
+    notes:{ db:'Medium — Spark & cluster expertise needed', sf:'Easy — pure SQL-first SaaS', mf:'Easiest — low-code / GUI-driven', bq:'Easy — no infrastructure management', rs:'Familiar SQL; AWS console + query editor', as:'Medium — familiar for Azure/M365 developers', td:'Traditional DW expertise required', ibm:'Complex — IBM ecosystem depth needed', cdp:'Complex — Hadoop/Cloudera expertise needed', ora:'Easy — fully autonomous, zero-admin', ic:'Very complex — custom orchestration required' } },
+  { id:'pbi',           label:'Power BI Integration',       ico:'📊', group:'Operational',
+    notes:{ db:'Partner Connect + DirectQuery', sf:'Native BI connector', mf:'Native / Best-in-class (same vendor)', bq:'Connector available (not native)', rs:'ODBC/JDBC connector + QuickSight native', as:'Native Power BI integration (same Azure family)', td:'ODBC/JDBC + native Teradata connector', ibm:'JDBC connector; not native', cdp:'JDBC/ODBC connector', ora:'JDBC connector; Oracle Analytics Cloud native', ic:'via JDBC / Athena connector only' } },
+  { id:'sharing',       label:'Data Sharing',               ico:'🤝', group:'Operational',
+    notes:{ db:'Delta Sharing (open protocol)', sf:'Secure Data Sharing — best-in-class', mf:'OneLake shortcuts + Fabric items', bq:'Analytics Hub (GCP ecosystem)', rs:'Redshift Data Sharing + AWS Data Exchange', as:'Limited — OneLake shortcuts (migrating to Fabric)', td:'QueryGrid cross-platform data sharing', ibm:'IBM Data Product Hub', cdp:'Shared Data Experience (limited scope)', ora:'OCI Data Catalog + Autonomous Data Sharing', ic:'Open format — any engine reads directly' } },
+  { id:'multiErp',      label:'Multi-ERP Support',          ico:'🏭', group:'Operational',
+    notes:{ db:'Excellent — unified schema across ERP sources', sf:'Good — connectors available', mf:'Good — Azure Data Factory connectors', bq:'Good — Dataflow + partner connectors', rs:'AWS Glue + SAP/Oracle/Salesforce connectors', as:'Azure Data Factory — SAP/Oracle/Salesforce connectors', td:'Excellent — traditional ERP integration hub', ibm:'Excellent — native SAP, Oracle, JDE connectors', cdp:'NiFi + partner connectors for ERP sources', ora:'Native — Oracle EBS/JDE/Fusion + SAP connectors', ic:'Custom Glue/NiFi connectors required' } },
+  { id:'cost',          label:'Cost Efficiency',            ico:'💰', group:'Economics',
+    notes:{ db:'Medium — cluster + DBU pricing', sf:'Expensive at scale (per-credit)', mf:'Good for existing Microsoft customers', bq:'Variable — on-demand expensive; slots better', rs:'Good TCO — reserved instances save 60%+', as:'Good for Azure EA customers — capacity pricing', td:'High licensing; enterprise TCO discussion needed', ibm:'Competitive — BYOL + subscription; good for IBM shops', cdp:'High subscription; leverages existing hardware', ora:'BYOL model + competitive for Oracle shops', ic:'Lowest — pay S3 rates + compute only' } },
+  { id:'implSpeed',     label:'Implementation Speed',       ico:'⏱️', group:'Economics',
+    notes:{ db:'Medium — 2–4 months for full stack', sf:'Fast — weeks to first query', mf:'Fast for M365 orgs — guided setup', bq:'Fast — serverless, no infrastructure', rs:'Fast for AWS-native orgs — hours to first query', as:'Medium — months for full Synapse + ADF setup', td:'Slow — 6–12 months for enterprise deployment', ibm:'Slow — enterprise IBM deployment cycles', cdp:'Slow — Hadoop migration expertise required', ora:'Fast — autonomous DB, self-configures in hours', ic:'Slow — needs full custom stack build' } },
+  { id:'implComplexity',label:'Implementation Complexity',  ico:'🛠️', group:'Economics',
+    notes:{ db:'Requires Spark + cluster expertise; 2–4 months', sf:'SQL-first SaaS; teams productive in days', mf:'Guided setup; low-code tools reduce complexity', bq:'Serverless — no infrastructure to manage', rs:'Familiar SQL; AWS console + wizard setup', as:'Azure Portal wizard; moderate complexity', td:'Traditional DW expertise; 6–12 month rollouts', ibm:'IBM professional services typically needed', cdp:'Hadoop migration expertise required', ora:'Fully autonomous — near-zero admin effort', ic:'Very complex — needs custom orchestration stack' } },
+  { id:'open',          label:'Open Standards',             ico:'🌐', group:'Architecture',
+    notes:{ db:'Delta Lake (open format, open source)', sf:'Proprietary storage format', mf:'Partially open (Parquet in OneLake)', bq:'BigLake supports Iceberg/Parquet', rs:'Spectrum queries Iceberg/Parquet/ORC on S3', as:'Delta Lake + Parquet + Synapse Link', td:'NOS queries open formats; mainly proprietary engine', ibm:'Open — Iceberg, Parquet, Delta formats supported', cdp:'Fully open stack: Spark, Kafka, Hive, HDFS', ora:'Mostly proprietary; some Parquet via DBMS_CLOUD', ic:'Best-in-class — Iceberg spec + any engine' } },
+  { id:'noLock',        label:'No Vendor Lock-in',          ico:'🔓', group:'Architecture',
+    notes:{ db:'Medium — open format, closed platform', sf:'High — proprietary all the way', mf:'Very high — deep Microsoft dependency', bq:'High — GCP infrastructure dependent', rs:'Medium — Spectrum/S3 provide partial escape', as:'High — deep Azure dependency (migrating to Fabric)', td:'Very high — proprietary engine + licensing', ibm:'Medium — open formats reduce lock-in', cdp:'Low — open-source stack, portable workloads', ora:'Very high — Oracle technology stack dependency', ic:'Zero lock-in — open spec, open data' } },
+  { id:'security',      label:'Security & Compliance',      ico:'🔐', group:'Architecture',
+    notes:{ db:'Unity Catalog, RBAC, SOC2/HIPAA', sf:'Industry-leading (SOC2/HIPAA/FedRAMP)', mf:'Azure security model (HIPAA/ISO)', bq:'VPC SC, CMEK, FedRAMP', rs:'VPC, KMS, IAM roles, SOC2/HIPAA/FedRAMP GovCloud', as:'Azure Entra ID, Purview, FedRAMP', td:'Enterprise-grade — SOC2, HIPAA, FedRAMP', ibm:'Excellent — FIPS 140-2, FedRAMP, HIPAA', cdp:'SDX security — Ranger + Knox + Atlas', ora:'Excellent — Oracle Vault, TDE, FedRAMP', ic:'AWS IAM + S3 policies; GDPR via data ownership' } },
+  { id:'euAI',          label:'AI EU Policy / GDPR',        ico:'🇪🇺', group:'Architecture',
+    notes:{ db:'EU regions; Unity Catalog data residency controls', sf:'EU Business Critical; GDPR BAA; data residency', mf:'EU Data Boundary; Purview; EU AI Act aligned', bq:'EU regions; GDPR compliance; Google data scrutiny', rs:'EU regions; AWS GDPR DPA; GovCloud EU option', as:'EU Data Boundary; Azure AI governance policies', td:'EU sovereign deployment; strong GDPR data lineage', ibm:'IBM EU Cloud Commitment; data residency guaranteed', cdp:'On-prem/private cloud = full EU data sovereignty', ora:'Oracle EU Sovereign Cloud; GDPR compliance', ic:'Full sovereignty — you own data, no vendor transfer' } },
+  { id:'multiSite',     label:'Multi-Site / Multi-Plant',   ico:'🌍', group:'Architecture',
+    notes:{ db:'Excellent — multi-cloud Unity Catalog', sf:'Good — multi-region deployments', mf:'Good — OneLake is global', bq:'Excellent — multi-region, multi-project', rs:'Excellent — AWS global regions + cross-region sharing', as:'Good — Azure paired regions + geo-redundancy', td:'Good — VantageCloud multi-region deployments', ibm:'Excellent — hybrid multi-cloud + on-prem', cdp:'Excellent — private + public cloud hybrid', ora:'Good — OCI multi-region + Exadata on-prem', ic:'S3 global regions; multi-engine portability' } },
+];
+
+// ── EXTRA SCORES ──
+P.forEach(p=>{
+  const extras = {
+    db:  {multiErp:4.5, multiSite:4.5, implSpeed:3,   security:4.5, implComplexity:2.5, euAI:3.5},
+    sf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:5,   implComplexity:4.5, euAI:4  },
+    mf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:4.5, implComplexity:4,   euAI:5  },
+    bq:  {multiErp:3.5, multiSite:4.5, implSpeed:4.5, security:4.5, implComplexity:4.5, euAI:3.5},
+    rs:  {multiErp:3.5, multiSite:4,   implSpeed:4,   security:4.5, implComplexity:3.5, euAI:3  },
+    as:  {multiErp:4,   multiSite:4,   implSpeed:3,   security:5,   implComplexity:3,   euAI:4.5},
+    td:  {multiErp:4.5, multiSite:4,   implSpeed:2,   security:5,   implComplexity:2,   euAI:4  },
+    ibm: {multiErp:4,   multiSite:4.5, implSpeed:2.5, security:5,   implComplexity:2,   euAI:4.5},
+    cdp: {multiErp:3,   multiSite:4.5, implSpeed:2,   security:4.5, implComplexity:1.5, euAI:4.5},
+    ora: {multiErp:5,   multiSite:4,   implSpeed:3,   security:4.5, implComplexity:4,   euAI:4  },
+    ic:  {multiErp:3,   multiSite:4,   implSpeed:2,   security:3.5, implComplexity:1.5, euAI:4.5},
+  }[p.id]||{};
+  Object.assign(p.scores, extras);
+});
+
+const G_COLOR = { Capabilities:'#16A34A', Operational:'#2563EB', Economics:'#D97706', Architecture:'#7C3AED' };
+
+// ── FILTER DEFINITIONS ──
+const FILTER_DEFS = [
+  {
+    id:'speed', label:'⏱ Implementation Speed',
+    hint:'How fast must the platform be operational?',
+    opts:[
+      { v:'express',  label:'Express',  desc:'< 1 month',    mods:{ db:-8, sf:+10, mf:+7, bq:+8, rs:+8, as:-5,  td:-15, ibm:-15, cdp:-15, ora:+5,  ic:-15 } },
+      { v:'standard', label:'Standard', desc:'1–3 months',   mods:{ db:+3, sf:+5,  mf:+4, bq:+5, rs:+5, as:+3,  td:-8,  ibm:-5,  cdp:-8,  ora:+6,  ic:-8  } },
+      { v:'extended', label:'Extended', desc:'3–6 months',   mods:{ db:+6, sf:-2,  mf:+0, bq:+2, rs:+2, as:+5,  td:+4,  ibm:+4,  cdp:+3,  ora:+2,  ic:+2  } },
+      { v:'complex',  label:'Complex',  desc:'6–18 months',  mods:{ db:+9, sf:-7,  mf:-5, bq:+3, rs:-3, as:+3,  td:+10, ibm:+8,  cdp:+9,  ora:-2,  ic:+10 } },
+    ]
+  },
+  {
+    id:'companyType', label:'🏢 Company Structure',
+    hint:'What best describes your organization?',
+    opts:[
+      { v:'smb',       label:'SMB / Single-Site',    desc:'<500 employees',               mods:{ db:-8,  sf:+12, mf:+7,  bq:+8,  rs:+5,  as:-5,  td:-12, ibm:-10, cdp:-12, ora:-5,  ic:-15 } },
+      { v:'multiSite', label:'Multi-Site',            desc:'Several offices / locations',  mods:{ db:+4,  sf:+4,  mf:+5,  bq:+5,  rs:+5,  as:+5,  td:+4,  ibm:+5,  cdp:+5,  ora:+3,  ic:+3  } },
+      { v:'multiPlant',label:'Multi-Plant Mfg',       desc:'Multiple production sites',    mods:{ db:+9,  sf:-4,  mf:+2,  bq:+4,  rs:+3,  as:+4,  td:+8,  ibm:+6,  cdp:+7,  ora:+5,  ic:+5  } },
+      { v:'multiERP',  label:'Multi-ERP Enterprise',  desc:'SAP + Oracle + custom ERPs',   mods:{ db:+10, sf:-1,  mf:+3,  bq:+6,  rs:+3,  as:+5,  td:+8,  ibm:+8,  cdp:+5,  ora:+8,  ic:+4  } },
+      { v:'globalCorp',label:'Global Corporation',    desc:'10k+ employees, multi-region', mods:{ db:+9,  sf:+5,  mf:+5,  bq:+10, rs:+8,  as:+6,  td:+8,  ibm:+8,  cdp:+8,  ora:+6,  ic:+6  } },
+    ]
+  },
+  {
+    id:'business', label:'💼 Business Type / Industry',
+    hint:'Which industry best fits your organization?',
+    opts:[
+      { v:'manufacturing', label:'Manufacturing',    desc:'Industry, production, OEE',     mods:{ db:+8, sf:-5,  mf:+2,  bq:+3,  rs:+3,  as:+3,  td:+8,  ibm:+6,  cdp:+7,  ora:+5,  ic:+5  } },
+      { v:'retail',        label:'Retail & E-comm',  desc:'Omnichannel, supply chain',     mods:{ db:+4, sf:+8,  mf:+5,  bq:+8,  rs:+8,  as:+4,  td:+2,  ibm:+3,  cdp:+2,  ora:+3,  ic:-5  } },
+      { v:'finance',       label:'Finance & Banking', desc:'Risk, compliance, trading',     mods:{ db:+4, sf:+10, mf:+5,  bq:+6,  rs:+6,  as:+5,  td:+10, ibm:+8,  cdp:+4,  ora:+7,  ic:+3  } },
+      { v:'healthcare',    label:'Healthcare',        desc:'HIPAA, life sciences, pharma',  mods:{ db:+5, sf:+5,  mf:+10, bq:+5,  rs:+4,  as:+8,  td:+7,  ibm:+8,  cdp:+5,  ora:+5,  ic:+4  } },
+      { v:'technology',    label:'Technology / SaaS', desc:'Product analytics, ML-heavy',   mods:{ db:+10,sf:+2,  mf:-4,  bq:+8,  rs:+8,  as:+3,  td:-5,  ibm:+3,  cdp:+5,  ora:+2,  ic:+10 } },
+      { v:'energy',        label:'Energy & Utilities',desc:'IoT, time-series, SCADA',       mods:{ db:+6, sf:-4,  mf:+0,  bq:+3,  rs:+4,  as:+3,  td:+6,  ibm:+5,  cdp:+8,  ora:+4,  ic:+6  } },
+      { v:'public',        label:'Public Sector',     desc:'Government, education',          mods:{ db:+0, sf:+2,  mf:+12, bq:+4,  rs:+5,  as:+10, td:+5,  ibm:+6,  cdp:+4,  ora:+5,  ic:+2  } },
+    ]
+  },
+  {
+    id:'team', label:'🧑‍💻 Primary Team Profile',
+    hint:'Who will be the main platform users?',
+    opts:[
+      { v:'dataEng', label:'Data Engineering',  desc:'Pipelines, Spark, ETL',          mods:{ db:+10, sf:-6,  mf:-4,  bq:+3,  rs:+5,  as:+3,  td:-6,  ibm:+3,  cdp:+8,  ora:-5,  ic:+15 } },
+      { v:'biSQL',   label:'BI / SQL Analytics', desc:'Dashboards, SQL, reporting',     mods:{ db:-6,  sf:+10, mf:+8,  bq:+8,  rs:+5,  as:+5,  td:+8,  ibm:+4,  cdp:+2,  ora:+7,  ic:-12 } },
+      { v:'mlAI',    label:'ML / AI / Data Sci', desc:'Models, features, experiments',  mods:{ db:+12, sf:-4,  mf:+3,  bq:+8,  rs:+4,  as:+4,  td:-3,  ibm:+6,  cdp:+3,  ora:+2,  ic:+8  } },
+      { v:'platform',label:'Platform / Infra',   desc:'DevOps, SRE, cloud-native',      mods:{ db:+4,  sf:-8,  mf:-8,  bq:+3,  rs:+2,  as:+2,  td:-8,  ibm:+4,  cdp:+6,  ora:-6,  ic:+12 } },
+      { v:'mixed',   label:'Mixed / General',    desc:'Cross-functional teams',          mods:{ db:+2,  sf:+2,  mf:+2,  bq:+2,  rs:+4,  as:+3,  td:+2,  ibm:+2,  cdp:+1,  ora:+2,  ic:-5  } },
+    ]
+  },
+  {
+    id:'budget', label:'💰 Monthly Budget',
+    hint:'Approximate monthly data platform spend',
+    opts:[
+      { v:'starter',    label:'Starter',    desc:'< $10k / month',       mods:{ db:-7,  sf:-2,  mf:-5,  bq:+3,  rs:+4,  as:-6,  td:-15, ibm:-12, cdp:-10, ora:-8,  ic:+10 } },
+      { v:'growth',     label:'Growth',     desc:'$10k–$50k / month',    mods:{ db:+2,  sf:+5,  mf:+3,  bq:+5,  rs:+5,  as:+3,  td:-8,  ibm:-5,  cdp:-5,  ora:+2,  ic:+8  } },
+      { v:'scale',      label:'Scale',      desc:'$50k–$200k / month',   mods:{ db:+6,  sf:+3,  mf:+4,  bq:+5,  rs:+6,  as:+4,  td:+4,  ibm:+4,  cdp:+4,  ora:+5,  ic:+6  } },
+      { v:'enterprise', label:'Enterprise', desc:'$200k+ / month',       mods:{ db:+9,  sf:+7,  mf:+10, bq:+6,  rs:+5,  as:+6,  td:+12, ibm:+10, cdp:+10, ora:+8,  ic:+2  } },
+    ]
+  },
+];
+
+// ── PRESETS ──
+const DEFAULT_W = {};
+CRIT.forEach(c=>{ DEFAULT_W[c.id]=3; });
+const PRESETS = {
+  dataEngineer:    { dataEng:5,streaming:5,realTime:4,scale:4,open:4,noLock:3,cost:2,ml:3,genAI:2,dataWH:2,sql:2,ease:2,pbi:1,sharing:1,multiErp:2,implSpeed:2,security:3,multiSite:3 },
+  biAnalyst:       { dataWH:5,sql:5,ease:4,pbi:4,sharing:3,scale:3,cost:2,dataEng:1,realTime:2,ml:1,genAI:1,streaming:1,open:1,noLock:1,multiErp:2,implSpeed:4,security:3,multiSite:2 },
+  mlEngineer:      { ml:5,genAI:5,dataEng:4,scale:4,open:3,streaming:3,realTime:3,cost:2,dataWH:2,ease:2,noLock:2,sql:1,pbi:1,sharing:1,multiErp:1,implSpeed:2,security:3,multiSite:2 },
+  platformEngineer:{ open:5,noLock:5,cost:5,dataEng:4,scale:4,streaming:4,realTime:2,ml:2,dataWH:2,sql:2,ease:1,genAI:1,pbi:0,sharing:1,multiErp:3,implSpeed:2,security:4,multiSite:4 },
+  costOptimizer:   { cost:5,noLock:4,open:4,scale:3,dataEng:3,dataWH:3,ml:2,sql:2,realTime:2,streaming:2,ease:2,genAI:1,pbi:1,sharing:1,multiErp:2,implSpeed:2,security:3,multiSite:3 },
+  openSource:      { open:5,noLock:5,cost:4,dataEng:4,streaming:4,scale:3,ml:3,realTime:3,genAI:2,dataWH:2,sql:2,ease:1,pbi:0,sharing:1,multiErp:3,implSpeed:2,security:3,multiSite:4 },
+  msShop:          { pbi:5,ease:4,dataWH:4,sql:3,scale:3,cost:3,genAI:3,dataEng:3,realTime:3,sharing:2,ml:2,streaming:2,open:1,noLock:0,multiErp:3,implSpeed:4,security:4,multiSite:3 },
+  enterprise:      { security:5,scale:5,multiErp:5,multiSite:5,cost:4,sharing:4,dataWH:4,sql:4,ease:3,open:3,dataEng:3,noLock:2,ml:3,genAI:3,realTime:3,streaming:3,pbi:3,implSpeed:3 },
+};
+
+// ── STATE ──
+let weights = {...DEFAULT_W};
+let visible = {};
+let filters = {};
+let dark = false, sbOpen = true, fpOpen = true, activePreset = null, pending = null;
+CRIT.forEach(c=>{ visible[c.id]=true; });
+FILTER_DEFS.forEach(f=>{ filters[f.id]=null; });
+
+// ── SCORING ──
+function baseScore(pid) {
+  const p = P.find(x=>x.id===pid);
+  let tot=0, wSum=0;
+  CRIT.forEach(c=>{ const w=weights[c.id]??3; tot+=w*(p.scores[c.id]??0); wSum+=w*5; });
+  return wSum===0?0:(tot/wSum)*100;
+}
+function contextBonus(pid) {
+  let bonus=0;
+  FILTER_DEFS.forEach(fd=>{ const sel=filters[fd.id]; if(!sel)return; const opt=fd.opts.find(o=>o.v===sel); if(opt?.mods?.[pid]!==undefined) bonus+=opt.mods[pid]; });
+  return bonus;
+}
+function finalScore(pid) { return Math.round(Math.min(100,Math.max(0,baseScore(pid)+contextBonus(pid)))); }
+function sorted() { return [...P].sort((a,b)=>finalScore(b.id)-finalScore(a.id)); }
+
+// ── RECOMMENDATION ──
+const INSIGHTS = {
+  'companyType:multiPlant+team:dataEng':    "Multi-plant + Data Eng → Databricks Unity Catalog or Redshift RA3 unify cross-plant schemas",
+  'companyType:multiERP+speed:complex':     "Multi-ERP + Complex impl → Databricks Unity Catalog or Teradata Vantage centralizes ERP data",
+  'companyType:globalCorp+budget:enterprise':"Global Corp + Enterprise → BigQuery multi-region, Teradata VantageCloud, or IBM watsonx hybrid",
+  'business:manufacturing+team:platform':   "Manufacturing + Platform Eng → Cloudera CDP or Redshift Spectrum scales IoT/OEE data cost-efficiently",
+  'business:technology+team:mlAI':          "Tech company + ML team → Databricks Mosaic AI is the clear global category leader",
+  'business:finance+companyType:multiERP':  "Finance + Multi-ERP → Snowflake secure sharing or Teradata Vantage regulatory-grade SQL",
+  'business:public+budget:starter':         "Public sector + tight budget → Microsoft Fabric or Azure Synapse leverages M365 licensing",
+  'team:biSQL+speed:express':               "BI team + Express impl → Snowflake, BigQuery, or Oracle ADW deliver SQL analytics in days",
+  'team:platform+budget:starter':           "Platform team + low budget → Redshift Serverless free tier or BigQuery sandbox",
+  'business:healthcare+team:biSQL':         "Healthcare + BI team → Microsoft Fabric (HIPAA + Power BI), Snowflake (FedRAMP), or IBM watsonx",
+  'business:energy+companyType:multiPlant': "Energy + Multi-plant → Cloudera CDP or Redshift Spectrum for petabyte-scale IoT/SCADA analytics",
+  'budget:starter+speed:express':           "Low budget + fast setup → BigQuery serverless sandbox or Snowflake Trial",
+  'companyType:multiERP+team:biSQL':        "Multi-ERP + BI Team → Teradata Vantage excels at complex multi-source SQL analytics",
+  'budget:enterprise+business:finance':     "Enterprise Finance → Teradata Vantage or Oracle ADW for mission-critical SQL performance",
+  'business:public+companyType:globalCorp': "Public Sector Global → IBM watsonx hybrid cloud or Azure Synapse for regulatory compliance",
+  'business:energy+team:dataEng':           "Energy + Data Eng → Cloudera CDP Kafka+Flink+Spark for IoT/SCADA on hybrid infrastructure",
+};
+
+function getInsights() {
+  const hits=[];
+  for (const [combo,text] of Object.entries(INSIGHTS)) {
+    const parts=combo.split('+');
+    if (parts.every(p=>{ const [k,v]=p.split(':'); return filters[k]===v; })) hits.push(text);
+  }
+  return hits.slice(0,3);
+}
+
+function buildReco() {
+  const ord=sorted(); const lead=ord[0], second=ord[1];
+  const s1=finalScore(lead.id), s2=finalScore(second.id);
+  const activeF=FILTER_DEFS.filter(f=>filters[f.id]);
+  if (activeF.length===0) return null;
+  const ctx=activeF.map(f=>{ const opt=f.opts.find(o=>o.v===filters[f.id]); return opt?.label||filters[f.id]; }).join(' · ');
+  const margin=s1-s2; const clarity=margin>=20?'clearly leads':'narrowly leads';
+  const bonus1=contextBonus(lead.id); const sign1=bonus1>=0?'+':'';
+  return {
+    text:`<strong>Context:</strong> ${ctx}<br>
+          <strong style="color:${lead.c}">${lead.emoji} ${lead.name}</strong> ${clarity}
+          with <strong>${s1}%</strong> match (base ${Math.round(baseScore(lead.id))}% <span class="mod-badge ${bonus1>=0?'mod-pos':'mod-neg'}">${sign1}${Math.round(bonus1)} ctx</span>) &nbsp;·&nbsp;
+          Runner-up: <strong style="color:${second.c}">${second.emoji} ${second.name}</strong> (${s2}%)`,
+    insights: getInsights()
+  };
+}
+
+// ── HELPERS ──
+function starsHtml(score) {
+  const f=Math.round(score);
+  return '<div class="stars">'+Array.from({length:5},(_,i)=>`<span class="${i<f?'sf':'se'}">★</span>`).join('')+'</div>';
+}
+function activeFilterCount() { return FILTER_DEFS.filter(f=>filters[f.id]).length; }
+
+// ── RENDER ──
+function render() {
+  const ord=sorted();
+  const medals=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟','🧊'];
+  const rankTags=['#1 Best Match','#2 Strong Match','#3 Good Match','#4 Fair Fit','#5 Fair Fit','#6 Consider','#7 Consider','#8 Weak Fit','#9 Weak Fit','#10 Poor Fit','#11 Open Source Alt'];
+  let html='';
+
+  html+=`<div class="plat-row"><div class="row-spacer"></div>`;
+  ord.forEach((p,i)=>{
+    const sc=finalScore(p.id), bsc=Math.round(baseScore(p.id)), bon=contextBonus(p.id);
+    const bonSign=bon>=0?'+':''; const bonClass=bon>=0?'mod-pos':'mod-neg';
+    html+=`<div class="p-card rank-${i+1} tt" style="--pc:${p.c};--pt:${p.t};">
+      <div class="p-medal">${medals[i]}</div>
+      <div class="p-name">${p.emoji} ${p.name}</div>
+      <div class="p-sub">${p.sub}</div>
+      <div class="p-score-wrap"><div class="p-bar-bg"><div class="p-bar-fill" style="width:${sc}%"></div></div></div>
+      <div class="p-pct">${sc}<span class="p-pct-lbl">%</span></div>
+      <div style="font-size:8px;color:var(--muted);margin-top:1px;">base ${bsc}% ${bon!==0?`<span class="mod-badge ${bonClass}">${bonSign}${Math.round(bon)}</span>`:''}</div>
+      <div class="p-tag">${rankTags[i]}</div>
+      <div class="tt-box">${p.name}<br>Final: ${sc}% | Base: ${bsc}% | Ctx: ${bonSign}${Math.round(bon)}%</div>
+    </div>`;
+  });
+  html+=`</div>`;
+
+  const groups=[...new Set(CRIT.map(c=>c.group))];
+  groups.forEach(g=>{
+    const gc=G_COLOR[g]||'#888';
+    html+=`<div class="g-sep"><div class="g-sep-line"></div><div class="g-sep-tag" style="background:${gc}">${g}</div><div class="g-sep-line"></div></div>`;
+    CRIT.filter(c=>c.group===g).forEach(c=>{
+      const w=weights[c.id]??3; const vals=ord.map(p=>p.scores[c.id]??0); const best=Math.max(...vals);
+      html+=`<div class="crit-row ${visible[c.id]?'':'hidden'}" data-row="${c.id}">`;
+      html+=`<div class="crit-lbl" style="--gc:${gc}"><span class="ico">${c.ico}</span><span>${c.label}</span><span class="w-tag ${w>0?'on':''}">${w}</span></div>`;
+      ord.forEach(p=>{
+        const sc=p.scores[c.id]??0; const isBest=sc===best&&sc>0;
+        html+=`<div class="c-cell ${isBest?'best':''} tt" style="--pc:${p.c};--pt:${p.t};">
+          <div class="best-flag">BEST</div>${starsHtml(sc)}
+          <div class="s-num">${sc}/5</div>
+          ${c.notes[p.id]?`<div class="c-note">${c.notes[p.id]}</div>`:''}
+          <div class="tt-box">${p.name}: ${sc}/5<br>${c.notes[p.id]||''}</div>
+        </div>`;
+      });
+      html+=`</div>`;
+    });
+  });
+
+  html+=`<div class="g-sep"><div class="g-sep-line"></div><div class="g-sep-tag" style="background:#334155">Verdict</div><div class="g-sep-line"></div></div>
+  <div class="sum-row"><div class="sum-spacer"></div>`;
+  ord.forEach(p=>{ html+=`<div class="sum-card" style="background:${p.c};"><div class="sh">${p.emoji} ${p.name}</div>${p.summary}</div>`; });
+  html+=`</div><div style="height:24px;"></div>`;
+
+  document.getElementById('mainArea').innerHTML=html;
+  updateStatus(ord); updateReco();
+}
+
+function updateStatus(ord) {
+  const lead=ord[0];
+  document.getElementById('statusLeader').innerHTML=`<div class="sb-dot" style="background:${lead.c}"></div>Leader: <strong>${lead.emoji} ${lead.name}</strong> (${finalScore(lead.id)}%)`;
+  const fc=activeFilterCount(); const el=document.getElementById('statusFilters');
+  el.innerHTML=`🔍 Context filters: <strong>${fc} active</strong>`; el.style.color=fc>0?'var(--primary)':'var(--muted)';
+  document.getElementById('statusRows').innerHTML=`👁 Rows shown: <strong>${CRIT.filter(c=>visible[c.id]).length}/${CRIT.length}</strong>`;
+}
+
+function updateReco() {
+  const reco=buildReco(); const bar=document.getElementById('recoBar'); const txt=document.getElementById('recoText');
+  if (!reco) { bar.classList.add('hidden'); return; }
+  bar.classList.remove('hidden');
+  let insHtml='';
+  if (reco.insights.length) insHtml=`<div class="insight-chips">${reco.insights.map(i=>`<span class="ins-chip">💡 ${i}</span>`).join('')}</div>`;
+  txt.innerHTML=reco.text+insHtml;
+}
+
+function updateChips() {
+  const bar=document.getElementById('chipsBar'); const inner=document.getElementById('chipsInner');
+  const hdrBadge=document.getElementById('hdrFilterCount'); const countBadge=document.getElementById('filterCountBadge');
+  const fc=activeFilterCount();
+  inner.innerHTML=FILTER_DEFS.filter(f=>filters[f.id]).map(f=>{ const opt=f.opts.find(o=>o.v===filters[f.id]);
+    return `<div class="chip">${opt?.label||filters[f.id]}<button class="chip-x" data-fid="${f.id}">✕</button></div>`;
+  }).join('');
+  if (fc>0) { bar.classList.remove('empty'); hdrBadge.style.display=''; hdrBadge.textContent=`${fc} filter${fc>1?'s':''}`;
+    countBadge.style.display=''; countBadge.textContent=`${fc} active`;
+  } else { bar.classList.add('empty'); hdrBadge.style.display='none'; countBadge.style.display='none'; }
+  inner.querySelectorAll('.chip-x').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      const fid=e.currentTarget.dataset.fid; filters[fid]=null;
+      document.querySelectorAll(`.fpill[data-fid="${fid}"]`).forEach(p=>p.classList.remove('sel'));
+      updateChips(); schedRender();
+    });
+  });
+}
+
+function buildFilters() {
+  const grid=document.getElementById('filtersGrid'); let html='';
+  FILTER_DEFS.forEach(fd=>{
+    html+=`<div class="filter-group"><div class="fg-label" title="${fd.hint}">${fd.label}</div><div class="fg-pills">`;
+    fd.opts.forEach(o=>{ html+=`<button class="fpill ${filters[fd.id]===o.v?'sel':''}" data-fid="${fd.id}" data-val="${o.v}" title="${o.desc}">${o.label}</button>`; });
+    html+=`</div></div>`;
+  });
+  grid.innerHTML=html;
+  grid.querySelectorAll('.fpill').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      const fid=e.currentTarget.dataset.fid; const val=e.currentTarget.dataset.val;
+      if (filters[fid]===val) { filters[fid]=null; e.currentTarget.classList.remove('sel'); }
+      else { filters[fid]=val; document.querySelectorAll(`.fpill[data-fid="${fid}"]`).forEach(p=>p.classList.remove('sel')); e.currentTarget.classList.add('sel'); }
+      activePreset=null; document.querySelectorAll('.preset-pill').forEach(p=>p.classList.remove('active'));
+      updateChips(); schedRender();
+    });
+  });
+}
+
+function buildSidebar() {
+  const sw=document.getElementById('slidersWrap'); const tw=document.getElementById('togglesWrap');
+  const groups=[...new Set(CRIT.map(c=>c.group))]; let sh='';
+  groups.forEach(g=>{
+    const gc=G_COLOR[g]||'#888';
+    sh+=`<div class="grp-head" style="color:${gc}"><div class="grp-dot" style="background:${gc}"></div>${g}</div>`;
+    CRIT.filter(c=>c.group===g).forEach(c=>{
+      const w=weights[c.id]??3;
+      sh+=`<div class="slider-item"><div class="slider-meta"><div class="slider-lbl"><span class="slider-ico">${c.ico}</span>${c.label}</div><div class="slider-val ${w===0?'z':''}" id="sv-${c.id}">${w}</div></div><input type="range" min="0" max="5" step="1" value="${w}" data-id="${c.id}" class="w-slider"></div>`;
+    });
+  });
+  sw.innerHTML=sh;
+  let th='';
+  CRIT.forEach(c=>{ th+=`<div class="chk-row"><input type="checkbox" id="v-${c.id}" data-id="${c.id}" ${visible[c.id]?'checked':''}><label for="v-${c.id}">${c.ico} ${c.label}</label></div>`; });
+  tw.innerHTML=th;
+  sw.querySelectorAll('.w-slider').forEach(s=>{
+    s.addEventListener('input',e=>{
+      const id=e.target.dataset.id, v=parseInt(e.target.value); weights[id]=v;
+      const el=document.getElementById(`sv-${id}`); el.textContent=v; el.className=`slider-val ${v===0?'z':''}`;
+      activePreset=null; document.querySelectorAll('.preset-pill').forEach(p=>p.classList.remove('active')); schedRender();
+    });
+  });
+  tw.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',e=>{
+      const id=e.target.dataset.id; visible[id]=e.target.checked;
+      document.querySelectorAll(`.crit-row[data-row="${id}"]`).forEach(r=>r.classList.toggle('hidden',!e.target.checked));
+      updateStatus(sorted());
+    });
+  });
+}
+
+function updateSliders() {
+  CRIT.forEach(c=>{ const s=document.querySelector(`.w-slider[data-id="${c.id}"]`); const el=document.getElementById(`sv-${c.id}`); if(!s||!el)return; const v=weights[c.id]??3; s.value=v; el.textContent=v; el.className=`slider-val ${v===0?'z':''}`; });
+}
+
+function applyPreset(id) {
+  if (!PRESETS[id]) return; weights={...PRESETS[id]}; activePreset=id; updateSliders();
+  document.querySelectorAll('.preset-pill').forEach(b=>b.classList.toggle('active',b.dataset.p===id)); schedRender();
+}
+document.querySelectorAll('.preset-pill').forEach(b=>b.addEventListener('click',()=>applyPreset(b.dataset.p)));
+
+document.getElementById('resetWeights').addEventListener('click',()=>{ weights={...DEFAULT_W}; activePreset=null; updateSliders(); document.querySelectorAll('.preset-pill').forEach(p=>p.classList.remove('active')); schedRender(); });
+document.getElementById('clearFilters').addEventListener('click',()=>{ FILTER_DEFS.forEach(f=>{ filters[f.id]=null; }); document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('sel')); updateChips(); schedRender(); });
+document.getElementById('allOn').addEventListener('click',()=>{ CRIT.forEach(c=>{ visible[c.id]=true; }); document.querySelectorAll('#togglesWrap input').forEach(cb=>cb.checked=true); document.querySelectorAll('.crit-row').forEach(r=>r.classList.remove('hidden')); updateStatus(sorted()); });
+document.getElementById('allOff').addEventListener('click',()=>{ CRIT.forEach(c=>{ visible[c.id]=false; }); document.querySelectorAll('#togglesWrap input').forEach(cb=>cb.checked=false); document.querySelectorAll('.crit-row').forEach(r=>r.classList.add('hidden')); updateStatus(sorted()); });
+document.getElementById('btnSidebar').addEventListener('click',()=>{ sbOpen=!sbOpen; document.getElementById('sidebar').classList.toggle('collapsed',!sbOpen); document.getElementById('btnSidebar').style.background=sbOpen?'':'rgba(37,99,235,0.3)'; });
+document.getElementById('btnFilter').addEventListener('click',()=>{ fpOpen=!fpOpen; document.getElementById('filterPanel').classList.toggle('collapsed',!fpOpen); document.getElementById('btnFilter').style.background=fpOpen?'':'rgba(37,99,235,0.3)'; });
+document.getElementById('btnDark').addEventListener('click',()=>{ dark=!dark; document.body.toggleAttribute('data-dark',dark); document.getElementById('btnDark').textContent=dark?'☀️':'🌙'; });
+document.getElementById('btnPrint').addEventListener('click',()=>window.print());
+
+function schedRender() { clearTimeout(pending); pending=setTimeout(render,80); }
+
+const printStyle=document.createElement('style');
+printStyle.textContent=`@media print{.top-bar,.filter-panel,.chips-bar,.sidebar,.status-bar,.hdr-actions{display:none!important;}.app-body{display:block!important;overflow:visible!important;}.main-area{overflow:visible!important;padding:0!important;}body{height:auto!important;overflow:visible!important;}.p-card,.c-cell,.crit-lbl,.sum-card{break-inside:avoid;}}`;
+document.head.appendChild(printStyle);
+
+buildFilters(); buildSidebar(); render();
+</script>
+</body>
+</html>
