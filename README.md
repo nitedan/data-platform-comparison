@@ -29,8 +29,9 @@ This tool provides a **weighted, context-aware scoring engine** that compares 11
 ### 🧭 [Platform Advisor — Core](platform-advisor.html)
 The focused advisor for most organizations. Compares the **top 4 commercial platforms + Apache Iceberg+S3** (open-source / lowest cost).
 
-**20 criteria including:**
+**23 criteria including:**
 - Data Engineering · Data Warehousing · ML/AI · GenAI & LLMs
+- **AI Tools Integration** · **AI Agent Orchestration** · **Autonomous Agentic AI** *(3-level AI maturity)*
 - Real-Time Analytics · Streaming / CDC · SQL Performance · Scalability
 - Ease of Use · Power BI Integration · Data Sharing · Multi-ERP Support
 - Cost Efficiency · Implementation Speed · **Implementation Complexity** *(easy vs hard)*
@@ -38,19 +39,22 @@ The focused advisor for most organizations. Compares the **top 4 commercial plat
 - **AI EU Policy / GDPR** *(EU AI Act alignment, data sovereignty)*
 - Multi-Site / Multi-Plant
 
-**Context filters:**
+**Context filters (8 categories):**
 - ⏱ Implementation Speed (Express → Complex)
 - 🏢 Company Structure (SMB, Multi-Site, Multi-Plant, Multi-ERP, Global)
 - 💼 Industry (Manufacturing, Finance, Healthcare, Tech, Energy, Public Sector…)
 - 🧑‍💻 Team Profile (Data Eng, BI/SQL, ML/AI, Platform/Infra, Mixed)
 - 💰 Monthly Budget (Starter → Enterprise)
+- ☁️ Cloud Strategy (AWS-Native, Azure-Native, GCP-Native, Multi-Cloud, On-Prem/Hybrid)
+- 🎯 Strategic Priority (Cost Reduction, AI/ML, Self-Service BI, Governance, Modernization, Real-Time)
+- 📋 Compliance Focus (EU GDPR / AI Act, HIPAA, FedRAMP, SOC 2 / ISO 27001)
 
 ---
 
 ### 🏆 [Platform Advisor — Top 10](platform-advisor-top10.html)
 The extended advisor for enterprise buyers evaluating the **full global market** — all 10 major platforms plus Apache Iceberg+S3.
 
-Same 20 criteria and filters as the Core advisor, expanded to cover legacy enterprise platforms (Teradata, IBM, Oracle) and hybrid cloud platforms (Azure Synapse, Cloudera).
+Same 23 criteria and 8 filter categories as the Core advisor, expanded to cover legacy enterprise platforms (Teradata, IBM, Oracle) and hybrid cloud platforms (Azure Synapse, Cloudera).
 
 ---
 
