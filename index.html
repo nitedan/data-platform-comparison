@@ -3,190 +3,259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data Platform Comparison — 2026</title>
+<meta name="description" content="Enterprise Data Platform Advisor — interactive scoring engine comparing 11 major data platforms across 23 criteria. Free, open-source, no login required.">
+<title>Enterprise Data Platform Advisor — 2026 Global Selection Framework</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: #0d1117;
+    background: #070E1C;
     color: #e6edf3;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 48px 20px;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(37,99,235,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(124,58,237,0.10) 0%, transparent 60%);
   }
-  .hero {
-    text-align: center;
-    margin-bottom: 56px;
-    max-width: 680px;
+
+  /* ── HEADER ── */
+  .site-header {
+    width: 100%; max-width: 960px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 64px;
   }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(255,153,0,0.15);
-    color: #FF9900;
-    border: 1px solid rgba(255,153,0,0.3);
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 4px 14px;
-    margin-bottom: 20px;
+  .site-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.3px;
   }
+  .site-brand-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: linear-gradient(135deg,#2563EB,#7C3AED);
+  }
+  .gh-link {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.4);
+    text-decoration: none; padding: 5px 12px; border-radius: 6px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.2s ease; letter-spacing: 0.3px; text-transform: uppercase;
+  }
+  .gh-link:hover { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.8); }
+
+  /* ── HERO ── */
+  .hero { text-align: center; max-width: 720px; margin-bottom: 60px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(37,99,235,0.12); border: 1px solid rgba(37,99,235,0.3);
+    border-radius: 20px; font-size: 10.5px; font-weight: 700;
+    letter-spacing: 1.4px; text-transform: uppercase; color: #93C5FD;
+    padding: 4px 14px; margin-bottom: 24px;
+  }
+  .hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: #3B82F6; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.85)} }
+
   h1 {
-    font-size: clamp(28px, 5vw, 48px);
-    font-weight: 800;
-    line-height: 1.15;
-    margin-bottom: 16px;
-    background: linear-gradient(135deg, #e6edf3 30%, #8b9fc0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800; line-height: 1.12;
+    margin-bottom: 20px; letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #E2E8F0 20%, #7F9FC3 80%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .subtitle {
-    font-size: 15px;
-    color: #8b9fc0;
-    line-height: 1.6;
-    max-width: 520px;
-    margin: 0 auto;
+  .hero-sub {
+    font-size: 16px; color: rgba(255,255,255,0.45);
+    line-height: 1.65; max-width: 560px; margin: 0 auto 32px;
   }
-  .platforms {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
+  .hero-stats {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 40px;
   }
-  .plat-pill {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 5px 12px;
-    color: #c9d1d9;
+  .stat {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
   }
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 960px;
+  .stat-num {
+    font-size: 28px; font-weight: 800; line-height: 1;
+    background: linear-gradient(135deg,#60A5FA,#A78BFA);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
-  .card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 16px;
-    padding: 28px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-    overflow: hidden;
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--accent);
-    border-radius: 16px 16px 0 0;
-  }
-  .card:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-  }
-  .card-icon {
-    font-size: 32px;
-    line-height: 1;
-  }
-  .card h2 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #e6edf3;
-  }
-  .card p {
-    font-size: 13.5px;
-    color: #8b9fc0;
-    line-height: 1.55;
-    flex: 1;
-  }
-  .card-badge {
-    display: inline-block;
-    font-size: 10.5px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    padding: 3px 10px;
-    border-radius: 4px;
-    background: rgba(255,255,255,0.07);
-    color: var(--accent);
+  .stat-lbl { font-size: 11px; color: rgba(255,255,255,0.35); font-weight: 600; letter-spacing: 0.5px; }
+  .stat-div { width: 1px; height: 36px; background: rgba(255,255,255,0.08); align-self: center; }
+
+  /* ── CTA CARD ── */
+  .cta-card {
+    width: 100%; max-width: 680px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
     border: 1px solid rgba(255,255,255,0.08);
-    width: fit-content;
+    border-radius: 20px; padding: 36px 40px;
+    position: relative; overflow: hidden;
+    text-decoration: none; color: inherit;
+    display: block;
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   }
-  .arrow {
-    font-size: 18px;
-    color: var(--accent);
-    margin-top: 4px;
-    transition: transform 0.2s;
+  .cta-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, #2563EB, #7C3AED, #059669);
+    border-radius: 20px 20px 0 0;
   }
-  .card:hover .arrow { transform: translateX(4px); }
+  .cta-card:hover {
+    border-color: rgba(37,99,235,0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(37,99,235,0.2);
+  }
+  .cta-label {
+    font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cta-label::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.06); }
+  .cta-card h2 { font-size: 22px; font-weight: 800; color: #E2E8F0; margin-bottom: 10px; }
+  .cta-card p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.65; margin-bottom: 24px; }
+
+  .cta-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .pill {
+    font-size: 10.5px; font-weight: 600; padding: 4px 11px;
+    border-radius: 5px; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.09); color: rgba(255,255,255,0.55);
+  }
+
+  .cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg,#2563EB,#1D4ED8);
+    color: #fff; font-size: 13px; font-weight: 700;
+    padding: 10px 24px; border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+    transition: all 0.2s ease; letter-spacing: 0.2px;
+  }
+  .cta-card:hover .cta-btn {
+    background: linear-gradient(135deg,#3B82F6,#2563EB);
+    box-shadow: 0 6px 24px rgba(37,99,235,0.55);
+  }
+  .cta-btn-arrow { font-size: 16px; transition: transform 0.2s ease; }
+  .cta-card:hover .cta-btn-arrow { transform: translateX(4px); }
+
+  /* ── PLATFORM GRID ── */
+  .platforms-section { width: 100%; max-width: 680px; margin-top: 40px; }
+  .platforms-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
+    color: rgba(255,255,255,0.2); text-align: center; margin-bottom: 16px;
+  }
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+  }
+  .plat {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px; padding: 9px 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .plat-ico { font-size: 16px; flex-shrink: 0; }
+  .plat-info { min-width: 0; }
+  .plat-name { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .plat-tier { font-size: 9px; color: rgba(255,255,255,0.25); font-weight: 600; letter-spacing: 0.3px; }
+
+  /* ── FOOTER ── */
   footer {
-    margin-top: 56px;
-    font-size: 12px;
-    color: #484f58;
-    text-align: center;
+    margin-top: 56px; font-size: 11px;
+    color: rgba(255,255,255,0.2); text-align: center; line-height: 1.8;
   }
+  footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  footer a:hover { color: rgba(255,255,255,0.6); }
 </style>
 </head>
 <body>
 
+<header class="site-header">
+  <div class="site-brand">
+    <div class="site-brand-dot"></div>
+    Enterprise Data Intelligence
+  </div>
+  <a class="gh-link" href="https://github.com/nitedan/data-platform-comparison" target="_blank" rel="noopener">
+    ⭐ View on GitHub
+  </a>
+</header>
+
 <div class="hero">
-  <div class="hero-badge">2026 Edition</div>
-  <h1>Data Platform Intelligence Hub</h1>
-  <p class="subtitle">Two interactive advisors covering 11 data platforms — from leading commercial clouds to open-source Iceberg+S3. Select filters for your industry, team profile, budget, and EU compliance requirements to get a weighted recommendation.</p>
-  <div class="platforms">
-    <span class="plat-pill">⚡ Databricks</span>
-    <span class="plat-pill">❄️ Snowflake</span>
-    <span class="plat-pill">🔷 Microsoft Fabric</span>
-    <span class="plat-pill">🔵 BigQuery</span>
-    <span class="plat-pill">🧊 Iceberg+S3</span>
-    <span class="plat-pill">☁️ Azure Synapse</span>
-    <span class="plat-pill">🟠 Teradata</span>
-    <span class="plat-pill">🔹 IBM watsonx</span>
-    <span class="plat-pill">🌤️ Cloudera</span>
-    <span class="plat-pill">🔶 Oracle ADW</span>
+  <div class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    2026 Edition — Live
+  </div>
+  <h1>Enterprise Data Platform<br>Selection Advisor</h1>
+  <p class="hero-sub">
+    An interactive, context-aware scoring engine for data architects, CTOs, and enterprise buyers.
+    Compare the world's leading data platforms against your specific cloud strategy, industry, compliance requirements, and AI maturity goals.
+  </p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">11</span>
+      <span class="stat-lbl">Platforms</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat">
+      <span class="stat-num">23</span>
+      <span class="stat-lbl">Criteria</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat">
+      <span class="stat-num">8</span>
+      <span class="stat-lbl">Smart Filters</span>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-lbl">AI Maturity Levels</span>
+    </div>
   </div>
 </div>
 
-<div class="cards">
+<a href="data-platform-advisor.html" class="cta-card">
+  <div class="cta-label">Interactive Advisor Tool</div>
+  <h2>Open the Advisor →</h2>
+  <p>
+    Adjust criteria weights, apply your organizational context filters, and watch scores recalculate in real time.
+    Set your cloud strategy, compliance regime, team profile and budget — the advisor adapts every score accordingly.
+  </p>
+  <div class="cta-pills">
+    <span class="pill">⚡ Databricks</span>
+    <span class="pill">❄️ Snowflake</span>
+    <span class="pill">🔷 Microsoft Fabric</span>
+    <span class="pill">🔵 BigQuery</span>
+    <span class="pill">☁️ Amazon Redshift</span>
+    <span class="pill">🔹 IBM watsonx</span>
+    <span class="pill">🟠 Teradata</span>
+    <span class="pill">🌤️ Cloudera CDP</span>
+    <span class="pill">🔶 Oracle ADW</span>
+    <span class="pill">🔷 Azure Synapse</span>
+    <span class="pill">🧊 Iceberg + S3</span>
+  </div>
+  <div class="cta-btn">
+    Launch Advisor
+    <span class="cta-btn-arrow">→</span>
+  </div>
+</a>
 
-  <a href="platform-advisor.html" class="card" style="--accent:#00d4aa;">
-    <div class="card-icon">🧭</div>
-    <h2>Platform Advisor — Core 4 + Open Source</h2>
-    <p>Compare Databricks, Snowflake, Microsoft Fabric, Google BigQuery, and Apache Iceberg+S3 across 20 criteria. Includes implementation complexity, AI EU policy scoring, and contextual filters for industry, team profile, and budget.</p>
-    <div class="card-badge">5 Platforms · 20 Criteria · Smart Filters</div>
-    <div class="arrow">→</div>
-  </a>
-
-  <a href="platform-advisor-top10.html" class="card" style="--accent:#C05400;">
-    <div class="card-icon">🏆</div>
-    <h2>Platform Advisor — Top 10 + Open Source</h2>
-    <p>Extended comparison including Azure Synapse, Teradata Vantage, IBM watsonx.data, Cloudera CDP, Oracle Autonomous DW, and Apache Iceberg+S3. Full 20-criteria weighted scoring with enterprise context filters.</p>
-    <div class="card-badge">11 Platforms · 20 Criteria · Enterprise</div>
-    <div class="arrow">→</div>
-  </a>
-
+<div class="platforms-section">
+  <div class="platforms-label">Key Scoring Dimensions</div>
+  <div class="platform-grid">
+    <div class="plat"><span class="plat-ico">🤖</span><div class="plat-info"><div class="plat-name">AI Tools</div><div class="plat-tier">Integration depth</div></div></div>
+    <div class="plat"><span class="plat-ico">🦾</span><div class="plat-info"><div class="plat-name">AI Agents</div><div class="plat-tier">Orchestration</div></div></div>
+    <div class="plat"><span class="plat-ico">🌟</span><div class="plat-info"><div class="plat-name">Autonomous AI</div><div class="plat-tier">Agentic maturity</div></div></div>
+    <div class="plat"><span class="plat-ico">🇪🇺</span><div class="plat-info"><div class="plat-name">EU AI Act</div><div class="plat-tier">GDPR compliance</div></div></div>
+    <div class="plat"><span class="plat-ico">🛠️</span><div class="plat-info"><div class="plat-name">Implementation</div><div class="plat-tier">Complexity rating</div></div></div>
+    <div class="plat"><span class="plat-ico">💰</span><div class="plat-info"><div class="plat-name">Cost Efficiency</div><div class="plat-tier">TCO comparison</div></div></div>
+    <div class="plat"><span class="plat-ico">☁️</span><div class="plat-info"><div class="plat-name">Cloud Strategy</div><div class="plat-tier">AWS · Azure · GCP</div></div></div>
+    <div class="plat"><span class="plat-ico">📋</span><div class="plat-info"><div class="plat-name">Compliance</div><div class="plat-tier">HIPAA · FedRAMP</div></div></div>
+  </div>
 </div>
 
 <footer>
-  <p>Data is indicative as of 2026. Scores and pricing subject to change. For decision support only.</p>
+  <p>Built by <a href="https://github.com/nitedan" target="_blank" rel="noopener">@nitedan</a> · Scores are indicative as of 2026 · For decision support only</p>
+  <p style="margin-top:6px;font-size:10px;">Open source · No login · No data collected · Works offline</p>
 </footer>
 
 </body>

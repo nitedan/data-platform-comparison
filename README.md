@@ -1,8 +1,10 @@
-# Data Platform Intelligence Hub — 2026
+# Enterprise Data Platform Advisor — 2026
 
-> Two interactive advisors to help enterprises select the right cloud data platform — from commercial leaders to open-source alternatives.
+> An interactive, context-aware scoring engine for data architects, CTOs, and enterprise buyers — comparing 11 major data platforms across 23 criteria.
 
-**Live site:** [nitedan.github.io/data-platform-comparison](https://nitedan.github.io/data-platform-comparison/)
+**Live tool:** [nitedan.github.io/data-platform-comparison](https://nitedan.github.io/data-platform-comparison/)
+
+> Part of a larger **Enterprise Data Intelligence** initiative in progress.
 
 ---
 
@@ -24,37 +26,27 @@ This tool provides a **weighted, context-aware scoring engine** that compares 11
 
 ---
 
-## Tools
+## The Advisor
 
-### 🧭 [Platform Advisor — Core](platform-advisor.html)
-The focused advisor for most organizations. Compares the **top 4 commercial platforms + Apache Iceberg+S3** (open-source / lowest cost).
+### 📡 [Enterprise Data Platform Advisor](data-platform-advisor.html)
 
-**23 criteria including:**
-- Data Engineering · Data Warehousing · ML/AI · GenAI & LLMs
-- **AI Tools Integration** · **AI Agent Orchestration** · **Autonomous Agentic AI** *(3-level AI maturity)*
-- Real-Time Analytics · Streaming / CDC · SQL Performance · Scalability
-- Ease of Use · Power BI Integration · Data Sharing · Multi-ERP Support
-- Cost Efficiency · Implementation Speed · **Implementation Complexity** *(easy vs hard)*
-- Open Standards · Vendor Lock-in · Security & Compliance
-- **AI EU Policy / GDPR** *(EU AI Act alignment, data sovereignty)*
-- Multi-Site / Multi-Plant
+Covers the **full global enterprise market** — all 10 major commercial platforms plus Apache Iceberg+S3 as the open-source/lowest-cost reference.
 
-**Context filters (8 categories):**
+**23 criteria across 5 dimensions:**
+- **Capabilities** — Data Engineering · Data Warehousing · ML/AI · GenAI & LLMs · AI Tools · AI Agents · Autonomous Agentic AI · Real-Time · Streaming · SQL · Scalability
+- **Operational** — Ease of Use · Power BI Integration · Data Sharing · Multi-ERP Support
+- **Economics** — Cost Efficiency · Implementation Speed · Implementation Complexity
+- **Architecture** — Open Standards · Vendor Lock-in · Security · EU AI Act / GDPR · Multi-Site
+
+**8 smart context filters:**
 - ⏱ Implementation Speed (Express → Complex)
-- 🏢 Company Structure (SMB, Multi-Site, Multi-Plant, Multi-ERP, Global)
+- 🏢 Company Structure (SMB, Multi-Site, Multi-Plant, Multi-ERP, Global Corporation)
 - 💼 Industry (Manufacturing, Finance, Healthcare, Tech, Energy, Public Sector…)
 - 🧑‍💻 Team Profile (Data Eng, BI/SQL, ML/AI, Platform/Infra, Mixed)
 - 💰 Monthly Budget (Starter → Enterprise)
 - ☁️ Cloud Strategy (AWS-Native, Azure-Native, GCP-Native, Multi-Cloud, On-Prem/Hybrid)
-- 🎯 Strategic Priority (Cost Reduction, AI/ML, Self-Service BI, Governance, Modernization, Real-Time)
+- 🎯 Strategic Priority (Cost Reduction, AI/ML Leadership, Self-Service BI, Governance, Cloud Modernization, Real-Time)
 - 📋 Compliance Focus (EU GDPR / AI Act, HIPAA, FedRAMP, SOC 2 / ISO 27001)
-
----
-
-### 🏆 [Platform Advisor — Top 10](platform-advisor-top10.html)
-The extended advisor for enterprise buyers evaluating the **full global market** — all 10 major platforms plus Apache Iceberg+S3.
-
-Same 23 criteria and 8 filter categories as the Core advisor, expanded to cover legacy enterprise platforms (Teradata, IBM, Oracle) and hybrid cloud platforms (Azure Synapse, Cloudera).
 
 ---
 
