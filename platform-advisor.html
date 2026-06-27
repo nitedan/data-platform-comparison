@@ -95,6 +95,31 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
   background:rgba(37,99,235,0.3);color:#93C5FD;border:1px solid rgba(37,99,235,0.4);
 }
 
+/* Show/hide toggle buttons */
+.hdr-toggles{display:flex;gap:5px;align-items:center;flex-shrink:0;}
+.toggle-btn{
+  display:flex;align-items:center;gap:7px;
+  padding:5px 13px 5px 10px;border-radius:7px;
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.13);
+  color:rgba(255,255,255,0.55);font-family:inherit;
+  transition:all 0.2s ease;cursor:pointer;white-space:nowrap;
+}
+.tgl-ico{font-size:14px;line-height:1;}
+.tgl-text{display:flex;flex-direction:column;align-items:flex-start;gap:2px;}
+.tgl-lbl{font-size:10.5px;font-weight:700;color:rgba(255,255,255,0.82);line-height:1;}
+.tgl-state{
+  font-size:7.5px;font-weight:800;letter-spacing:1.2px;line-height:1;
+  padding:1px 5px;border-radius:3px;
+  background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.3);
+}
+.toggle-btn:hover{
+  background:rgba(255,255,255,0.13);border-color:rgba(255,255,255,0.24);
+  color:rgba(255,255,255,0.9);
+}
+.toggle-btn.on{background:rgba(37,99,235,0.18);border-color:rgba(37,99,235,0.44);}
+.toggle-btn.on .tgl-lbl{color:#93C5FD;}
+.toggle-btn.on .tgl-state{background:rgba(37,99,235,0.32);color:#93C5FD;}
+
 /* ══════════════════════════════════════════════════════
    FILTER PANEL
 ══════════════════════════════════════════════════════ */
@@ -440,7 +465,7 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--ic-t);t
   .filter-panel { max-height: 640px; }
 }
 
-/* ── Small tablet (≤ 768px): 2-col filter, compact presets ── */
+/* ── Small tablet (≤ 768px): 2-col filter, compact presets, hide state badge ── */
 @media (max-width: 768px) {
   .top-bar { padding: 8px 12px; gap: 6px; }
   .brand-text h1 { font-size: 13px; }
@@ -449,9 +474,11 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--ic-t);t
   .filter-panel { max-height: 760px; }
   .fpill { font-size: 10px; padding: 4px 9px; }
   .main-area { padding: 10px 10px 24px; }
+  .tgl-state { display: none; }
+  .toggle-btn { padding: 5px 10px 5px 8px; gap: 5px; }
 }
 
-/* ── Mobile (≤ 540px): hide presets, minimal header ── */
+/* ── Mobile (≤ 540px): hide presets, minimal header, icon-only toggles ── */
 @media (max-width: 540px) {
   .top-bar { padding: 8px 10px; gap: 6px; }
   .brand-text span { display: none; }
@@ -460,6 +487,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--ic-t);t
   .filters-grid { grid-template-columns: repeat(2,1fr) !important; gap: 8px 10px; }
   .filter-panel { max-height: 860px; }
   .main-area { padding: 8px 6px 16px; }
+  .tgl-text { display: none; }
+  .toggle-btn { padding: 7px 9px; gap: 0; border-radius: 8px; }
 }
 </style>
 </head>
@@ -474,6 +503,28 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--ic-t);t
       <span>Top 4 Commercial + Open Source — 2026</span>
     </div>
   </div>
+
+  <!-- Panel toggle controls — placed left, labelled for clarity -->
+  <div class="hdr-toggles">
+    <button class="toggle-btn" id="btnFilter"
+      title="Show / hide the Decision Context filter panel — set cloud environment, industry, team profile, budget &amp; compliance to adjust scores">
+      <span class="tgl-ico">🔍</span>
+      <span class="tgl-text">
+        <span class="tgl-lbl">Filters</span>
+        <span class="tgl-state" id="filterState">OPEN</span>
+      </span>
+    </button>
+    <button class="toggle-btn" id="btnSidebar"
+      title="Show / hide the criteria weight sliders — adjust importance of each criterion to reflect your priorities">
+      <span class="tgl-ico">⚖️</span>
+      <span class="tgl-text">
+        <span class="tgl-lbl">Weights</span>
+        <span class="tgl-state" id="sidebarState">OPEN</span>
+      </span>
+    </button>
+    <span class="badge-pill" id="hdrFilterCount" style="display:none">0 active</span>
+  </div>
+
   <div class="header-divider"></div>
   <div class="preset-bar">
     <span style="font-size:10px;color:rgba(255,255,255,0.4);font-weight:600;white-space:nowrap;padding-top:5px;">Quick Profiles:</span>
@@ -487,11 +538,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--ic-t);t
     <button class="preset-pill" data-p="enterprise">🏢 Enterprise</button>
   </div>
   <div class="hdr-actions">
-    <span class="badge-pill" id="hdrFilterCount" style="display:none">0 filters</span>
-    <button class="icon-btn" id="btnFilter"  title="Toggle filter panel">🔍</button>
-    <button class="icon-btn" id="btnSidebar" title="Toggle weights panel">⚙️</button>
-    <button class="icon-btn" id="btnDark"    title="Dark mode">🌙</button>
-    <button class="icon-btn" id="btnPrint"   title="Print / Export">🖨️</button>
+    <button class="icon-btn" id="btnDark"  title="Toggle dark / light mode">🌙</button>
+    <button class="icon-btn" id="btnPrint" title="Print / Export to PDF">🖨️</button>
   </div>
 </header>
 
@@ -1216,13 +1264,15 @@ document.getElementById('allOff').addEventListener('click',()=>{
 document.getElementById('btnSidebar').addEventListener('click',()=>{
   sbOpen=!sbOpen;
   document.getElementById('sidebar').classList.toggle('collapsed',!sbOpen);
-  document.getElementById('btnSidebar').style.background=sbOpen?'':'rgba(37,99,235,0.3)';
+  document.getElementById('btnSidebar').classList.toggle('on',sbOpen);
+  document.getElementById('sidebarState').textContent=sbOpen?'OPEN':'CLOSED';
 });
 
 document.getElementById('btnFilter').addEventListener('click',()=>{
   fpOpen=!fpOpen;
   document.getElementById('filterPanel').classList.toggle('collapsed',!fpOpen);
-  document.getElementById('btnFilter').style.background=fpOpen?'':'rgba(37,99,235,0.3)';
+  document.getElementById('btnFilter').classList.toggle('on',fpOpen);
+  document.getElementById('filterState').textContent=fpOpen?'OPEN':'CLOSED';
 });
 
 document.getElementById('btnDark').addEventListener('click',()=>{
@@ -1261,15 +1311,15 @@ document.head.appendChild(printStyle);
 buildFilters();
 buildSidebar();
 render();
-// Apply responsive initial state
-if (!sbOpen) {
-  document.getElementById('sidebar').classList.add('collapsed');
-  document.getElementById('btnSidebar').style.background = 'rgba(37,99,235,0.3)';
-}
-if (!fpOpen) {
-  document.getElementById('filterPanel').classList.add('collapsed');
-  document.getElementById('btnFilter').style.background = 'rgba(37,99,235,0.3)';
-}
+// Apply initial toggle state for both panels (responsive-aware)
+(function applyInitialState(){
+  document.getElementById('sidebar').classList.toggle('collapsed',!sbOpen);
+  document.getElementById('filterPanel').classList.toggle('collapsed',!fpOpen);
+  document.getElementById('btnSidebar').classList.toggle('on',sbOpen);
+  document.getElementById('btnFilter').classList.toggle('on',fpOpen);
+  document.getElementById('sidebarState').textContent=sbOpen?'OPEN':'CLOSED';
+  document.getElementById('filterState').textContent=fpOpen?'OPEN':'CLOSED';
+})();
 </script>
 </body>
 </html>

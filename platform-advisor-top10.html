@@ -63,6 +63,16 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
 .icon-btn{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.8);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all var(--tr);}
 .icon-btn:hover{background:rgba(255,255,255,0.18);color:#fff;}
 .badge-pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(37,99,235,0.3);color:#93C5FD;border:1px solid rgba(37,99,235,0.4);}
+.hdr-toggles{display:flex;gap:5px;align-items:center;flex-shrink:0;}
+.toggle-btn{display:flex;align-items:center;gap:7px;padding:5px 13px 5px 10px;border-radius:7px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.13);color:rgba(255,255,255,0.55);font-family:inherit;transition:all 0.2s ease;cursor:pointer;white-space:nowrap;}
+.tgl-ico{font-size:14px;line-height:1;}
+.tgl-text{display:flex;flex-direction:column;align-items:flex-start;gap:2px;}
+.tgl-lbl{font-size:10.5px;font-weight:700;color:rgba(255,255,255,0.82);line-height:1;}
+.tgl-state{font-size:7.5px;font-weight:800;letter-spacing:1.2px;line-height:1;padding:1px 5px;border-radius:3px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.3);}
+.toggle-btn:hover{background:rgba(255,255,255,0.13);border-color:rgba(255,255,255,0.24);color:rgba(255,255,255,0.9);}
+.toggle-btn.on{background:rgba(37,99,235,0.18);border-color:rgba(37,99,235,0.44);}
+.toggle-btn.on .tgl-lbl{color:#93C5FD;}
+.toggle-btn.on .tgl-state{background:rgba(37,99,235,0.32);color:#93C5FD;}
 
 .filter-panel{background:linear-gradient(180deg,#0D1929 0%,#111E33 100%);border-bottom:1px solid rgba(255,255,255,0.06);padding:0 20px;flex-shrink:0;overflow:hidden;transition:max-height 0.4s cubic-bezier(0.4,0,0.2,1),padding 0.3s ease;max-height:520px;}
 .filter-panel.collapsed{max-height:0;padding-top:0;padding-bottom:0;}
@@ -203,6 +213,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
   .filter-panel{max-height:780px;}
   .fpill{font-size:10px;padding:4px 9px;}
   .main-area{padding:10px 10px 24px;}
+  .tgl-state{display:none;}
+  .toggle-btn{padding:5px 10px 5px 8px;gap:5px;}
 }
 @media (max-width: 540px) {
   .top-bar{padding:8px 10px;gap:6px;}
@@ -212,6 +224,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
   .filters-grid{grid-template-columns:repeat(2,1fr) !important;gap:8px 10px;}
   .filter-panel{max-height:900px;}
   .main-area{padding:8px 6px 16px;}
+  .tgl-text{display:none;}
+  .toggle-btn{padding:7px 9px;gap:0;border-radius:8px;}
 }
 </style>
 </head>
@@ -224,6 +238,25 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
       <h1>Data Platform Advisor — Top 10</h1>
       <span>Global Enterprise Platforms — 2026</span>
     </div>
+  </div>
+  <div class="hdr-toggles">
+    <button class="toggle-btn" id="btnFilter"
+      title="Show / hide the Decision Context filter panel — set cloud environment, industry, team profile, budget &amp; compliance to adjust scores">
+      <span class="tgl-ico">🔍</span>
+      <span class="tgl-text">
+        <span class="tgl-lbl">Filters</span>
+        <span class="tgl-state" id="filterState">OPEN</span>
+      </span>
+    </button>
+    <button class="toggle-btn" id="btnSidebar"
+      title="Show / hide the criteria weight sliders — adjust importance of each criterion to reflect your priorities">
+      <span class="tgl-ico">⚖️</span>
+      <span class="tgl-text">
+        <span class="tgl-lbl">Weights</span>
+        <span class="tgl-state" id="sidebarState">OPEN</span>
+      </span>
+    </button>
+    <span class="badge-pill" id="hdrFilterCount" style="display:none">0 active</span>
   </div>
   <div class="header-divider"></div>
   <div class="preset-bar">
@@ -238,11 +271,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
     <button class="preset-pill" data-p="enterprise">🏢 Enterprise</button>
   </div>
   <div class="hdr-actions">
-    <span class="badge-pill" id="hdrFilterCount" style="display:none">0 filters</span>
-    <button class="icon-btn" id="btnFilter"  title="Toggle filter panel">🔍</button>
-    <button class="icon-btn" id="btnSidebar" title="Toggle weights panel">⚙️</button>
-    <button class="icon-btn" id="btnDark"    title="Dark mode">🌙</button>
-    <button class="icon-btn" id="btnPrint"   title="Print / Export">🖨️</button>
+    <button class="icon-btn" id="btnDark"  title="Toggle dark / light mode">🌙</button>
+    <button class="icon-btn" id="btnPrint" title="Print / Export to PDF">🖨️</button>
   </div>
 </header>
 
@@ -784,8 +814,8 @@ document.getElementById('resetWeights').addEventListener('click',()=>{ weights={
 document.getElementById('clearFilters').addEventListener('click',()=>{ FILTER_DEFS.forEach(f=>{ filters[f.id]=null; }); document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('sel')); updateChips(); schedRender(); });
 document.getElementById('allOn').addEventListener('click',()=>{ CRIT.forEach(c=>{ visible[c.id]=true; }); document.querySelectorAll('#togglesWrap input').forEach(cb=>cb.checked=true); document.querySelectorAll('.crit-row').forEach(r=>r.classList.remove('hidden')); updateStatus(sorted()); });
 document.getElementById('allOff').addEventListener('click',()=>{ CRIT.forEach(c=>{ visible[c.id]=false; }); document.querySelectorAll('#togglesWrap input').forEach(cb=>cb.checked=false); document.querySelectorAll('.crit-row').forEach(r=>r.classList.add('hidden')); updateStatus(sorted()); });
-document.getElementById('btnSidebar').addEventListener('click',()=>{ sbOpen=!sbOpen; document.getElementById('sidebar').classList.toggle('collapsed',!sbOpen); document.getElementById('btnSidebar').style.background=sbOpen?'':'rgba(37,99,235,0.3)'; });
-document.getElementById('btnFilter').addEventListener('click',()=>{ fpOpen=!fpOpen; document.getElementById('filterPanel').classList.toggle('collapsed',!fpOpen); document.getElementById('btnFilter').style.background=fpOpen?'':'rgba(37,99,235,0.3)'; });
+document.getElementById('btnSidebar').addEventListener('click',()=>{ sbOpen=!sbOpen; document.getElementById('sidebar').classList.toggle('collapsed',!sbOpen); document.getElementById('btnSidebar').classList.toggle('on',sbOpen); document.getElementById('sidebarState').textContent=sbOpen?'OPEN':'CLOSED'; });
+document.getElementById('btnFilter').addEventListener('click',()=>{ fpOpen=!fpOpen; document.getElementById('filterPanel').classList.toggle('collapsed',!fpOpen); document.getElementById('btnFilter').classList.toggle('on',fpOpen); document.getElementById('filterState').textContent=fpOpen?'OPEN':'CLOSED'; });
 document.getElementById('btnDark').addEventListener('click',()=>{ dark=!dark; document.body.toggleAttribute('data-dark',dark); document.getElementById('btnDark').textContent=dark?'☀️':'🌙'; });
 document.getElementById('btnPrint').addEventListener('click',()=>window.print());
 
@@ -796,8 +826,14 @@ printStyle.textContent=`@media print{.top-bar,.filter-panel,.chips-bar,.sidebar,
 document.head.appendChild(printStyle);
 
 buildFilters(); buildSidebar(); render();
-if (!sbOpen) { document.getElementById('sidebar').classList.add('collapsed'); document.getElementById('btnSidebar').style.background='rgba(37,99,235,0.3)'; }
-if (!fpOpen) { document.getElementById('filterPanel').classList.add('collapsed'); document.getElementById('btnFilter').style.background='rgba(37,99,235,0.3)'; }
+(function applyInitialState(){
+  document.getElementById('sidebar').classList.toggle('collapsed',!sbOpen);
+  document.getElementById('filterPanel').classList.toggle('collapsed',!fpOpen);
+  document.getElementById('btnSidebar').classList.toggle('on',sbOpen);
+  document.getElementById('btnFilter').classList.toggle('on',fpOpen);
+  document.getElementById('sidebarState').textContent=sbOpen?'OPEN':'CLOSED';
+  document.getElementById('filterState').textContent=fpOpen?'OPEN':'CLOSED';
+})();
 </script>
 </body>
 </html>
