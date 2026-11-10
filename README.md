@@ -22,7 +22,7 @@ This tool provides a **weighted, context-aware scoring engine** that compares 11
 |------|-----------|
 | **Top 4 Commercial** | ⚡ Databricks · ❄️ Snowflake · 🔷 Microsoft Fabric · 🔵 Google BigQuery |
 | **Open Source / Cheapest** | 🧊 Apache Iceberg + S3 |
-| **Extended Enterprise** | ☁️ Azure Synapse · 🟠 Teradata Vantage · 🔹 IBM watsonx.data · 🌤️ Cloudera CDP · 🔶 Oracle Auto DW |
+| **Extended Enterprise** | ☁️ Azure Synapse · 🟠 Teradata Vantage · 🔹 IBM watsonx.data · 🌤️ Cloudera CDP · 🔶 Oracle Autonomous AI DB |
 
 ---
 

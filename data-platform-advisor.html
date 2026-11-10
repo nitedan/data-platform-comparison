@@ -20,7 +20,6 @@
   --as:#0078D4;--as-t:rgba(0,120,212,0.10);
   --td:#C05400;--td-t:rgba(192,84,0,0.10);
   --ibm:#0F62FE;--ibm-t:rgba(15,98,254,0.10);
-  --cdp:#EF6820;--cdp-t:rgba(239,104,32,0.10);
   --ora:#C74634;--ora-t:rgba(199,70,52,0.10);
 
   --cap:#16A34A;--ops:#2563EB;--eco:#D97706;--arc:#7C3AED;
@@ -63,12 +62,13 @@ button{cursor:pointer;font-family:inherit;font-size:inherit;}
 .brand-text{line-height:1.2;}
 .brand-text h1{font-size:15px;font-weight:800;color:#fff;letter-spacing:-0.2px;}
 .brand-text span{font-size:10px;color:rgba(255,255,255,0.5);font-weight:500;}
-.header-divider{width:1px;height:28px;background:rgba(255,255,255,0.15);flex-shrink:0;}
-.preset-bar{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
-.preset-pill{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.75);padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;transition:all var(--tr);white-space:nowrap;}
-.preset-pill:hover{background:rgba(255,255,255,0.16);color:#fff;}
-.preset-pill.active{background:rgba(37,99,235,0.4);border-color:#2563EB;color:#93C5FD;}
 .hdr-actions{display:flex;gap:6px;align-items:center;margin-left:auto;}
+.export-btn{display:flex;align-items:center;gap:5px;padding:5px 12px 5px 10px;border-radius:6px;background:rgba(37,99,235,0.18);border:1px solid rgba(37,99,235,0.38);color:#93C5FD;font-family:inherit;font-size:10.5px;font-weight:700;cursor:pointer;transition:all 0.18s ease;white-space:nowrap;}
+.export-btn:hover{background:rgba(37,99,235,0.32);border-color:rgba(37,99,235,0.6);color:#fff;}
+.export-ico{font-size:12px;line-height:1;}
+.sb-li{display:flex;align-items:center;gap:4px;margin-left:auto;color:rgba(255,255,255,0.22);font-size:9.5px;font-weight:600;text-decoration:none;padding:2px 7px;border-radius:4px;transition:all 0.15s ease;}
+.sb-li:hover{color:rgba(100,160,220,0.8);background:rgba(10,102,194,0.12);}
+#printHeader{display:none;}
 .icon-btn{width:30px;height:30px;border-radius:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);color:rgba(255,255,255,0.8);font-size:13px;display:flex;align-items:center;justify-content:center;transition:all var(--tr);}
 .icon-btn:hover{background:rgba(255,255,255,0.18);color:#fff;}
 .badge-pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:rgba(37,99,235,0.3);color:#93C5FD;border:1px solid rgba(37,99,235,0.4);}
@@ -161,6 +161,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
 .p-pct{font-size:18px;font-weight:900;color:var(--pc);letter-spacing:-1px;margin-top:3px;}
 .p-pct-lbl{font-size:8px;color:var(--subtle);}
 .p-tag{display:inline-block;margin-top:4px;padding:2px 6px;border-radius:20px;font-size:9px;font-weight:700;background:var(--pt);color:var(--pc);}
+.p-link{display:inline-flex;align-items:center;gap:3px;margin-top:5px;padding:3px 8px;border-radius:5px;font-size:9px;font-weight:700;color:var(--pc);background:var(--pt);border:1px solid var(--pc);text-decoration:none;opacity:0.75;transition:opacity var(--tr);}
+.p-link:hover{opacity:1;}
 .mod-badge{display:inline-flex;align-items:center;gap:2px;font-size:9px;font-weight:700;margin-left:3px;padding:1px 4px;border-radius:5px;}
 .mod-pos{background:rgba(5,150,105,0.12);color:var(--success);}
 .mod-neg{background:rgba(220,38,38,0.10);color:var(--danger);}
@@ -190,6 +192,24 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
 .sum-card{flex:1;min-width:100px;border-radius:var(--r-lg);padding:10px;color:#fff;font-size:10.5px;line-height:1.4;}
 .sum-card .sh{font-size:11px;font-weight:800;margin-bottom:4px;}
 
+.official-links{margin:28px 0 8px;}
+.ol-title{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.8px;color:var(--muted);margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;}
+.ol-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px;}
+.ol-card{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);border-left:3px solid transparent;text-decoration:none;transition:all 0.15s ease;}
+.ol-card:hover{background:var(--surface-alt);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.2);}
+.ol-ico{font-size:17px;flex-shrink:0;line-height:1;}
+.ol-info{min-width:0;flex:1;}
+.ol-name{font-size:11px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ol-url{font-size:9px;color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.ol-arr{font-size:13px;color:var(--muted);flex-shrink:0;transition:all 0.15s ease;}
+.ol-card:hover .ol-arr{color:var(--text);transform:translateX(3px);}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;}
+.news-card{padding:10px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--border);border-left:3px solid transparent;display:flex;flex-direction:column;gap:5px;}
+.news-name{font-size:11px;font-weight:800;}
+.news-txt{font-size:10.5px;color:var(--text);line-height:1.45;flex:1;}
+.news-src{font-size:9.5px;font-weight:700;color:var(--primary);text-decoration:none;align-self:flex-start;}
+.news-src:hover{text-decoration:underline;}
+
 .status-bar{flex-shrink:0;background:var(--surface);border-top:1px solid var(--border);padding:5px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);}
 .sb-item{display:flex;align-items:center;gap:5px;}
 .sb-dot{width:7px;height:7px;border-radius:50%;}
@@ -203,9 +223,6 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
 /* ══ RESPONSIVE ══ */
 @media (max-width: 1100px) {
   .top-bar{flex-wrap:nowrap;padding:9px 14px;gap:8px;}
-  .preset-bar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;mask-image:linear-gradient(90deg,transparent,#000 3%,#000 95%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 95%,transparent);}
-  .preset-bar::-webkit-scrollbar{display:none;}
-  .header-divider{display:none;}
 }
 @media (max-width: 900px) {
   .app-body{position:relative;}
@@ -217,7 +234,6 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
 @media (max-width: 768px) {
   .top-bar{padding:8px 12px;gap:6px;}
   .brand-text h1{font-size:13px;}
-  .preset-pill{padding:3px 8px;font-size:10px;}
   .filters-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px 12px;}
   .filter-panel{max-height:780px;}
   .fpill{font-size:10px;padding:4px 9px;}
@@ -228,8 +244,8 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
 @media (max-width: 540px) {
   .top-bar{padding:8px 10px;gap:6px;}
   .brand-text span{display:none;}
-  .preset-bar{display:none;}
   .hdr-actions{margin-left:auto;}
+  .export-lbl{display:none;}
   .filters-grid{grid-template-columns:repeat(2,1fr) !important;gap:8px 10px;}
   .filter-panel{max-height:900px;}
   .main-area{padding:8px 6px 16px;}
@@ -249,7 +265,7 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
     <div class="brand-logo">📡</div>
     <div class="brand-text">
       <h1>Enterprise Data Platform Advisor</h1>
-      <span>2026 Global Selection Framework · 11 Platforms · 23 Criteria</span>
+      <span>2026 Global Selection Framework · 10 Platforms · 24 Criteria · Updated Nov 2026</span>
     </div>
   </div>
   <div class="hdr-toggles">
@@ -271,21 +287,12 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
     </button>
     <span class="badge-pill" id="hdrFilterCount" style="display:none">0 active</span>
   </div>
-  <div class="header-divider"></div>
-  <div class="preset-bar">
-    <span style="font-size:10px;color:rgba(255,255,255,0.4);font-weight:600;white-space:nowrap;padding-top:5px;">Quick Profiles:</span>
-    <button class="preset-pill" data-p="dataEngineer">⚙️ Data Engineer</button>
-    <button class="preset-pill" data-p="biAnalyst">📊 BI / SQL</button>
-    <button class="preset-pill" data-p="mlEngineer">🤖 ML / AI</button>
-    <button class="preset-pill" data-p="platformEngineer">🏗️ Platform Eng</button>
-    <button class="preset-pill" data-p="costOptimizer">💰 Cost-First</button>
-    <button class="preset-pill" data-p="openSource">🌐 Open Source</button>
-    <button class="preset-pill" data-p="msShop">🔷 Microsoft</button>
-    <button class="preset-pill" data-p="enterprise">🏢 Enterprise</button>
-  </div>
   <div class="hdr-actions">
-    <button class="icon-btn" id="btnDark"  title="Toggle dark / light mode">🌙</button>
-    <button class="icon-btn" id="btnPrint" title="Print / Export to PDF">🖨️</button>
+    <button class="icon-btn" id="btnDark" title="Toggle dark / light mode">🌙</button>
+    <button class="export-btn" id="btnExport" title="Export current ranking to PDF — includes LinkedIn attribution">
+      <span class="export-ico">⬇</span>
+      <span class="export-lbl">Export PDF</span>
+    </button>
   </div>
 </header>
 
@@ -310,6 +317,12 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
 <div class="reco-bar hidden" id="recoBar">
   <div class="reco-icon">💡</div>
   <div class="reco-text" id="recoText"></div>
+</div>
+
+<div id="printHeader">
+  <div class="ph-title">Enterprise Data Platform Advisor 2026</div>
+  <div class="ph-meta">Prepared by <strong>Dan Nite</strong> · linkedin.com/in/nitedan · nitedan.github.io/data-platform-comparison</div>
+  <div class="ph-date" id="phDate"></div>
 </div>
 
 <div class="app-body">
@@ -348,6 +361,10 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
   <div class="sb-item" id="statusFilters"></div>
   <div class="sb-item" id="statusRows"></div>
   <span class="sb-formula">Score = Σ(weight × criterion / 5) / Σ(weights) × 100 + Σ(context modifiers)</span>
+  <a class="sb-li" href="https://www.linkedin.com/in/nitedan/" target="_blank" rel="noopener" title="Built by Dan Nite">
+    <svg style="width:10px;height:10px;flex-shrink:0;" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    @nitedan
+  </a>
 </footer>
 
 <script>
@@ -356,135 +373,130 @@ const P = [
   {
     id:'db', name:'Databricks', emoji:'⚡', sub:'Data Lakehouse + AI/ML',
     c:'#E8572A', t:'rgba(232,87,42,0.10)',
-    summary:'Best for AI-driven teams wanting a unified, open lakehouse. Industry-leading for ML workflows and large-scale Spark-based data engineering.',
-    scores:{ dataEng:5,dataWH:3,ml:5,genAI:5,realTime:4,streaming:4.5,sql:4,scale:5,ease:3,pbi:2.5,sharing:3.5,cost:3.5,open:4,noLock:2.5 }
+    summary:'Best for AI-driven teams wanting a unified, open lakehouse. Industry-leading for ML and agent workloads (Agent Bricks), large-scale data engineering, and now OLTP via Lakebase (serverless Postgres, GA 2026).',
+    scores:{ dataEng:5,dataWH:4,ml:5,genAI:5,realTime:4,streaming:4.5,sql:4,scale:5,ease:3.5,pbi:2.5,sharing:3.5,cost:3.5,open:4,noLock:2.5 }
   },
   {
     id:'sf', name:'Snowflake', emoji:'❄️', sub:'Cloud Data Warehouse + Data Cloud',
     c:'#29B5E8', t:'rgba(41,181,232,0.10)',
-    summary:'Best for SQL-first analytics teams. Simplest path to elastic warehousing. Best-in-class concurrency, data sharing and marketplace ecosystem.',
-    scores:{ dataEng:3,dataWH:5,ml:2.5,genAI:2.5,realTime:2.5,streaming:2,sql:5,scale:5,ease:4.5,pbi:2.5,sharing:5,cost:2,open:1.5,noLock:1 }
+    summary:'Best for SQL-first analytics teams. Simplest path to elastic warehousing with best-in-class sharing. 2026: Iceberg v3 GA + Horizon/Polaris catalog open the platform; Cortex Agents, Openflow and Snowflake Postgres broaden it well beyond the warehouse.',
+    scores:{ dataEng:3.5,dataWH:5,ml:3.5,genAI:4,realTime:3,streaming:3,sql:5,scale:5,ease:4.5,pbi:2.5,sharing:5,cost:2,open:3.5,noLock:2 }
   },
   {
     id:'mf', name:'Microsoft Fabric', emoji:'🔷', sub:'Unified Analytics SaaS',
     c:'#7C3AED', t:'rgba(124,58,237,0.10)',
-    summary:'Best for Power BI-heavy and Azure-native organizations. A single SaaS platform that eliminates fragmentation across your Microsoft data stack.',
-    scores:{ dataEng:3.5,dataWH:4,ml:3,genAI:3,realTime:3.5,streaming:3,sql:4,scale:3.5,ease:5,pbi:5,sharing:3,cost:3,open:2.5,noLock:1.5 }
+    summary:'Best for Power BI-heavy and Azure-native organizations. A single SaaS platform across the Microsoft data stack. FabCon Europe (Barcelona, Oct 2026): Fabric IQ GA in Copilot, Project Osmos agentic data engineering, Fabric Apps in Power BI, on-demand billing for every workload.',
+    scores:{ dataEng:4,dataWH:4,ml:3,genAI:3.5,realTime:4,streaming:3.5,sql:4,scale:3.5,ease:5,pbi:5,sharing:3.5,cost:4,open:2.5,noLock:1.5 }
   },
   {
     id:'bq', name:'Google BigQuery', emoji:'🔵', sub:'Serverless Cloud Data Warehouse',
     c:'#4285F4', t:'rgba(66,133,244,0.10)',
-    summary:'Best for GCP-native organizations needing serverless scalability. Excellent for large-scale SQL, streaming analytics and integrated Vertex AI/Gemini.',
-    scores:{ dataEng:3.5,dataWH:4.5,ml:4,genAI:4,realTime:4,streaming:3.5,sql:4.5,scale:5,ease:4,pbi:3,sharing:4,cost:2.5,open:3,noLock:2 }
+    summary:'Best for GCP-native organizations needing serverless scale. 2026 "Agentic Data Cloud": Data Engineering & Data Science agents GA, managed MCP server, and a cross-cloud Iceberg lakehouse that queries data on S3 without egress fees.',
+    scores:{ dataEng:4,dataWH:4.5,ml:4,genAI:4.5,realTime:4,streaming:3.5,sql:4.5,scale:5,ease:4,pbi:3,sharing:4,cost:2.5,open:4,noLock:2.5 }
   },
   {
     id:'rs', name:'Amazon Redshift', emoji:'🔴', sub:'Cloud Data Warehouse on AWS',
     c:'#FF9900', t:'rgba(255,153,0,0.10)',
-    summary:'Best for AWS-native organizations needing proven enterprise-grade cloud warehousing. Deeply integrated with the AWS ecosystem, S3 data lake and SageMaker AI.',
-    scores:{ dataEng:3.5,dataWH:4,ml:3.5,genAI:3,realTime:3,streaming:3,sql:4,scale:4.5,ease:3.5,pbi:3,sharing:4,cost:3.5,open:3,noLock:2 }
+    summary:'Best for AWS-native organizations needing proven enterprise-grade cloud warehousing. 2026: full Iceberg v3 read/write, UPDATE/DELETE/MERGE and materialized views on Iceberg, plus S3 Tables and SageMaker Unified Studio integration.',
+    scores:{ dataEng:3.5,dataWH:4,ml:3.5,genAI:3,realTime:3,streaming:3,sql:4,scale:4.5,ease:3.5,pbi:3,sharing:4,cost:3.5,open:4,noLock:2.5 }
   },
   {
     id:'as', name:'Azure Synapse', emoji:'☁️', sub:'Enterprise Analytics on Azure',
     c:'#0078D4', t:'rgba(0,120,212,0.10)',
-    summary:'Enterprise-scale analytics on Azure combining SQL data warehousing and Spark big data in one platform. Best for Azure-invested organizations needing both warehouse and Spark without migrating to Fabric.',
+    summary:'Supported but in maintenance mode (2026): no new features, Microsoft steers customers to Fabric. Still solid for existing Azure workloads combining dedicated SQL pools and Spark — plan a Fabric migration path for new investment.',
     scores:{ dataEng:4,dataWH:4,ml:3.5,genAI:3,realTime:3.5,streaming:3.5,sql:4,scale:4,ease:3,pbi:4.5,sharing:3,cost:3.5,open:3.5,noLock:2.5 }
   },
   {
     id:'td', name:'Teradata Vantage', emoji:'🟠', sub:'Enterprise Data Warehouse',
     c:'#C05400', t:'rgba(192,84,0,0.10)',
-    summary:'The gold standard for mission-critical enterprise data warehousing with decades of proven performance. Unmatched for complex SQL workloads and mixed workload management in regulated industries. Now cloud-native on VantageCloud.',
+    summary:'The gold standard for mission-critical enterprise data warehousing. Unmatched for complex SQL and mixed workload management in regulated industries. 2026: Enterprise AgentStack and the Autonomous Knowledge Platform bring governed agentic AI to cloud, on-prem and hybrid.',
     scores:{ dataEng:3,dataWH:5,ml:3,genAI:2.5,realTime:3,streaming:2.5,sql:5,scale:4,ease:3,pbi:3,sharing:3,cost:2,open:2.5,noLock:1.5 }
   },
   {
     id:'ibm', name:'IBM watsonx.data', emoji:'🔹', sub:'Hybrid AI Data Lakehouse',
     c:'#0F62FE', t:'rgba(15,98,254,0.10)',
-    summary:'IBM enterprise hybrid data lakehouse combining open formats with watsonx AI. Best for IBM-invested organizations (Db2, mainframe) needing on-prem + cloud data governance with integrated AI across hybrid environments.',
-    scores:{ dataEng:3.5,dataWH:3.5,ml:3.5,genAI:4,realTime:3,streaming:3,sql:3.5,scale:3.5,ease:2.5,pbi:2.5,sharing:3,cost:3,open:4,noLock:3 }
+    summary:'IBM hybrid open lakehouse with watsonx AI. Best for IBM-invested organizations (Db2, mainframe) needing on-prem + cloud governance. 2026: agentic data integration GA, MCP-based agentic data intelligence, GPU-accelerated queries in preview.',
+    scores:{ dataEng:4,dataWH:3.5,ml:3.5,genAI:4,realTime:3,streaming:3,sql:3.5,scale:3.5,ease:2.5,pbi:2.5,sharing:3,cost:3,open:4,noLock:3 }
   },
   {
-    id:'cdp', name:'Cloudera CDP', emoji:'🌤️', sub:'Hybrid Cloud & On-Prem Analytics',
-    c:'#EF6820', t:'rgba(239,104,32,0.10)',
-    summary:'Enterprise hybrid cloud platform bridging on-premises Hadoop investments to public cloud. Best for organizations with deep Hadoop/Spark roots needing consistent data management and governance across private and public cloud.',
-    scores:{ dataEng:4,dataWH:3,ml:3.5,genAI:2.5,realTime:3.5,streaming:4,sql:3,scale:3.5,ease:2.5,pbi:2.5,sharing:2.5,cost:2.5,open:4.5,noLock:3.5 }
-  },
-  {
-    id:'ora', name:'Oracle Auto DW', emoji:'🔶', sub:'Autonomous Data Warehouse on OCI',
+    id:'ora', name:'Oracle Autonomous AI', emoji:'🔶', sub:'Autonomous AI Database + AI Lakehouse (26ai)',
     c:'#C74634', t:'rgba(199,70,52,0.10)',
-    summary:'Self-managing, self-securing, self-repairing data warehouse on Oracle Cloud. Best for Oracle-centric enterprises (EBS, JD Edwards, Fusion) needing zero-administration SQL analytics with native Oracle application integration.',
-    scores:{ dataEng:3,dataWH:4.5,ml:3,genAI:3,realTime:3,streaming:2.5,sql:4.5,scale:4,ease:4,pbi:3,sharing:3,cost:3,open:2,noLock:1.5 }
+    summary:'Self-managing Oracle AI Database 26ai. Best for Oracle-centric enterprises (EBS, JD Edwards, Fusion). 2026: Select AI Agent with MCP, AI Vector Search, and the Autonomous AI Lakehouse on Iceberg — available on OCI, AWS, Azure and Google Cloud.',
+    scores:{ dataEng:3,dataWH:4.5,ml:3.5,genAI:4,realTime:3,streaming:2.5,sql:4.5,scale:4,ease:4,pbi:3,sharing:3,cost:3,open:3.5,noLock:2.5 }
   },
   {
     id:'ic', name:'Apache Iceberg + S3', emoji:'🧊', sub:'Open Lakehouse — Lowest Cost',
     c:'#26A69A', t:'rgba(38,166,154,0.10)',
-    summary:'Best for engineering-led teams needing maximum flexibility, lowest cost, and zero vendor lock-in. The fully open lakehouse stack — you assemble the engines, you own the data. Cheapest option at any scale.',
-    scores:{ dataEng:5,dataWH:3,ml:3,genAI:2.5,realTime:2.5,streaming:3,sql:3,scale:4.5,ease:2,pbi:2,sharing:3,cost:5,open:5,noLock:5 }
+    summary:'Best for engineering-led teams needing maximum flexibility, lowest cost and zero lock-in. Iceberg v3 is production-ready (1.11.0, May 2026) and every vendor above now reads it — the open table format has become the industry standard.',
+    scores:{ dataEng:5,dataWH:3,ml:3,genAI:2.5,realTime:2.5,streaming:3.5,sql:3,scale:4.5,ease:2,pbi:2,sharing:3,cost:5,open:5,noLock:5 }
   }
 ];
 
 // ── CRITERIA ──
 const CRIT = [
   { id:'dataEng',       label:'Data Engineering',          ico:'⚙️', group:'Capabilities',
-    notes:{ db:'Spark + Delta Live Tables (DLT)', sf:'SQL-first; limited native Spark', mf:'Data Factory + Spark Notebooks', bq:'Dataflow + dbt; powerful but complex', rs:'AWS Glue + dbt; Spark via EMR', as:'Synapse Spark Pools + Synapse Pipelines', td:'QueryGrid + NOS for external data sources', ibm:'IBM DataStage + Spark + Presto engine', cdp:'Apache Spark + Hive + NiFi orchestration', ora:'Oracle Data Integrator + GoldenGate CDC', ic:'ACID, schema evolution, partition pruning on S3' } },
+    notes:{ db:'Lakeflow (Declarative Pipelines + no-code Designer)', sf:'Openflow pipelines + push Endpoints; Snowpark', mf:'Data Factory + Spark + Project Osmos agentic data engineering', bq:'Dataflow + dbt + Data Engineering Agent (GA)', rs:'AWS Glue + dbt; Spark via EMR', as:'Synapse Spark Pools + Synapse Pipelines', td:'QueryGrid + NOS for external data sources', ibm:'Agentic data integration (GA) + DataStage + Spark', ora:'Oracle Data Integrator + GoldenGate CDC', ic:'ACID, schema evolution, partition pruning on S3' } },
   { id:'dataWH',        label:'Data Warehousing',           ico:'🏛️', group:'Capabilities',
-    notes:{ db:'Serverless SQL Warehouse (Photon)', sf:'Best-in-class Virtual Warehouses', mf:'Synapse Analytics + OneLake', bq:'Dremel engine — serverless, ultra-fast', rs:'RA3 nodes — managed storage + compute', as:'Dedicated SQL Pools (MPP) + Serverless SQL', td:'Best-in-class MPP — decades proven at petabyte scale', ibm:'Db2 Warehouse + watsonx.data Presto queries', cdp:'Impala SQL warehouse — good for Hadoop shops', ora:'Exadata technology — world-class OLAP performance', ic:'via Athena / Trino / Spark SQL' } },
+    notes:{ db:'Databricks SQL serverless (Photon) — now a mature DW', sf:'Best-in-class Virtual Warehouses', mf:'Synapse Analytics + OneLake', bq:'Dremel engine — serverless, ultra-fast', rs:'RA3 nodes — managed storage + compute', as:'Dedicated SQL Pools (MPP) + Serverless SQL', td:'Best-in-class MPP — decades proven at petabyte scale', ibm:'Db2 Warehouse + watsonx.data Presto queries', ora:'Exadata + Autonomous AI Lakehouse (Iceberg)', ic:'via Athena / Trino / Spark SQL' } },
   { id:'ml',            label:'Machine Learning / AI',      ico:'🤖', group:'Capabilities',
-    notes:{ db:'MLflow, AutoML, Mosaic AI', sf:'Snowpark ML (growing)', mf:'Azure ML integration', bq:'BigQuery ML + Vertex AI', rs:'Redshift ML + SageMaker integration', as:'Azure Machine Learning + Synapse AutoML', td:'Vantage Analytics Library (VAL)', ibm:'Watson ML + AutoAI + MLOps', cdp:'Cloudera Machine Learning (CML)', ora:'Oracle Machine Learning + AutoML', ic:'via SageMaker + Spark MLlib on S3 data' } },
+    notes:{ db:'MLflow, AutoML, Mosaic AI', sf:'Snowflake ML + Cortex Training', mf:'Azure ML integration', bq:'BigQuery ML + Vertex AI', rs:'Redshift ML + SageMaker integration', as:'Azure Machine Learning + Synapse AutoML', td:'Vantage Analytics Library (VAL)', ibm:'Watson ML + AutoAI + MLOps', ora:'OML + AutoML + AI Vector Search (26ai)', ic:'via SageMaker + Spark MLlib on S3 data' } },
   { id:'genAI',         label:'GenAI & LLM Apps',           ico:'🧠', group:'Capabilities',
-    notes:{ db:'DBRX, Foundation Models, LLM serving', sf:'Cortex AI (catching up)', mf:'Copilot + Azure OpenAI integration', bq:'Gemini + Vertex AI (excellent)', rs:'AWS Bedrock + Amazon Titan integration', as:'Azure OpenAI integration via Synapse', td:'ClearScape Analytics + LLM function calls', ibm:'watsonx.ai — IBM Granite + open LLMs', cdp:'Limited — NVIDIA + partner integrations', ora:'OCI Generative AI + Oracle Select AI', ic:'via external LLM integrations only' } },
+    notes:{ db:'Agent Bricks — OpenAI, Anthropic, Gemini, open models', sf:'Cortex AI + CoWork / CoCo (Cortex Code)', mf:'Fabric IQ (GA) + Copilot + Azure OpenAI', bq:'Gemini Enterprise Agent Platform (excellent)', rs:'AWS Bedrock + Amazon Titan integration', as:'Azure OpenAI via linked services; no new AI features', td:'ClearScape Analytics + LLM function calls', ibm:'watsonx.ai — IBM Granite + open LLMs', ora:'AI Database 26ai — Select AI + in-DB vector search', ic:'via external LLM integrations only' } },
   { id:'aiTools',       label:'AI Tools Integration',       ico:'🔧', group:'Capabilities',
-    notes:{ db:'Genie NL SQL + 300+ AI integrations; native LLM gateway; MLflow model registry', sf:'Cortex AI; Snowflake ML; NL-to-SQL; Streamlit AI apps', mf:'Copilot in Fabric; Azure OpenAI native; full Power Platform AI toolkit', bq:'Gemini in BigQuery; NL-to-SQL; Vertex AI one-click integration', rs:'SageMaker Canvas + Redshift ML; Amazon Q integration', as:'Azure OpenAI direct integration; Fabric Copilot via migration path', td:'ClearScape AI functions; external LLM connectors', ibm:'watsonx.ai tools; Watson NLP; IBM AI Factsheets', cdp:'Limited — NVIDIA AI framework integrations only', ora:'Oracle Select AI; OCI AI Vision; Autonomous DB AI', ic:'No native AI tools — must connect to external engines manually' } },
+    notes:{ db:'Genie One + Genie Code; Unity AI Gateway; MLflow; Free Edition incl. Agent Bricks', sf:'Cortex AI; CoCo coding agent; Cortex Sense semantics; Streamlit AI apps', mf:'Fabric IQ GA in Copilot Chat & Cowork; Fabric Apps in Power BI Desktop (no extra cost for Pro/PPU)', bq:'Conversational Analytics (GA); managed BigQuery MCP Server; Data Agent Kit', rs:'SageMaker Unified Studio + Redshift ML; Amazon Q integration', as:'Maintenance mode — AI tooling lands in Fabric, not Synapse', td:'ClearScape Analytics + Enterprise AgentStack tooling; MCP', ibm:'watsonx.ai; MCP-based agentic data intelligence; AI Factsheets', ora:'Select AI + MCP Servers; AI Vector Search; OCI AI services', ic:'No native AI tools — must connect to external engines manually' } },
   { id:'aiAgents',      label:'AI Agent Orchestration',     ico:'🦾', group:'Capabilities',
-    notes:{ db:'Mosaic AI Agent Framework; vector search; compound AI; LangChain native integration', sf:'Cortex Agents (GA); Snowflake AI Agent framework; document AI pipelines', mf:'Copilot Studio; Power Automate AI agents; Microsoft AI Foundry multi-agent orchestration', bq:'Vertex AI Agent Builder; Gemini agents; grounding API; multi-step workflow automation', rs:'Amazon Bedrock Agents; Redshift connector for bedrock agent actions', as:'Azure AI Foundry agents via Synapse link; limited native orchestration', td:'ClearScape agent functions (early stage); partner integrations', ibm:'watsonx Orchestrate; multi-agent AI workflows; enterprise-grade', cdp:'No native agent layer; limited third-party integrations', ora:'Oracle AI Agent Service (OCI); Select AI agent actions', ic:'No native agent layer — must integrate LangChain/CrewAI externally' } },
+    notes:{ db:'Agent Bricks + Omnigent; any harness (LangGraph, CrewAI, Claude SDK); Lakebase agent memory; sandboxed execution', sf:'Cortex Agents + CoWork; AI Agent Identity; Horizon Context for governed agent access', mf:'Fabric data agents + operations agents; Copilot Studio; Microsoft Foundry multi-agent', bq:'Gemini Enterprise Agent Platform; BigQuery ADK; Deep Research Agent; agent telemetry', rs:'Amazon Bedrock Agents; Redshift connector for bedrock agent actions', as:'Azure AI Foundry agents via Synapse link; limited native orchestration', td:'Enterprise AgentStack — build, govern & run agents on cloud + on-prem', ibm:'watsonx Orchestrate multi-agent + MCP access to governed metadata', ora:'Select AI Agent — in-DB agents with REST & MCP tools', ic:'No native agent layer — must integrate LangChain/CrewAI externally' } },
   { id:'aiAutonomous',  label:'Autonomous Agentic AI',      ico:'🌟', group:'Capabilities',
-    notes:{ db:'Industry-leading: autonomous ML pipelines, self-optimizing clusters, Mosaic AI Agents, full LLMops lifecycle management', sf:'Evolving: Cortex Agents with growing autonomy; strong roadmap; best for SQL-centric autonomous tasks', mf:'Strong: Microsoft 365 Copilot autonomous workflows + Azure AI Foundry enterprise agentic stack + Power Platform automation', bq:'Advanced: Vertex AI Autonomous Agents; Gemini reasoning; BigQuery auto-optimization and scheduling', rs:'Limited: Bedrock Agents integration; not native; autonomous features via AWS ecosystem', as:'Moderate: Azure AI Foundry pipeline automation; growing autonomous capabilities via Fabric migration', td:'Early stage: limited autonomous orchestration; strong in governed batch automation', ibm:'Solid: watsonx Orchestrate handles enterprise-grade autonomous AI workflows at scale', cdp:'Minimal: autonomous features limited to Hadoop-era scheduling and NiFi flows', ora:'Autonomous DB self-driving (tuning/patching); limited agentic AI capabilities', ic:'Not applicable — open lakehouse; all autonomy must be engineered externally from scratch' } },
+    notes:{ db:'Industry-leading: autonomous ML pipelines, self-optimizing clusters, Mosaic AI Agents, full LLMops lifecycle management', sf:'Advancing: Cortex Agents + Adaptive Compute (self-routing queries); production-ready agentic layer since Summit 2026', mf:'Strong: Project Osmos runs migrations/ETL from goals; operations agent investigates pipeline failures; Copilot Cowork + Foundry', bq:'Advanced: Data Engineering & Data Science agents GA; Deep Research Agent; autonomous optimization', rs:'Limited: Bedrock Agents integration; not native; autonomous features via AWS ecosystem', as:'Moderate: Azure AI Foundry pipeline automation; growing autonomous capabilities via Fabric migration', td:'Emerging: Autonomous Knowledge Platform (May 2026) across cloud/on-prem/hybrid', ibm:'Solid: watsonx Orchestrate handles enterprise-grade autonomous AI workflows at scale', ora:'Self-driving DB + Select AI Agent; agentic layer still maturing', ic:'Not applicable — open lakehouse; all autonomy must be engineered externally from scratch' } },
   { id:'realTime',      label:'Real-Time Analytics',        ico:'⚡', group:'Capabilities',
-    notes:{ db:'Structured Streaming + DLT', sf:'Dynamic Tables (limited)', mf:'Real-Time Intelligence / KQL', bq:'Streaming inserts + BI Engine', rs:'Kinesis Data Firehose → Redshift', as:'Azure Stream Analytics + Event Hubs', td:'EventStream API + Kafka streaming', ibm:'IBM Event Streams (Kafka) + InfoSphere', cdp:'Apache Kafka + Flink + NiFi — strong', ora:'GoldenGate + Oracle Streaming Analytics', ic:'needs Kafka + Flink streaming layer' } },
+    notes:{ db:'Lakehouse RT + Structured Streaming', sf:'Dynamic Tables + Datastream', mf:'Real-Time Intelligence / KQL', bq:'Streaming inserts + BI Engine', rs:'Kinesis Data Firehose → Redshift', as:'Azure Stream Analytics + Event Hubs', td:'EventStream API + Kafka streaming', ibm:'IBM Event Streams (Kafka) + InfoSphere', ora:'GoldenGate + Oracle Streaming Analytics', ic:'needs Kafka + Flink streaming layer' } },
   { id:'streaming',     label:'Streaming / CDC',            ico:'🌊', group:'Capabilities',
-    notes:{ db:'Native Kafka + Spark Structured Streaming', sf:'Snowpipe Streaming', mf:'Eventstream (Fabric)', bq:'Pub/Sub + Dataflow', rs:'Kinesis Data Streams; limited native CDC', as:'Event Hubs + Stream Analytics + Fabric', td:'Kafka connector; limited native CDC', ibm:'IBM Event Streams (Kafka) — enterprise-grade', cdp:'Kafka + Flink — native streaming strength', ora:'GoldenGate CDC; limited native streaming', ic:'Kafka + Flink; no built-in CDC' } },
+    notes:{ db:'Native Kafka + Spark Structured Streaming', sf:'Snowpipe Streaming + Openflow CDC', mf:'Eventstream (Fabric)', bq:'Pub/Sub + Dataflow', rs:'Kinesis Data Streams; limited native CDC', as:'Event Hubs + Stream Analytics + Fabric', td:'Kafka connector; limited native CDC', ibm:'IBM Event Streams (Kafka) — enterprise-grade', ora:'GoldenGate CDC; limited native streaming', ic:'Kafka + Flink; v3 row lineage enables CDC' } },
   { id:'sql',           label:'SQL Performance',            ico:'🚀', group:'Capabilities',
-    notes:{ db:'Photon engine — near-native speed', sf:'Best-in-class Snowflake engine', mf:'Synapse Dedicated/Serverless SQL', bq:'Dremel — sub-second on petabytes', rs:'AQUA hardware acceleration — very fast', as:'Dedicated SQL Pools — MPP engine', td:'Best-in-class complex SQL + workload management', ibm:'Presto + Db2 SQL — flexible', cdp:'Impala SQL + HiveQL', ora:'Exadata acceleration — fastest for Oracle SQL', ic:'via Athena / Trino / DuckDB' } },
+    notes:{ db:'Photon engine — near-native speed', sf:'Best-in-class Snowflake engine', mf:'Synapse Dedicated/Serverless SQL', bq:'Dremel — sub-second on petabytes', rs:'AQUA hardware acceleration — very fast', as:'Dedicated SQL Pools — MPP engine', td:'Best-in-class complex SQL + workload management', ibm:'Presto + Db2 SQL — flexible', ora:'Exadata acceleration — fastest for Oracle SQL', ic:'via Athena / Trino / DuckDB' } },
   { id:'scale',         label:'Scalability',                ico:'📈', group:'Capabilities',
-    notes:{ db:'Petabyte-scale Spark clusters', sf:'Instant elastic multi-cluster', mf:'Fabric capacity units (F SKU)', bq:'Fully serverless — infinite slots', rs:'Serverless auto-scaling + RA3 managed storage', as:'Auto-scale Spark pools + Serverless SQL', td:'VantageCloud elastic compute on all 3 clouds', ibm:'Hybrid cloud elasticity + Presto scaling', cdp:'Hybrid autoscale — cloud + on-prem', ora:'Autonomous scaling + Exadata elasticity', ic:'Petabyte-scale S3 — pay S3 rates only' } },
+    notes:{ db:'Petabyte-scale Spark clusters', sf:'Instant elastic multi-cluster', mf:'Fabric capacity units (F SKU)', bq:'Fully serverless — infinite slots', rs:'Serverless auto-scaling + RA3 managed storage', as:'Auto-scale Spark pools + Serverless SQL', td:'VantageCloud elastic compute on all 3 clouds', ibm:'Hybrid cloud elasticity + Presto scaling', ora:'Autonomous scaling + Exadata elasticity', ic:'Petabyte-scale S3 — pay S3 rates only' } },
   { id:'ease',          label:'Ease of Use',                ico:'🎯', group:'Operational',
-    notes:{ db:'Medium — Spark & cluster expertise needed', sf:'Easy — pure SQL-first SaaS', mf:'Easiest — low-code / GUI-driven', bq:'Easy — no infrastructure management', rs:'Familiar SQL; AWS console + query editor', as:'Medium — familiar for Azure/M365 developers', td:'Traditional DW expertise required', ibm:'Complex — IBM ecosystem depth needed', cdp:'Complex — Hadoop/Cloudera expertise needed', ora:'Easy — fully autonomous, zero-admin', ic:'Very complex — custom orchestration required' } },
+    notes:{ db:'Medium — Spark & cluster expertise needed', sf:'Easy — pure SQL-first SaaS', mf:'Easiest — low-code / GUI-driven', bq:'Easy — no infrastructure management', rs:'Familiar SQL; AWS console + query editor', as:'Medium — familiar for Azure/M365 developers', td:'Traditional DW expertise required', ibm:'Complex — IBM ecosystem depth needed', ora:'Easy — fully autonomous, zero-admin', ic:'Very complex — custom orchestration required' } },
   { id:'pbi',           label:'Power BI Integration',       ico:'📊', group:'Operational',
-    notes:{ db:'Partner Connect + DirectQuery', sf:'Native BI connector', mf:'Native / Best-in-class (same vendor)', bq:'Connector available (not native)', rs:'ODBC/JDBC connector + QuickSight native', as:'Native Power BI integration (same Azure family)', td:'ODBC/JDBC + native Teradata connector', ibm:'JDBC connector; not native', cdp:'JDBC/ODBC connector', ora:'JDBC connector; Oracle Analytics Cloud native', ic:'via JDBC / Athena connector only' } },
+    notes:{ db:'Partner Connect + DirectQuery', sf:'Native BI connector', mf:'Native / Best-in-class (same vendor)', bq:'Connector available (not native)', rs:'ODBC/JDBC connector + QuickSight native', as:'Native Power BI integration (same Azure family)', td:'ODBC/JDBC + native Teradata connector', ibm:'JDBC connector; not native', ora:'JDBC connector; Oracle Analytics Cloud native', ic:'via JDBC / Athena connector only' } },
   { id:'sharing',       label:'Data Sharing',               ico:'🤝', group:'Operational',
-    notes:{ db:'Delta Sharing (open protocol)', sf:'Secure Data Sharing — best-in-class', mf:'OneLake shortcuts + Fabric items', bq:'Analytics Hub (GCP ecosystem)', rs:'Redshift Data Sharing + AWS Data Exchange', as:'Limited — OneLake shortcuts (migrating to Fabric)', td:'QueryGrid cross-platform data sharing', ibm:'IBM Data Product Hub', cdp:'Shared Data Experience (limited scope)', ora:'OCI Data Catalog + Autonomous Data Sharing', ic:'Open format — any engine reads directly' } },
+    notes:{ db:'Delta Sharing (open protocol)', sf:'Secure Data Sharing — best-in-class', mf:'OneLake shortcuts + IQ sharing (preview)', bq:'Analytics Hub (GCP ecosystem)', rs:'Redshift Data Sharing + AWS Data Exchange', as:'Limited — Synapse Link for Cosmos DB closed to new accounts (Mar 2026)', td:'QueryGrid cross-platform data sharing', ibm:'IBM Data Product Hub', ora:'OCI Data Catalog + Autonomous Data Sharing', ic:'Open format — any engine reads directly' } },
   { id:'multiErp',      label:'Multi-ERP Support',          ico:'🏭', group:'Operational',
-    notes:{ db:'Excellent — unified schema across ERP sources', sf:'Good — connectors available', mf:'Good — Azure Data Factory connectors', bq:'Good — Dataflow + partner connectors', rs:'AWS Glue + SAP/Oracle/Salesforce connectors', as:'Azure Data Factory — SAP/Oracle/Salesforce connectors', td:'Excellent — traditional ERP integration hub', ibm:'Excellent — native SAP, Oracle, JDE connectors', cdp:'NiFi + partner connectors for ERP sources', ora:'Native — Oracle EBS/JDE/Fusion + SAP connectors', ic:'Custom Glue/NiFi connectors required' } },
+    notes:{ db:'Excellent — unified schema across ERP sources', sf:'Good — connectors available', mf:'Good — Azure Data Factory connectors', bq:'Good — Dataflow + partner connectors', rs:'AWS Glue + SAP/Oracle/Salesforce connectors', as:'Azure Data Factory — SAP/Oracle/Salesforce connectors', td:'Excellent — traditional ERP integration hub', ibm:'Excellent — native SAP, Oracle, JDE connectors', ora:'Native — Oracle EBS/JDE/Fusion + SAP connectors', ic:'Custom Glue/NiFi connectors required' } },
   { id:'cost',          label:'Cost Efficiency',            ico:'💰', group:'Economics',
-    notes:{ db:'Medium — cluster + DBU pricing', sf:'Expensive at scale (per-credit)', mf:'Good for existing Microsoft customers', bq:'Variable — on-demand expensive; slots better', rs:'Good TCO — reserved instances save 60%+', as:'Good for Azure EA customers — capacity pricing', td:'High licensing; enterprise TCO discussion needed', ibm:'Competitive — BYOL + subscription; good for IBM shops', cdp:'High subscription; leverages existing hardware', ora:'BYOL model + competitive for Oracle shops', ic:'Lowest — pay S3 rates + compute only' } },
+    notes:{ db:'Medium — cluster + DBU pricing', sf:'Expensive at scale (per-credit)', mf:'Improved — on-demand billing for all workloads + F0 SKU', bq:'Variable — on-demand expensive; slots better', rs:'Good TCO — reserved instances save 60%+', as:'Good for Azure EA customers — capacity pricing', td:'High licensing; enterprise TCO discussion needed', ibm:'Competitive — BYOL + subscription; good for IBM shops', ora:'BYOL model + competitive for Oracle shops', ic:'Lowest — pay S3 rates + compute only' } },
   { id:'implSpeed',     label:'Implementation Speed',       ico:'⏱️', group:'Economics',
-    notes:{ db:'Medium — 2–4 months for full stack', sf:'Fast — weeks to first query', mf:'Fast for M365 orgs — guided setup', bq:'Fast — serverless, no infrastructure', rs:'Fast for AWS-native orgs — hours to first query', as:'Medium — months for full Synapse + ADF setup', td:'Slow — 6–12 months for enterprise deployment', ibm:'Slow — enterprise IBM deployment cycles', cdp:'Slow — Hadoop migration expertise required', ora:'Fast — autonomous DB, self-configures in hours', ic:'Slow — needs full custom stack build' } },
+    notes:{ db:'Medium — 2–4 months for full stack', sf:'Fast — weeks to first query', mf:'Fast for M365 orgs — guided setup', bq:'Fast — serverless, no infrastructure', rs:'Fast for AWS-native orgs — hours to first query', as:'Medium — months for full Synapse + ADF setup', td:'Slow — 6–12 months for enterprise deployment', ibm:'Slow — enterprise IBM deployment cycles', ora:'Fast — autonomous DB, self-configures in hours', ic:'Slow — needs full custom stack build' } },
   { id:'implComplexity',label:'Implementation Complexity',  ico:'🛠️', group:'Economics',
-    notes:{ db:'Requires Spark + cluster expertise; 2–4 months', sf:'SQL-first SaaS; teams productive in days', mf:'Guided setup; low-code tools reduce complexity', bq:'Serverless — no infrastructure to manage', rs:'Familiar SQL; AWS console + wizard setup', as:'Azure Portal wizard; moderate complexity', td:'Traditional DW expertise; 6–12 month rollouts', ibm:'IBM professional services typically needed', cdp:'Hadoop migration expertise required', ora:'Fully autonomous — near-zero admin effort', ic:'Very complex — needs custom orchestration stack' } },
+    notes:{ db:'Requires Spark + cluster expertise; 2–4 months', sf:'SQL-first SaaS; teams productive in days', mf:'Guided setup; low-code tools reduce complexity', bq:'Serverless — no infrastructure to manage', rs:'Familiar SQL; AWS console + wizard setup', as:'Azure Portal wizard; moderate complexity', td:'Traditional DW expertise; 6–12 month rollouts', ibm:'IBM professional services typically needed', ora:'Fully autonomous — near-zero admin effort', ic:'Very complex — needs custom orchestration stack' } },
   { id:'open',          label:'Open Standards',             ico:'🌐', group:'Architecture',
-    notes:{ db:'Delta Lake (open format, open source)', sf:'Proprietary storage format', mf:'Partially open (Parquet in OneLake)', bq:'BigLake supports Iceberg/Parquet', rs:'Spectrum queries Iceberg/Parquet/ORC on S3', as:'Delta Lake + Parquet + Synapse Link', td:'NOS queries open formats; mainly proprietary engine', ibm:'Open — Iceberg, Parquet, Delta formats supported', cdp:'Fully open stack: Spark, Kafka, Hive, HDFS', ora:'Mostly proprietary; some Parquet via DBMS_CLOUD', ic:'Best-in-class — Iceberg spec + any engine' } },
+    notes:{ db:'Delta + Iceberg via UniForm; Unity Catalog Catalog Federation', sf:'Iceberg v3 GA + Horizon Catalog / Apache Polaris', mf:'Partially open (Parquet in OneLake)', bq:'Cross-cloud Iceberg lakehouse (AWS, Azure, Databricks, Snowflake catalogs)', rs:'Iceberg v3 read/write + DML + materialized views; S3 Tables', as:'Delta Lake + Parquet + Synapse Link', td:'NOS queries open formats; mainly proprietary engine', ibm:'Open — Iceberg, Parquet, Delta formats supported', ora:'Autonomous AI Lakehouse on Apache Iceberg', ic:'Best-in-class — Iceberg v3 spec (variant, deletion vectors) + any engine' } },
   { id:'noLock',        label:'No Vendor Lock-in',          ico:'🔓', group:'Architecture',
-    notes:{ db:'Medium — open format, closed platform', sf:'High — proprietary all the way', mf:'Very high — deep Microsoft dependency', bq:'High — GCP infrastructure dependent', rs:'Medium — Spectrum/S3 provide partial escape', as:'High — deep Azure dependency (migrating to Fabric)', td:'Very high — proprietary engine + licensing', ibm:'Medium — open formats reduce lock-in', cdp:'Low — open-source stack, portable workloads', ora:'Very high — Oracle technology stack dependency', ic:'Zero lock-in — open spec, open data' } },
+    notes:{ db:'Medium — open format, closed platform', sf:'High — proprietary engine, but data can live in open Iceberg', mf:'Very high — deep Microsoft dependency', bq:'Medium-high — GCP engine, but cross-cloud Iceberg', rs:'Medium — Spectrum/S3 provide partial escape', as:'High — deep Azure dependency (migrating to Fabric)', td:'Very high — proprietary engine + licensing', ibm:'Medium — open formats reduce lock-in', ora:'High — Oracle stack, but now on all 4 hyperscalers', ic:'Zero lock-in — open spec, open data' } },
   { id:'security',      label:'Security & Compliance',      ico:'🔐', group:'Architecture',
-    notes:{ db:'Unity Catalog, RBAC, SOC2/HIPAA', sf:'Industry-leading (SOC2/HIPAA/FedRAMP)', mf:'Azure security model (HIPAA/ISO)', bq:'VPC SC, CMEK, FedRAMP', rs:'VPC, KMS, IAM roles, SOC2/HIPAA/FedRAMP GovCloud', as:'Azure Entra ID, Purview, FedRAMP', td:'Enterprise-grade — SOC2, HIPAA, FedRAMP', ibm:'Excellent — FIPS 140-2, FedRAMP, HIPAA', cdp:'SDX security — Ranger + Knox + Atlas', ora:'Excellent — Oracle Vault, TDE, FedRAMP', ic:'AWS IAM + S3 policies; GDPR via data ownership' } },
+    notes:{ db:'Unity Catalog, RBAC, SOC2/HIPAA', sf:'Industry-leading (SOC2/HIPAA/FedRAMP)', mf:'Azure security model (HIPAA/ISO); now in M365 GCC High', bq:'VPC SC, CMEK, FedRAMP', rs:'VPC, KMS, IAM roles, SOC2/HIPAA/FedRAMP GovCloud', as:'Azure Entra ID, Purview, FedRAMP', td:'Enterprise-grade — SOC2, HIPAA, FedRAMP', ibm:'Excellent — FIPS 140-2, FedRAMP, HIPAA', ora:'Excellent — Oracle Vault, TDE, FedRAMP', ic:'AWS IAM + S3 policies; GDPR via data ownership' } },
   { id:'euAI',          label:'AI EU Policy / GDPR',        ico:'🇪🇺', group:'Architecture',
-    notes:{ db:'EU regions; Unity Catalog data residency controls', sf:'EU Business Critical; GDPR BAA; data residency', mf:'EU Data Boundary; Purview; EU AI Act aligned', bq:'EU regions; GDPR compliance; Google data scrutiny', rs:'EU regions; AWS GDPR DPA; GovCloud EU option', as:'EU Data Boundary; Azure AI governance policies', td:'EU sovereign deployment; strong GDPR data lineage', ibm:'IBM EU Cloud Commitment; data residency guaranteed', cdp:'On-prem/private cloud = full EU data sovereignty', ora:'Oracle EU Sovereign Cloud; GDPR compliance', ic:'Full sovereignty — you own data, no vendor transfer' } },
+    notes:{ db:'EU regions; Unity Catalog data residency controls', sf:'EU Business Critical; GDPR BAA; data residency', mf:'EU Data Boundary; Purview; EU AI Act aligned', bq:'EU regions; GDPR compliance; Google data scrutiny', rs:'EU regions; AWS GDPR DPA; GovCloud EU option', as:'EU Data Boundary; Azure AI governance policies', td:'EU sovereign deployment; strong GDPR data lineage', ibm:'IBM EU Cloud Commitment; data residency guaranteed', ora:'Oracle EU Sovereign Cloud; GDPR compliance', ic:'Full sovereignty — you own data, no vendor transfer' } },
   { id:'multiSite',     label:'Multi-Site / Multi-Plant',   ico:'🌍', group:'Architecture',
-    notes:{ db:'Excellent — multi-cloud Unity Catalog', sf:'Good — multi-region deployments', mf:'Good — OneLake is global', bq:'Excellent — multi-region, multi-project', rs:'Excellent — AWS global regions + cross-region sharing', as:'Good — Azure paired regions + geo-redundancy', td:'Good — VantageCloud multi-region deployments', ibm:'Excellent — hybrid multi-cloud + on-prem', cdp:'Excellent — private + public cloud hybrid', ora:'Good — OCI multi-region + Exadata on-prem', ic:'S3 global regions; multi-engine portability' } },
+    notes:{ db:'Excellent — multi-cloud Unity Catalog', sf:'Good — multi-region deployments', mf:'Good — OneLake is global', bq:'Excellent — multi-region, multi-project', rs:'Excellent — AWS global regions + cross-region sharing', as:'Good — Azure paired regions + geo-redundancy', td:'Good — VantageCloud multi-region deployments', ibm:'Excellent — hybrid multi-cloud + on-prem', ora:'Good — OCI multi-region + Exadata on-prem', ic:'S3 global regions; multi-engine portability' } },
+  { id:'onPrem',        label:'On-Prem / Sovereign Cloud',  ico:'🏦', group:'Architecture',
+    notes:{ db:'E2 VPC isolation; no true on-prem; strong private link', sf:'Cloud-only; no on-prem option; Business Critical private connectivity', mf:'Azure Government + M365 GCC High (US sovereign); no on-prem Fabric', bq:'Google Distributed Cloud (limited); mainly cloud-only', rs:'AWS GovCloud + Outposts; partial on-prem via appliance', as:'Azure Sovereign + Government Cloud; hybrid via Stack HCI', td:'True on-prem flagship; air-gapped capable; decades of banking use', ibm:'IBM Cloud Pak on-prem; air-gapped; banking stronghold since mainframe era', ora:'Exadata on-prem + Cloud@Customer (Exadata in your DC, Oracle-managed)', ic:'Fully on-prem with MinIO + Spark on bare metal; zero vendor dependency' } },
 ];
 
 // ── EXTRA SCORES ──
 P.forEach(p=>{
   const extras = {
-    db:  {multiErp:4.5, multiSite:4.5, implSpeed:3,   security:4.5, implComplexity:2.5, euAI:3.5, aiTools:5,   aiAgents:5,   aiAutonomous:5  },
-    sf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:5,   implComplexity:4.5, euAI:4,   aiTools:4,   aiAgents:3,   aiAutonomous:2.5},
-    mf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:4.5, implComplexity:4,   euAI:5,   aiTools:5,   aiAgents:4.5, aiAutonomous:4  },
-    bq:  {multiErp:3.5, multiSite:4.5, implSpeed:4.5, security:4.5, implComplexity:4.5, euAI:3.5, aiTools:4.5, aiAgents:4,   aiAutonomous:3.5},
-    rs:  {multiErp:3.5, multiSite:4,   implSpeed:4,   security:4.5, implComplexity:3.5, euAI:3,   aiTools:3,   aiAgents:2,   aiAutonomous:1.5},
-    as:  {multiErp:4,   multiSite:4,   implSpeed:3,   security:5,   implComplexity:3,   euAI:4.5, aiTools:3.5, aiAgents:3,   aiAutonomous:2.5},
-    td:  {multiErp:4.5, multiSite:4,   implSpeed:2,   security:5,   implComplexity:2,   euAI:4,   aiTools:3,   aiAgents:2,   aiAutonomous:1.5},
-    ibm: {multiErp:4,   multiSite:4.5, implSpeed:2.5, security:5,   implComplexity:2,   euAI:4.5, aiTools:4,   aiAgents:3.5, aiAutonomous:3  },
-    cdp: {multiErp:3,   multiSite:4.5, implSpeed:2,   security:4.5, implComplexity:1.5, euAI:4.5, aiTools:2.5, aiAgents:2,   aiAutonomous:1.5},
-    ora: {multiErp:5,   multiSite:4,   implSpeed:3,   security:4.5, implComplexity:4,   euAI:4,   aiTools:3,   aiAgents:2,   aiAutonomous:2  },
-    ic:  {multiErp:3,   multiSite:4,   implSpeed:2,   security:3.5, implComplexity:1.5, euAI:4.5, aiTools:2,   aiAgents:1.5, aiAutonomous:1  },
+    db:  {multiErp:4.5, multiSite:4.5, implSpeed:3,   security:4.5, implComplexity:2.5, euAI:3.5, aiTools:5,   aiAgents:5,   aiAutonomous:5,   onPrem:3  },
+    sf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:5,   implComplexity:4.5, euAI:4,   aiTools:4.5, aiAgents:4,   aiAutonomous:3.5, onPrem:2  },
+    mf:  {multiErp:3.5, multiSite:3.5, implSpeed:4.5, security:4.5, implComplexity:4,   euAI:5,   aiTools:5,   aiAgents:4.5, aiAutonomous:4.5, onPrem:3.5},
+    bq:  {multiErp:3.5, multiSite:4.5, implSpeed:4.5, security:4.5, implComplexity:4.5, euAI:3.5, aiTools:5,   aiAgents:4.5, aiAutonomous:4.5, onPrem:2.5},
+    rs:  {multiErp:3.5, multiSite:4,   implSpeed:4,   security:4.5, implComplexity:3.5, euAI:3,   aiTools:3,   aiAgents:2,   aiAutonomous:1.5, onPrem:3  },
+    as:  {multiErp:4,   multiSite:4,   implSpeed:3,   security:5,   implComplexity:3,   euAI:4.5, aiTools:3,   aiAgents:3,   aiAutonomous:2.5, onPrem:3.5},
+    td:  {multiErp:4.5, multiSite:4,   implSpeed:2,   security:5,   implComplexity:2,   euAI:4,   aiTools:3.5, aiAgents:3.5, aiAutonomous:3,   onPrem:5  },
+    ibm: {multiErp:4,   multiSite:4.5, implSpeed:2.5, security:5,   implComplexity:2,   euAI:4.5, aiTools:4.5, aiAgents:4,   aiAutonomous:3,   onPrem:5  },
+    ora: {multiErp:5,   multiSite:4,   implSpeed:3,   security:4.5, implComplexity:4,   euAI:4,   aiTools:3.5, aiAgents:3.5, aiAutonomous:3,   onPrem:4.5},
+    ic:  {multiErp:3,   multiSite:4,   implSpeed:2,   security:3.5, implComplexity:1.5, euAI:4.5, aiTools:2,   aiAgents:1.5, aiAutonomous:1,   onPrem:4  },
   }[p.id]||{};
   Object.assign(p.scores, extras);
 });
@@ -497,88 +509,88 @@ const FILTER_DEFS = [
     id:'speed', label:'⏱ Implementation Speed',
     hint:'How fast must the platform be operational?',
     opts:[
-      { v:'express',  label:'Express',  desc:'< 1 month',    mods:{ db:-8, sf:+10, mf:+7, bq:+8, rs:+8, as:-5,  td:-15, ibm:-15, cdp:-15, ora:+5,  ic:-15 } },
-      { v:'standard', label:'Standard', desc:'1–3 months',   mods:{ db:+3, sf:+5,  mf:+4, bq:+5, rs:+5, as:+3,  td:-8,  ibm:-5,  cdp:-8,  ora:+6,  ic:-8  } },
-      { v:'extended', label:'Extended', desc:'3–6 months',   mods:{ db:+6, sf:-2,  mf:+0, bq:+2, rs:+2, as:+5,  td:+4,  ibm:+4,  cdp:+3,  ora:+2,  ic:+2  } },
-      { v:'complex',  label:'Complex',  desc:'6–18 months',  mods:{ db:+9, sf:-7,  mf:-5, bq:+3, rs:-3, as:+3,  td:+10, ibm:+8,  cdp:+9,  ora:-2,  ic:+10 } },
+      { v:'express',  label:'Express',  desc:'< 1 month',    mods:{ db:-8, sf:+10, mf:+7, bq:+8, rs:+8, as:-5,  td:-15, ibm:-15, ora:+5,  ic:-15 } },
+      { v:'standard', label:'Standard', desc:'1–3 months',   mods:{ db:+3, sf:+5,  mf:+4, bq:+5, rs:+5, as:+3,  td:-8,  ibm:-5,  ora:+6,  ic:-8  } },
+      { v:'extended', label:'Extended', desc:'3–6 months',   mods:{ db:+6, sf:-2,  mf:+0, bq:+2, rs:+2, as:+5,  td:+4,  ibm:+4,  ora:+2,  ic:+2  } },
+      { v:'complex',  label:'Complex',  desc:'6–18 months',  mods:{ db:+9, sf:-7,  mf:-5, bq:+3, rs:-3, as:+3,  td:+10, ibm:+8,  ora:-2,  ic:+10 } },
     ]
   },
   {
     id:'companyType', label:'🏢 Company Structure',
     hint:'What best describes your organization?',
     opts:[
-      { v:'smb',       label:'SMB / Single-Site',    desc:'<500 employees',               mods:{ db:-8,  sf:+12, mf:+7,  bq:+8,  rs:+5,  as:-5,  td:-12, ibm:-10, cdp:-12, ora:-5,  ic:-15 } },
-      { v:'multiSite', label:'Multi-Site',            desc:'Several offices / locations',  mods:{ db:+4,  sf:+4,  mf:+5,  bq:+5,  rs:+5,  as:+5,  td:+4,  ibm:+5,  cdp:+5,  ora:+3,  ic:+3  } },
-      { v:'multiPlant',label:'Multi-Plant Mfg',       desc:'Multiple production sites',    mods:{ db:+9,  sf:-4,  mf:+2,  bq:+4,  rs:+3,  as:+4,  td:+8,  ibm:+6,  cdp:+7,  ora:+5,  ic:+5  } },
-      { v:'multiERP',  label:'Multi-ERP Enterprise',  desc:'SAP + Oracle + custom ERPs',   mods:{ db:+10, sf:-1,  mf:+3,  bq:+6,  rs:+3,  as:+5,  td:+8,  ibm:+8,  cdp:+5,  ora:+8,  ic:+4  } },
-      { v:'globalCorp',label:'Global Corporation',    desc:'10k+ employees, multi-region', mods:{ db:+9,  sf:+5,  mf:+5,  bq:+10, rs:+8,  as:+6,  td:+8,  ibm:+8,  cdp:+8,  ora:+6,  ic:+6  } },
+      { v:'smb',       label:'SMB / Single-Site',    desc:'<500 employees',               mods:{ db:-8,  sf:+12, mf:+7,  bq:+8,  rs:+5,  as:-5,  td:-12, ibm:-10, ora:-5,  ic:-15 } },
+      { v:'multiSite', label:'Multi-Site',            desc:'Several offices / locations',  mods:{ db:+4,  sf:+4,  mf:+5,  bq:+5,  rs:+5,  as:+5,  td:+4,  ibm:+5,  ora:+3,  ic:+3  } },
+      { v:'multiPlant',label:'Multi-Plant Mfg',       desc:'Multiple production sites',    mods:{ db:+9,  sf:-4,  mf:+2,  bq:+4,  rs:+3,  as:+4,  td:+8,  ibm:+6,  ora:+5,  ic:+5  } },
+      { v:'multiERP',  label:'Multi-ERP Enterprise',  desc:'SAP + Oracle + custom ERPs',   mods:{ db:+10, sf:-1,  mf:+3,  bq:+6,  rs:+3,  as:+5,  td:+8,  ibm:+8,  ora:+8,  ic:+4  } },
+      { v:'globalCorp',label:'Global Corporation',    desc:'10k+ employees, multi-region', mods:{ db:+9,  sf:+5,  mf:+5,  bq:+10, rs:+8,  as:+6,  td:+8,  ibm:+8,  ora:+6,  ic:+6  } },
     ]
   },
   {
     id:'business', label:'💼 Business Type / Industry',
     hint:'Which industry best fits your organization?',
     opts:[
-      { v:'manufacturing', label:'Manufacturing',    desc:'Industry, production, OEE',     mods:{ db:+8, sf:-5,  mf:+2,  bq:+3,  rs:+3,  as:+3,  td:+8,  ibm:+6,  cdp:+7,  ora:+5,  ic:+5  } },
-      { v:'retail',        label:'Retail & E-comm',  desc:'Omnichannel, supply chain',     mods:{ db:+4, sf:+8,  mf:+5,  bq:+8,  rs:+8,  as:+4,  td:+2,  ibm:+3,  cdp:+2,  ora:+3,  ic:-5  } },
-      { v:'finance',       label:'Finance & Banking', desc:'Risk, compliance, trading',     mods:{ db:+4, sf:+10, mf:+5,  bq:+6,  rs:+6,  as:+5,  td:+10, ibm:+8,  cdp:+4,  ora:+7,  ic:+3  } },
-      { v:'healthcare',    label:'Healthcare',        desc:'HIPAA, life sciences, pharma',  mods:{ db:+5, sf:+5,  mf:+10, bq:+5,  rs:+4,  as:+8,  td:+7,  ibm:+8,  cdp:+5,  ora:+5,  ic:+4  } },
-      { v:'technology',    label:'Technology / SaaS', desc:'Product analytics, ML-heavy',   mods:{ db:+10,sf:+2,  mf:-4,  bq:+8,  rs:+8,  as:+3,  td:-5,  ibm:+3,  cdp:+5,  ora:+2,  ic:+10 } },
-      { v:'energy',        label:'Energy & Utilities',desc:'IoT, time-series, SCADA',       mods:{ db:+6, sf:-4,  mf:+0,  bq:+3,  rs:+4,  as:+3,  td:+6,  ibm:+5,  cdp:+8,  ora:+4,  ic:+6  } },
-      { v:'public',        label:'Public Sector',     desc:'Government, education',          mods:{ db:+0, sf:+2,  mf:+12, bq:+4,  rs:+5,  as:+10, td:+5,  ibm:+6,  cdp:+4,  ora:+5,  ic:+2  } },
+      { v:'manufacturing', label:'Manufacturing',    desc:'Industry, production, OEE',     mods:{ db:+8, sf:-5,  mf:+2,  bq:+3,  rs:+3,  as:+3,  td:+8,  ibm:+6,  ora:+5,  ic:+5  } },
+      { v:'retail',        label:'Retail & E-comm',  desc:'Omnichannel, supply chain',     mods:{ db:+4, sf:+8,  mf:+5,  bq:+8,  rs:+8,  as:+4,  td:+2,  ibm:+3,  ora:+3,  ic:-5  } },
+      { v:'finance',       label:'Finance & Banking', desc:'Risk, compliance, trading',     mods:{ db:+4, sf:+10, mf:+5,  bq:+6,  rs:+6,  as:+5,  td:+10, ibm:+8,  ora:+7,  ic:+3  } },
+      { v:'healthcare',    label:'Healthcare',        desc:'HIPAA, life sciences, pharma',  mods:{ db:+5, sf:+5,  mf:+10, bq:+5,  rs:+4,  as:+8,  td:+7,  ibm:+8,  ora:+5,  ic:+4  } },
+      { v:'technology',    label:'Technology / SaaS', desc:'Product analytics, ML-heavy',   mods:{ db:+10,sf:+2,  mf:-4,  bq:+8,  rs:+8,  as:+3,  td:-5,  ibm:+3,  ora:+2,  ic:+10 } },
+      { v:'energy',        label:'Energy & Utilities',desc:'IoT, time-series, SCADA',       mods:{ db:+6, sf:-4,  mf:+0,  bq:+3,  rs:+4,  as:+3,  td:+6,  ibm:+5,  ora:+4,  ic:+6  } },
+      { v:'public',        label:'Public Sector',     desc:'Government, education',          mods:{ db:+0, sf:+2,  mf:+12, bq:+4,  rs:+5,  as:+10, td:+5,  ibm:+6,  ora:+5,  ic:+2  } },
     ]
   },
   {
     id:'team', label:'🧑‍💻 Primary Team Profile',
     hint:'Who will be the main platform users?',
     opts:[
-      { v:'dataEng', label:'Data Engineering',  desc:'Pipelines, Spark, ETL',          mods:{ db:+10, sf:-6,  mf:-4,  bq:+3,  rs:+5,  as:+3,  td:-6,  ibm:+3,  cdp:+8,  ora:-5,  ic:+15 } },
-      { v:'biSQL',   label:'BI / SQL Analytics', desc:'Dashboards, SQL, reporting',     mods:{ db:-6,  sf:+10, mf:+8,  bq:+8,  rs:+5,  as:+5,  td:+8,  ibm:+4,  cdp:+2,  ora:+7,  ic:-12 } },
-      { v:'mlAI',    label:'ML / AI / Data Sci', desc:'Models, features, experiments',  mods:{ db:+12, sf:-4,  mf:+3,  bq:+8,  rs:+4,  as:+4,  td:-3,  ibm:+6,  cdp:+3,  ora:+2,  ic:+8  } },
-      { v:'platform',label:'Platform / Infra',   desc:'DevOps, SRE, cloud-native',      mods:{ db:+4,  sf:-8,  mf:-8,  bq:+3,  rs:+2,  as:+2,  td:-8,  ibm:+4,  cdp:+6,  ora:-6,  ic:+12 } },
-      { v:'mixed',   label:'Mixed / General',    desc:'Cross-functional teams',          mods:{ db:+2,  sf:+2,  mf:+2,  bq:+2,  rs:+4,  as:+3,  td:+2,  ibm:+2,  cdp:+1,  ora:+2,  ic:-5  } },
+      { v:'dataEng', label:'Data Engineering',  desc:'Pipelines, Spark, ETL',          mods:{ db:+10, sf:-6,  mf:-4,  bq:+3,  rs:+5,  as:+3,  td:-6,  ibm:+3,  ora:-5,  ic:+15 } },
+      { v:'biSQL',   label:'BI / SQL Analytics', desc:'Dashboards, SQL, reporting',     mods:{ db:-6,  sf:+10, mf:+8,  bq:+8,  rs:+5,  as:+5,  td:+8,  ibm:+4,  ora:+7,  ic:-12 } },
+      { v:'mlAI',    label:'ML / AI / Data Sci', desc:'Models, features, experiments',  mods:{ db:+12, sf:-4,  mf:+3,  bq:+8,  rs:+4,  as:+4,  td:-3,  ibm:+6,  ora:+2,  ic:+8  } },
+      { v:'platform',label:'Platform / Infra',   desc:'DevOps, SRE, cloud-native',      mods:{ db:+4,  sf:-8,  mf:-8,  bq:+3,  rs:+2,  as:+2,  td:-8,  ibm:+4,  ora:-6,  ic:+12 } },
+      { v:'mixed',   label:'Mixed / General',    desc:'Cross-functional teams',          mods:{ db:+2,  sf:+2,  mf:+2,  bq:+2,  rs:+4,  as:+3,  td:+2,  ibm:+2,  ora:+2,  ic:-5  } },
     ]
   },
   {
     id:'budget', label:'💰 Monthly Budget',
     hint:'Approximate monthly data platform spend',
     opts:[
-      { v:'starter',    label:'Starter',    desc:'< $10k / month',       mods:{ db:-7,  sf:-2,  mf:-5,  bq:+3,  rs:+4,  as:-6,  td:-15, ibm:-12, cdp:-10, ora:-8,  ic:+10 } },
-      { v:'growth',     label:'Growth',     desc:'$10k–$50k / month',    mods:{ db:+2,  sf:+5,  mf:+3,  bq:+5,  rs:+5,  as:+3,  td:-8,  ibm:-5,  cdp:-5,  ora:+2,  ic:+8  } },
-      { v:'scale',      label:'Scale',      desc:'$50k–$200k / month',   mods:{ db:+6,  sf:+3,  mf:+4,  bq:+5,  rs:+6,  as:+4,  td:+4,  ibm:+4,  cdp:+4,  ora:+5,  ic:+6  } },
-      { v:'enterprise', label:'Enterprise', desc:'$200k+ / month',       mods:{ db:+9,  sf:+7,  mf:+10, bq:+6,  rs:+5,  as:+6,  td:+12, ibm:+10, cdp:+10, ora:+8,  ic:+2  } },
+      { v:'starter',    label:'Starter',    desc:'< $10k / month',       mods:{ db:-7,  sf:-2,  mf:-5,  bq:+3,  rs:+4,  as:-6,  td:-15, ibm:-12, ora:-8,  ic:+10 } },
+      { v:'growth',     label:'Growth',     desc:'$10k–$50k / month',    mods:{ db:+2,  sf:+5,  mf:+3,  bq:+5,  rs:+5,  as:+3,  td:-8,  ibm:-5,  ora:+2,  ic:+8  } },
+      { v:'scale',      label:'Scale',      desc:'$50k–$200k / month',   mods:{ db:+6,  sf:+3,  mf:+4,  bq:+5,  rs:+6,  as:+4,  td:+4,  ibm:+4,  ora:+5,  ic:+6  } },
+      { v:'enterprise', label:'Enterprise', desc:'$200k+ / month',       mods:{ db:+9,  sf:+7,  mf:+10, bq:+6,  rs:+5,  as:+6,  td:+12, ibm:+10, ora:+8,  ic:+2  } },
     ]
   },
   {
     id:'cloud', label:'☁️ Cloud Strategy',
     hint:'Primary cloud environment and strategic direction',
     opts:[
-      { v:'aws',        label:'AWS-Native',       desc:'Amazon Web Services primary cloud',      mods:{ db:+5,  sf:+3,  mf:-5,  bq:-5,  rs:+15, as:-5,  td:+3,  ibm:+3,  cdp:+3,  ora:-3,  ic:+8  } },
-      { v:'azure',      label:'Azure-Native',     desc:'Microsoft Azure primary cloud',          mods:{ db:+3,  sf:+2,  mf:+15, bq:-5,  rs:-5,  as:+12, td:+2,  ibm:+2,  cdp:+2,  ora:-3,  ic:-3  } },
-      { v:'gcp',        label:'GCP-Native',       desc:'Google Cloud primary cloud',             mods:{ db:+3,  sf:+2,  mf:-5,  bq:+15, rs:-5,  as:-5,  td:-3,  ibm:-3,  cdp:-3,  ora:-5,  ic:+5  } },
-      { v:'multiCloud', label:'Multi-Cloud',      desc:'Multiple clouds, no single preference',  mods:{ db:+8,  sf:+10, mf:-3,  bq:+3,  rs:-3,  as:-5,  td:+3,  ibm:+5,  cdp:+3,  ora:-3,  ic:+12 } },
-      { v:'onprem',     label:'On-Prem / Hybrid', desc:'Private cloud or on-premises + cloud',  mods:{ db:-3,  sf:-8,  mf:+3,  bq:-8,  rs:-5,  as:+3,  td:+10, ibm:+12, cdp:+15, ora:+8,  ic:+5  } },
+      { v:'aws',        label:'AWS-Native',       desc:'Amazon Web Services primary cloud',      mods:{ db:+5,  sf:+3,  mf:-5,  bq:-5,  rs:+15, as:-5,  td:+3,  ibm:+3,  ora:-3,  ic:+8  } },
+      { v:'azure',      label:'Azure-Native',     desc:'Microsoft Azure primary cloud',          mods:{ db:+3,  sf:+2,  mf:+15, bq:-5,  rs:-5,  as:+12, td:+2,  ibm:+2,  ora:-3,  ic:-3  } },
+      { v:'gcp',        label:'GCP-Native',       desc:'Google Cloud primary cloud',             mods:{ db:+3,  sf:+2,  mf:-5,  bq:+15, rs:-5,  as:-5,  td:-3,  ibm:-3,  ora:-5,  ic:+5  } },
+      { v:'multiCloud', label:'Multi-Cloud',      desc:'Multiple clouds, no single preference',  mods:{ db:+8,  sf:+10, mf:-3,  bq:+3,  rs:-3,  as:-5,  td:+3,  ibm:+5,  ora:-3,  ic:+12 } },
+      { v:'onprem',     label:'On-Prem / Hybrid', desc:'Private cloud or on-premises + cloud',  mods:{ db:-3,  sf:-8,  mf:+3,  bq:-8,  rs:-5,  as:+3,  td:+10, ibm:+12, ora:+8,  ic:+5  } },
     ]
   },
   {
     id:'priority', label:'🎯 Strategic Priority',
     hint:'Primary business driver for this platform decision',
     opts:[
-      { v:'costReduction', label:'Cost Reduction',        desc:'Reduce data platform TCO',              mods:{ db:+3,  sf:-5,  mf:+3,  bq:+3,  rs:+5,  as:+2,  td:-8,  ibm:-3,  cdp:-5,  ora:-3,  ic:+15 } },
-      { v:'aiML',          label:'AI / ML Leadership',    desc:'Advanced analytics & ML/AI enablement', mods:{ db:+15, sf:-5,  mf:+3,  bq:+8,  rs:+3,  as:+3,  td:-8,  ibm:+6,  cdp:-3,  ora:-3,  ic:+5  } },
-      { v:'selfService',   label:'Self-Service BI',       desc:'Business user data accessibility',      mods:{ db:-5,  sf:+10, mf:+12, bq:+8,  rs:+3,  as:+5,  td:-3,  ibm:-5,  cdp:-8,  ora:-3,  ic:-10 } },
-      { v:'governance',    label:'Governance & Lineage',  desc:'Data quality, lineage, audit trails',   mods:{ db:+5,  sf:+5,  mf:+8,  bq:-3,  rs:+3,  as:+5,  td:+10, ibm:+10, cdp:+8,  ora:+5,  ic:+5  } },
-      { v:'modernization', label:'Cloud Modernization',   desc:'Migrate from legacy on-premises DW',    mods:{ db:+8,  sf:+5,  mf:+5,  bq:+10, rs:+6,  as:+3,  td:-8,  ibm:-5,  cdp:-10, ora:-5,  ic:+8  } },
-      { v:'realTime',      label:'Real-Time / Streaming', desc:'Event-driven, low-latency operations',  mods:{ db:+10, sf:-3,  mf:+5,  bq:+8,  rs:+3,  as:+5,  td:-3,  ibm:+3,  cdp:+8,  ora:-3,  ic:+3  } },
+      { v:'costReduction', label:'Cost Reduction',        desc:'Reduce data platform TCO',              mods:{ db:+3,  sf:-5,  mf:+3,  bq:+3,  rs:+5,  as:+2,  td:-8,  ibm:-3,  ora:-3,  ic:+15 } },
+      { v:'aiML',          label:'AI / ML Leadership',    desc:'Advanced analytics & ML/AI enablement', mods:{ db:+15, sf:-5,  mf:+3,  bq:+8,  rs:+3,  as:+3,  td:-8,  ibm:+6,  ora:-3,  ic:+5  } },
+      { v:'selfService',   label:'Self-Service BI',       desc:'Business user data accessibility',      mods:{ db:-5,  sf:+10, mf:+12, bq:+8,  rs:+3,  as:+5,  td:-3,  ibm:-5,  ora:-3,  ic:-10 } },
+      { v:'governance',    label:'Governance & Lineage',  desc:'Data quality, lineage, audit trails',   mods:{ db:+5,  sf:+5,  mf:+8,  bq:-3,  rs:+3,  as:+5,  td:+10, ibm:+10, ora:+5,  ic:+5  } },
+      { v:'modernization', label:'Cloud Modernization',   desc:'Migrate from legacy on-premises DW',    mods:{ db:+8,  sf:+5,  mf:+5,  bq:+10, rs:+6,  as:+3,  td:-8,  ibm:-5,  ora:-5,  ic:+8  } },
+      { v:'realTime',      label:'Real-Time / Streaming', desc:'Event-driven, low-latency operations',  mods:{ db:+10, sf:-3,  mf:+5,  bq:+8,  rs:+3,  as:+5,  td:-3,  ibm:+3,  ora:-3,  ic:+3  } },
     ]
   },
   {
     id:'compliance', label:'📋 Compliance Focus',
     hint:'Primary regulatory or compliance requirement',
     opts:[
-      { v:'gdpr',    label:'EU GDPR / AI Act',   desc:'European data regulation + EU AI Act',    mods:{ db:+3,  sf:+5,  mf:+12, bq:-3,  rs:+3,  as:+8,  td:+8,  ibm:+10, cdp:+10, ora:+6,  ic:+10 } },
-      { v:'hipaa',   label:'HIPAA',              desc:'Healthcare data protection standards',     mods:{ db:+5,  sf:+8,  mf:+10, bq:+5,  rs:+5,  as:+8,  td:+8,  ibm:+10, cdp:+5,  ora:+5,  ic:-3  } },
-      { v:'fedramp', label:'FedRAMP',            desc:'US Federal government compliance',         mods:{ db:-3,  sf:+8,  mf:+10, bq:+5,  rs:+8,  as:+8,  td:+8,  ibm:+8,  cdp:-3,  ora:+5,  ic:-5  } },
-      { v:'soc2',    label:'SOC 2 / ISO 27001',  desc:'Service organization security standards', mods:{ db:+5,  sf:+10, mf:+5,  bq:+5,  rs:+5,  as:+5,  td:+8,  ibm:+8,  cdp:+3,  ora:+5,  ic:-5  } },
+      { v:'gdpr',    label:'EU GDPR / AI Act',   desc:'European data regulation + EU AI Act',    mods:{ db:+3,  sf:+5,  mf:+12, bq:-3,  rs:+3,  as:+8,  td:+8,  ibm:+10, ora:+6,  ic:+10 } },
+      { v:'hipaa',   label:'HIPAA',              desc:'Healthcare data protection standards',     mods:{ db:+5,  sf:+8,  mf:+10, bq:+5,  rs:+5,  as:+8,  td:+8,  ibm:+10, ora:+5,  ic:-3  } },
+      { v:'fedramp', label:'FedRAMP',            desc:'US Federal government compliance',         mods:{ db:-3,  sf:+8,  mf:+10, bq:+5,  rs:+8,  as:+8,  td:+8,  ibm:+8,  ora:+5,  ic:-5  } },
+      { v:'soc2',    label:'SOC 2 / ISO 27001',  desc:'Service organization security standards', mods:{ db:+5,  sf:+10, mf:+5,  bq:+5,  rs:+5,  as:+5,  td:+8,  ibm:+8,  ora:+5,  ic:-5  } },
     ]
   },
 ];
@@ -625,19 +637,19 @@ const INSIGHTS = {
   'companyType:multiPlant+team:dataEng':    "Multi-plant + Data Eng → Databricks Unity Catalog or Redshift RA3 unify cross-plant schemas",
   'companyType:multiERP+speed:complex':     "Multi-ERP + Complex impl → Databricks Unity Catalog or Teradata Vantage centralizes ERP data",
   'companyType:globalCorp+budget:enterprise':"Global Corp + Enterprise → BigQuery multi-region, Teradata VantageCloud, or IBM watsonx hybrid",
-  'business:manufacturing+team:platform':   "Manufacturing + Platform Eng → Cloudera CDP or Redshift Spectrum scales IoT/OEE data cost-efficiently",
-  'business:technology+team:mlAI':          "Tech company + ML team → Databricks Mosaic AI is the clear global category leader",
+  'business:manufacturing+team:platform':   "Manufacturing + Platform Eng → Redshift Spectrum or IBM watsonx.data scales IoT/OEE data cost-efficiently",
+  'business:technology+team:mlAI':          "Tech company + ML team → Databricks (Mosaic AI + Agent Bricks) remains the category leader; BigQuery is closing the gap",
   'business:finance+companyType:multiERP':  "Finance + Multi-ERP → Snowflake secure sharing or Teradata Vantage regulatory-grade SQL",
   'business:public+budget:starter':         "Public sector + tight budget → Microsoft Fabric or Azure Synapse leverages M365 licensing",
-  'team:biSQL+speed:express':               "BI team + Express impl → Snowflake, BigQuery, or Oracle ADW deliver SQL analytics in days",
+  'team:biSQL+speed:express':               "BI team + Express impl → Snowflake, BigQuery, or Oracle Autonomous AI DB deliver SQL analytics in days",
   'team:platform+budget:starter':           "Platform team + low budget → Redshift Serverless free tier or BigQuery sandbox",
   'business:healthcare+team:biSQL':         "Healthcare + BI team → Microsoft Fabric (HIPAA + Power BI), Snowflake (FedRAMP), or IBM watsonx",
-  'business:energy+companyType:multiPlant': "Energy + Multi-plant → Cloudera CDP or Redshift Spectrum for petabyte-scale IoT/SCADA analytics",
+  'business:energy+companyType:multiPlant': "Energy + Multi-plant → IBM watsonx.data hybrid or Redshift Spectrum for petabyte-scale IoT/SCADA analytics",
   'budget:starter+speed:express':           "Low budget + fast setup → BigQuery serverless sandbox or Snowflake Trial",
   'companyType:multiERP+team:biSQL':        "Multi-ERP + BI Team → Teradata Vantage excels at complex multi-source SQL analytics",
-  'budget:enterprise+business:finance':     "Enterprise Finance → Teradata Vantage or Oracle ADW for mission-critical SQL performance",
+  'budget:enterprise+business:finance':     "Enterprise Finance → Teradata Vantage or Oracle Autonomous AI DB for mission-critical SQL performance",
   'business:public+companyType:globalCorp': "Public Sector Global → IBM watsonx hybrid cloud or Azure Synapse for regulatory compliance",
-  'business:energy+team:dataEng':           "Energy + Data Eng → Cloudera CDP Kafka+Flink+Spark for IoT/SCADA on hybrid infrastructure",
+  'business:energy+team:dataEng':           "Energy + Data Eng → Databricks + Kafka/Flink or IBM watsonx.data for IoT/SCADA on hybrid infrastructure",
 };
 
 function getInsights() {
@@ -673,11 +685,39 @@ function starsHtml(score) {
 }
 function activeFilterCount() { return FILTER_DEFS.filter(f=>filters[f.id]).length; }
 
+// ── OFFICIAL URLS ──
+const URLS = {
+  db:  'https://www.databricks.com',
+  sf:  'https://www.snowflake.com',
+  mf:  'https://www.microsoft.com/en-us/microsoft-fabric',
+  bq:  'https://cloud.google.com/bigquery',
+  rs:  'https://aws.amazon.com/redshift/',
+  as:  'https://azure.microsoft.com/en-us/products/synapse-analytics/',
+  td:  'https://www.teradata.com',
+  ibm: 'https://www.ibm.com/products/watsonx-data',
+  ora: 'https://www.oracle.com/autonomous-database/',
+  ic:  'https://iceberg.apache.org'
+};
+
+// ── MARKET UPDATES (last reviewed Nov 2026) ──
+const NEWS = {
+  db:  { t:'Data + AI Summit 2026: Agent Bricks (multi-model, any harness), Lakebase Postgres GA, Genie One, Unity AI Gateway, Lakehouse RT.', u:'https://www.databricks.com/blog/agent-bricks-dais-2026' },
+  sf:  { t:'Summit 2026: Iceberg v3 GA, Horizon Catalog + Apache Polaris, Cortex Agents / CoWork / CoCo, Openflow Endpoints, Snowflake Postgres GA, Adaptive Compute GA.', u:'https://siliconangle.com/2026/06/02/ai-agents-open-data-governance-take-center-stage-snowflake-summit/' },
+  mf:  { t:'FabCon Europe, Barcelona (28 Sep–1 Oct 2026): Fabric IQ GA in Copilot Chat & Cowork, Project Osmos agentic data engineering, Fabric Apps in Power BI Desktop, on-demand billing for every workload, unified workspace monitoring + operations agent, Fabric in GCC High.', u:'https://espc.tech/learning-hub/blog/fabcon-and-sqlcon-europe-2026-the-biggest-announcements-from-barcelona/' },
+  bq:  { t:'Next ’26 "Agentic Data Cloud": Data Engineering & Data Science agents GA, managed BigQuery MCP Server, cross-cloud Iceberg lakehouse.', u:'https://cloud.google.com/blog/topics/google-cloud-next/google-cloud-next-2026-wrap-up' },
+  rs:  { t:'2026: Iceberg v3 read/write, UPDATE/DELETE/MERGE on Iceberg, Iceberg materialized views, S3 Tables system-table retention.', u:'https://aws.amazon.com/about-aws/whats-new/2026/08/amazon-redshift-supports-apache-iceberg-v3/' },
+  as:  { t:'Maintenance mode: supported with no end-of-life date, but no new features. Synapse Link for Cosmos DB closed to new accounts (Mar 2026).', u:'https://www.directionsonmicrosoft.com/roadmap/ref/synapse-analytics' },
+  td:  { t:'Jan 2026: Enterprise AgentStack for production agentic AI; May 2026: Autonomous Knowledge Platform across cloud, on-prem and hybrid.', u:'https://www.teradata.com/press-releases/2026/teradata-unveils-enterprise-agentstack' },
+  ibm: { t:'2026: agentic data integration GA, MCP-based agentic data intelligence, GPU-accelerated query processing (tech preview).', u:'https://www.ibm.com/new/announcements/ibm-advances-agentic-data-integration-from-pipeline-design-to-operations' },
+  ora: { t:'Oracle AI Database 26ai: Select AI Agent with MCP, AI Vector Search; Autonomous AI Lakehouse on Iceberg across OCI, AWS, Azure, GCP.', u:'https://www.oracle.com/database/ai-native-database-26ai/' },
+  ic:  { t:'Iceberg v3 production-ready in 1.11.0 (May 2026): deletion vectors, row lineage, VARIANT type, default values. Supported by all major vendors.', u:'https://iceberg.apache.org/blog/archive/2026/' },
+};
+
 // ── RENDER ──
 function render() {
   const ord=sorted();
-  const medals=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟','🧊'];
-  const rankTags=['#1 Best Match','#2 Strong Match','#3 Good Match','#4 Fair Fit','#5 Fair Fit','#6 Consider','#7 Consider','#8 Weak Fit','#9 Weak Fit','#10 Poor Fit','#11 Open Source Alt'];
+  const medals=['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🧊'];
+  const rankTags=['#1 Best Match','#2 Strong Match','#3 Good Match','#4 Fair Fit','#5 Fair Fit','#6 Consider','#7 Consider','#8 Weak Fit','#9 Weak Fit','#10 Open Source Alt'];
   let html='';
 
   html+=`<div class="plat-row"><div class="row-spacer"></div>`;
@@ -692,6 +732,7 @@ function render() {
       <div class="p-pct">${sc}<span class="p-pct-lbl">%</span></div>
       <div style="font-size:8px;color:var(--muted);margin-top:1px;">base ${bsc}% ${bon!==0?`<span class="mod-badge ${bonClass}">${bonSign}${Math.round(bon)}</span>`:''}</div>
       <div class="p-tag">${rankTags[i]}</div>
+      <a class="p-link" href="${URLS[p.id]||'#'}" target="_blank" rel="noopener">↗ Official site</a>
       <div class="tt-box">${p.name}<br>Final: ${sc}% | Base: ${bsc}% | Ctx: ${bonSign}${Math.round(bon)}%</div>
     </div>`;
   });
@@ -721,7 +762,22 @@ function render() {
   html+=`<div class="g-sep"><div class="g-sep-line"></div><div class="g-sep-tag" style="background:#334155">Verdict</div><div class="g-sep-line"></div></div>
   <div class="sum-row"><div class="sum-spacer"></div>`;
   ord.forEach(p=>{ html+=`<div class="sum-card" style="background:${p.c};"><div class="sh">${p.emoji} ${p.name}</div>${p.summary}</div>`; });
-  html+=`</div><div style="height:24px;"></div>`;
+  html+=`</div>`;
+
+  html+=`<div class="official-links"><div class="ol-title">📰 What's New — Market Updates (reviewed Nov 2026)</div><div class="news-grid">`;
+  ord.forEach(p=>{
+    const n=NEWS[p.id]; if(!n) return;
+    html+=`<div class="news-card" style="border-left-color:${p.c}"><div class="news-name" style="color:${p.c}">${p.emoji} ${p.name}</div><div class="news-txt">${n.t}</div><a class="news-src" href="${n.u}" target="_blank" rel="noopener">Source ↗</a></div>`;
+  });
+  html+=`</div></div>`;
+
+  html+=`<div class="official-links"><div class="ol-title">🔗 Official Platform Resources</div><div class="ol-grid">`;
+  ord.forEach(p=>{
+    const url=URLS[p.id]||'#';
+    const disp=url.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'');
+    html+=`<a class="ol-card" href="${url}" target="_blank" rel="noopener" style="border-left-color:${p.c}"><span class="ol-ico">${p.emoji}</span><div class="ol-info"><div class="ol-name">${p.name}</div><div class="ol-url">${disp}</div></div><span class="ol-arr">↗</span></a>`;
+  });
+  html+=`</div></div><div style="height:32px;"></div>`;
 
   document.getElementById('mainArea').innerHTML=html;
   updateStatus(ord); updateReco();
@@ -830,12 +886,32 @@ document.getElementById('allOff').addEventListener('click',()=>{ CRIT.forEach(c=
 document.getElementById('btnSidebar').addEventListener('click',()=>{ sbOpen=!sbOpen; document.getElementById('sidebar').classList.toggle('collapsed',!sbOpen); document.getElementById('btnSidebar').classList.toggle('on',sbOpen); document.getElementById('sidebarState').textContent=sbOpen?'OPEN':'CLOSED'; });
 document.getElementById('btnFilter').addEventListener('click',()=>{ fpOpen=!fpOpen; document.getElementById('filterPanel').classList.toggle('collapsed',!fpOpen); document.getElementById('btnFilter').classList.toggle('on',fpOpen); document.getElementById('filterState').textContent=fpOpen?'OPEN':'CLOSED'; });
 document.getElementById('btnDark').addEventListener('click',()=>{ dark=!dark; document.body.toggleAttribute('data-dark',dark); document.getElementById('btnDark').textContent=dark?'☀️':'🌙'; });
-document.getElementById('btnPrint').addEventListener('click',()=>window.print());
+document.getElementById('btnExport').addEventListener('click',()=>{
+  document.getElementById('phDate').textContent='Generated '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  window.print();
+});
+
+document.getElementById('mainArea').addEventListener('click',()=>{
+  if(fpOpen){ fpOpen=false; document.getElementById('filterPanel').classList.add('collapsed'); document.getElementById('btnFilter').classList.remove('on'); document.getElementById('filterState').textContent='CLOSED'; }
+});
+document.getElementById('mainArea').addEventListener('touchstart',()=>{
+  if(fpOpen){ fpOpen=false; document.getElementById('filterPanel').classList.add('collapsed'); document.getElementById('btnFilter').classList.remove('on'); document.getElementById('filterState').textContent='CLOSED'; }
+},{passive:true});
 
 function schedRender() { clearTimeout(pending); pending=setTimeout(render,80); }
 
 const printStyle=document.createElement('style');
-printStyle.textContent=`@media print{.top-bar,.filter-panel,.chips-bar,.sidebar,.status-bar,.hdr-actions{display:none!important;}.app-body{display:block!important;overflow:visible!important;}.main-area{overflow:visible!important;padding:0!important;}body{height:auto!important;overflow:visible!important;}.p-card,.c-cell,.crit-lbl,.sum-card{break-inside:avoid;}}`;
+printStyle.textContent=`@media print{
+  .top-bar,.filter-panel,.chips-bar,.reco-bar,.sidebar,.status-bar{display:none!important;}
+  #printHeader{display:block!important;padding:10px 0 14px;border-bottom:2px solid #2563EB;margin-bottom:18px;}
+  .ph-title{font-size:16px;font-weight:800;color:#0D1929;margin-bottom:3px;}
+  .ph-meta{font-size:10px;color:#555;}
+  .ph-date{font-size:9px;color:#888;margin-top:2px;}
+  .app-body{display:block!important;overflow:visible!important;}
+  .main-area{overflow:visible!important;padding:0!important;}
+  body{height:auto!important;overflow:visible!important;background:#fff!important;color:#0D1929!important;}
+  .p-card,.c-cell,.crit-lbl,.sum-card{break-inside:avoid;}
+}`;
 document.head.appendChild(printStyle);
 
 buildFilters(); buildSidebar(); render();
