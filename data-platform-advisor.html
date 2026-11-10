@@ -145,6 +145,12 @@ input[type=range]::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px var(--acc-t);
 
 .plat-row{display:flex;gap:6px;margin-bottom:8px;position:sticky;top:0;z-index:50;background:var(--bg);padding:10px 0 6px;}
 .row-spacer{width:160px;flex-shrink:0;}
+.main-area.compact .p-tag,.main-area.compact .p-base,.main-area.compact .p-score-wrap{display:none;}
+.main-area.compact .p-card{padding:5px 7px 4px;border-width:1.5px;}
+.main-area.compact .p-pct{font-size:15px;margin-top:0;}
+.main-area.compact .p-link{bottom:5px;}
+.main-area.compact .plat-row{padding:6px 0 4px;margin-bottom:4px;box-shadow:0 6px 8px -6px rgba(0,0,0,0.35);}
+
 
 .p-card{flex:1;min-width:100px;background:var(--surface);border-radius:var(--r-lg);padding:8px 7px 6px;text-align:center;border:2px solid var(--border);box-shadow:var(--sh);transition:border-color var(--tr),box-shadow var(--tr),background var(--tr);position:relative;overflow:hidden;cursor:default;}
 .p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--pc);}
@@ -897,6 +903,16 @@ document.getElementById('mainArea').addEventListener('click',()=>{
 document.getElementById('mainArea').addEventListener('touchstart',()=>{
   if(fpOpen){ fpOpen=false; document.getElementById('filterPanel').classList.add('collapsed'); document.getElementById('btnFilter').classList.remove('on'); document.getElementById('filterState').textContent='CLOSED'; }
 },{passive:true});
+
+// Scrolling the table: shrink the sticky platform header and fold the filter panel away
+(function(){
+  const area=document.getElementById('mainArea');
+  area.addEventListener('scroll',()=>{
+    const y=area.scrollTop;
+    if(y>60) area.classList.add('compact'); else if(y<10) area.classList.remove('compact');
+    if(y>30 && fpOpen){ fpOpen=false; document.getElementById('filterPanel').classList.add('collapsed'); document.getElementById('btnFilter').classList.remove('on'); document.getElementById('filterState').textContent='CLOSED'; }
+  },{passive:true});
+})();
 
 function schedRender() { clearTimeout(pending); pending=setTimeout(render,80); }
 
