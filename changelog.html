@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Release notes for the Enterprise Data Platform Advisor — every update, market refresh and feature since launch.">
+<title>Release Notes — Enterprise Data Platform Advisor</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #070E1C; color: #e6edf3; min-height: 100vh;
+    padding: 48px 20px; display: flex; flex-direction: column; align-items: center;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(37,99,235,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(124,58,237,0.10) 0%, transparent 60%);
+  }
+  .site-header { width: 100%; max-width: 760px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+  .nav-link {
+    font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.4); text-decoration: none;
+    padding: 5px 12px; border-radius: 6px; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1); letter-spacing: 0.3px; text-transform: uppercase;
+    transition: all 0.2s ease;
+  }
+  .nav-link:hover { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.8); }
+  .nav-right { display: flex; gap: 8px; }
+
+  .intro { width: 100%; max-width: 760px; margin-bottom: 40px; }
+  .tag {
+    display: inline-block; background: rgba(37,99,235,0.12); border: 1px solid rgba(37,99,235,0.3);
+    border-radius: 20px; font-size: 10.5px; font-weight: 700; letter-spacing: 1.4px;
+    text-transform: uppercase; color: #93C5FD; padding: 4px 14px; margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(26px, 4.5vw, 40px); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px;
+    background: linear-gradient(135deg, #E2E8F0 20%, #7F9FC3 80%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .intro p { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.65; }
+
+  .timeline { width: 100%; max-width: 760px; position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(#2563EB, #7C3AED 60%, rgba(124,58,237,0.1)); }
+  .release { position: relative; margin-bottom: 20px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px 26px; }
+  .release::before { content: ''; position: absolute; left: -28px; top: 28px; width: 14px; height: 14px; border-radius: 50%; background: #070E1C; border: 3px solid #3B82F6; }
+  .release.latest { border-color: rgba(37,99,235,0.4); }
+  .release.latest::before { background: #3B82F6; }
+  .rel-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 4px; }
+  .ver { font-size: 18px; font-weight: 800; color: #E2E8F0; }
+  .badge { font-size: 9px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; background: rgba(5,150,105,0.18); color: #6EE7B7; border: 1px solid rgba(5,150,105,0.4); }
+  .date { margin-left: auto; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.3); }
+  .rel-title { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+  .group { margin-top: 12px; }
+  .group-lbl { font-size: 9.5px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; margin-bottom: 6px; }
+  .g-new { color: #60A5FA; } .g-imp { color: #A78BFA; } .g-fix { color: #FBBF24; } .g-data { color: #34D399; }
+  ul { list-style: none; }
+  li { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.65); padding-left: 16px; position: relative; margin-bottom: 3px; }
+  li::before { content: '›'; position: absolute; left: 3px; color: rgba(255,255,255,0.3); }
+  code { font-size: 12px; background: rgba(255,255,255,0.07); padding: 1px 5px; border-radius: 4px; }
+
+  footer { margin-top: 40px; font-size: 11px; color: rgba(255,255,255,0.2); text-align: center; line-height: 1.8; }
+  footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  footer a:hover { color: rgba(255,255,255,0.6); }
+  @media (max-width: 520px) { .release { padding: 18px; } .date { margin-left: 0; width: 100%; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="nav-link" href="index.html">← Hub</a>
+  <div class="nav-right">
+    <a class="nav-link" href="data-platform-advisor.html">Open Advisor</a>
+    <a class="nav-link" href="https://github.com/nitedan/data-platform-comparison/commits/master" target="_blank" rel="noopener">Commit history</a>
+  </div>
+</header>
+
+<div class="intro">
+  <span class="tag">Release Notes</span>
+  <h1>What's changed</h1>
+  <p>Every update to the Enterprise Data Platform Advisor, newest first. Scores are refreshed against vendor announcements and each refresh is listed here.</p>
+</div>
+
+<main class="timeline">
+
+  <article class="release latest">
+    <div class="rel-head"><span class="ver">v2.1 — Market Refresh</span><span class="badge">Latest</span><span class="date">10 Nov 2026</span></div>
+    <div class="rel-title">All platforms re-scored against 2026 announcements.</div>
+    <div class="group"><div class="group-lbl g-data">Data</div><ul>
+      <li>Re-scored all 10 platforms against 2026 news: Databricks Data + AI Summit, Snowflake Summit, FabCon Europe Barcelona, Google Next '26, AWS, Teradata, IBM, Oracle 26ai and Iceberg v3.</li>
+      <li>Oracle renamed to <strong>Autonomous AI Database (26ai)</strong>; Azure Synapse flagged as maintenance mode.</li>
+    </ul></div>
+    <div class="group"><div class="group-lbl g-new">New</div><ul>
+      <li>"What's New — Market Updates" section with per-platform sources.</li>
+      <li>This release notes page.</li>
+    </ul></div>
+    <div class="group"><div class="group-lbl g-fix">Fixed</div><ul><li>Header platform count corrected to 10.</li></ul></div>
+  </article>
+
+  <article class="release">
+    <div class="rel-head"><span class="ver">v2.0 — Relaunch</span><span class="date">27 Jun 2026</span></div>
+    <div class="rel-title">Single-tool architecture and professional branding.</div>
+    <div class="group"><div class="group-lbl g-new">New</div><ul>
+      <li>New landing page with hero stats and a call-to-action card.</li>
+      <li>LinkedIn promotional card (1200×628).</li>
+      <li>Back link to the Hub from the tool header.</li>
+    </ul></div>
+    <div class="group"><div class="group-lbl g-imp">Improved</div><ul>
+      <li>Merged into one tool: <code>data-platform-advisor.html</code> (the 5-platform version was retired).</li>
+      <li>Filters and Weights toggles moved to the left with clear labels.</li>
+    </ul></div>
+  </article>
+
+  <article class="release">
+    <div class="rel-head"><span class="ver">v1.5 — Executive Filters</span><span class="date">27 Jun 2026</span></div>
+    <div class="rel-title">Context filters and agentic AI scoring.</div>
+    <div class="group"><div class="group-lbl g-new">New</div><ul>
+      <li>Executive filter panel with 8 context filters.</li>
+      <li>3-level Agentic AI criteria: AI Tools, AI Agents, Autonomous AI.</li>
+    </ul></div>
+    <div class="group"><div class="group-lbl g-fix">Fixed</div><ul><li>Tablet and mobile responsive layout.</li></ul></div>
+  </article>
+
+  <article class="release">
+    <div class="rel-head"><span class="ver">v1.0 — Initial Release</span><span class="date">26 Jun 2026</span></div>
+    <div class="rel-title">First public version.</div>
+    <div class="group"><div class="group-lbl g-new">New</div><ul>
+      <li>Weighted scoring engine with adjustable criteria.</li>
+      <li>Open-source column (Apache Iceberg + S3) as a low-cost reference.</li>
+      <li>Redesigned to a 2-advisor architecture with 20 criteria.</li>
+    </ul></div>
+  </article>
+
+</main>
+
+<footer>
+  <p>Built by <a href="https://github.com/nitedan" target="_blank" rel="noopener">@nitedan</a> · Open source · No login · No data collected</p>
+</footer>
+
+</body>
+</html>

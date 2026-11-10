@@ -2,7 +2,7 @@
 
 > An interactive, context-aware scoring engine for data architects, CTOs, and enterprise buyers — comparing 11 major data platforms across 23 criteria.
 
-**Live tool:** [nitedan.github.io/data-platform-comparison](https://nitedan.github.io/data-platform-comparison/)
+**Live tool:** [nitedan.github.io/data-platform-comparison](https://nitedan.github.io/data-platform-comparison/) · [Release notes](changelog.html)
 
 > Part of a larger **Enterprise Data Intelligence** initiative in progress.
 

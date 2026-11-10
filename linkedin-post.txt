@@ -1,0 +1,7 @@
+Built a free tool to compare 11 enterprise data platforms — AI maturity, banking/on-prem, EU compliance, 24 weighted criteria. No login. Open source.
+
+👉 nitedan.github.io/data-platform-comparison
+
+Which platform is winning in your stack? 👇
+
+#DataPlatform #DataEngineering #CloudData #EnterpriseArchitecture #AI #AgenticAI #Databricks #Snowflake #MicrosoftFabric #BigQuery #DataGovernance #GDPR #Banking #CTO #OpenSource
